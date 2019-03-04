@@ -90,6 +90,17 @@ module.exports = {
     tls: 'empty',
     child_process: 'empty'
   },
+  // 配置模块库 这些都是为了减少搜索时间
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      vue$: 'vue/dist/vue.esm.js',
+      '@': resolve('src'),
+      '@components': resolve('src/components'),
+      '@common': resolve('src/common'),
+      '@view': resolve('src/view'),
+    }
+  },
   plugins: [
     new VueLoaderPlugin()
   ]
