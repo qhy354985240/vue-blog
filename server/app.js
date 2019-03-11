@@ -1,13 +1,12 @@
 const Koa = require('koa')
 const app = new Koa()
+const bodyParser = require('koa-bodyparser') // 处理Post请求
+const Router = require('koa-router')
+const apiRouter = require('./router/user') // 引入子路由
+const logUtil = require('./utils/log_util') // log工具
+const resFormat = require('./middlewares/resFormat')
 
-const router = require('./router/routers')
-
-// log工具
-const logUtil = require('./utils/log_util')
-
-// 处理Post请求
-const bodyParser = require('koa-bodyparser')
+const router = new Router()
 
 app.use(bodyParser())
 
@@ -30,13 +29,15 @@ app.use(async (ctx, next) => {
     logUtil.logError(ctx, error, ms)
   }
 })
-app.use(async (ctx, next) => {
-  console.log(ctx.req.url)
-  await next()
-})
 
-app.use(router.routes())
-  .use(router.allowedMethods())
+// 格式化响应结果的中间件
+app.use(resFormat)
+
+// 装载子路由
+router.use('/api', apiRouter.routes(), apiRouter.allowedMethods())
+
+// 加载路由中间件
+app.use(router.routes()).use(router.allowedMethods())
 
 app.listen(3004)
 console.log('服务已经启动在3004.....')

@@ -10,10 +10,15 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},  // 设置跨域问题的
+    proxyTable: {
+        '/api': {
+          target: 'http://localhost:3004',
+          changeOrigin: true
+        }
+    },  // 设置跨域问题的
 
     host: 'localhost', 
-    port: 8080, 
+    port: 8081, 
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,
