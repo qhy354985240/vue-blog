@@ -2,23 +2,24 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../vuex'
 
-import HelloWorld from '@/components/HelloWorld'
-import Register from '@components/Register'
+// import HelloWorld from '@/components/HelloWorld'
+// import Register from '@components/Register'
+// import Hello from '@components/Hello.vue'
 
 Vue.use(Router)
 // 路由懒加载的部分
 // 路由懒加载
-// const Login = resolve => {
-//   require.ensure(['../components/Login.vue'], () => {
-//     resolve(require('../components/Login.vue'))
-//   })
-// }
+const Login = resolve => {
+  require.ensure(['../components/Login.vue'], () => {
+    resolve(require('../components/Login.vue'))
+  })
+}
 
-// const Register = resolve => {
-//   require.ensure(['@components/Register.vue'], () => {
-//     resolve(require('@components/Register.vue'))
-//   })
-// }
+const Register = resolve => {
+  require.ensure(['@components/Register.vue'], () => {
+    resolve(require('@components/Register.vue'))
+  })
+}
 
 // const Hello = resolve => {
 //   require.ensure(['../components/Hello.vue'], () => {
@@ -26,11 +27,11 @@ Vue.use(Router)
 //   })
 // }
 
-// const Error404 = resolve => {
-//   require.ensure(['../components/404.vue'], () => {
-//     resolve(require('../components/404.vue'))
-//   })
-// }
+const Error = resolve => {
+  require.ensure(['../components/404.vue'], () => {
+    resolve(require('../components/404.vue'))
+  })
+}
 
 const router = new Router({
   mode: 'history',
@@ -43,26 +44,21 @@ const router = new Router({
     //     requiresAuth: true
     //   }
     // },
-    // {
-    //   path: '/login',
-    //   name: 'login',
-    //   component: Login
-    // },
     {
-      path: '/helloworld',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/login',
+      name: 'login',
+      component: Login
     },
     {
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '*',
+      name: 'error',
+      component: Error
     }
-    // {
-    //   path: '*',
-    //   name: 'error',
-    //   component: Error404
-    // }
   ]
 })
 

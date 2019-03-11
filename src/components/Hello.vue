@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import api from '../axios.js'
+import api from '@/api/axios.js'
 export default {
   data () {
     return {
@@ -29,6 +29,7 @@ export default {
       }
     })
   },
+
   methods: {
     del_user (index, event) {
       let opt = {
@@ -68,7 +69,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1, h2 {
   font-weight: normal;

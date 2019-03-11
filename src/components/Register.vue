@@ -72,8 +72,8 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) { // 验证通过
           api.userRegister(this.regForm)
-            .then((res) => {
-              console.log(res.data)
+            .then((response) => {
+              let res = response.data
               if (res.data.success) {
                 this.$message({
                   type: 'success',

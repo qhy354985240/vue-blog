@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const User = require('./model/userModel.js')
 
 mongoose.connect('mongodb://localhost:27018/test', {useNewUrlParser: true, config: { autoIndex: false }})
 // mongoose.connect('mongodb://user:pass@localhost:port/database', { config: { autoIndex: false } });  //真心推荐
@@ -11,16 +12,6 @@ db.on('error', console.error.bind(console, '数据库连接失败!'))
 db.on('open', () => {
   console.log('数据库连接成功')
 })
-
-let Schema = mongoose.Schema
-const userSchema = new Schema({
-  username: String,
-  password: String,
-  token: String,
-  create_time: Date
-})
-
-const User = mongoose.model('Users', userSchema)
 
 module.exports = {
   User: User

@@ -31,11 +31,14 @@
 </template>
 
 <script>
-import api from '@src/api'
+import api from '@/api/axios.js'
 // 引入验证组件
 import Register from './Register.vue'
 
 export default {
+  components: {
+    Register
+  },
   data () {
     return {
       activeName: 'login', // 选项卡
@@ -61,37 +64,29 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) { // 验证通过
-          let opt = this.loginForm
-          api.userLogin(opt)
-            .then(({ data }) => { // 解构赋值拿到data
-              // 账号不存在
-              if (data.info === false) {
-                this.$message({
-                  type: 'info',
-                  message: '账号不存在'
-                })
-                return
-              }
+          let form = this.loginForm
+          api.userLogin(form)
+            .then((response) => {
+              let res = response.data
               // 账号存在
-              if (data.success) {
+              if (res.data.success) {
                 this.$message({
                   type: 'success',
                   message: '登录成功'
                 })
-                let token = data.token
-                let username = data.username
+                let token = res.data.token
+                let username = res.data.username
                 this.$store.dispatch('UserLogin', token)
                 this.$store.dispatch('UserName', username)
-                // 如果用户手动输入"/"那么会跳转到这里来，即this.$route.query.redirect有参数
                 let redirectUrl = decodeURIComponent(this.$route.query.redirect || '/')
                 // 跳转到指定的路由
                 this.$router.push({
                   path: redirectUrl
                 })
-              } else {
+              } else if (res.data.success === false) {
                 this.$message({
                   type: 'info',
-                  message: '密码错误！'
+                  message: res.data.info
                 })
               }
             })
@@ -101,9 +96,6 @@ export default {
         }
       })
     }
-  },
-  components: {
-    Register
   }
 }
 </script>
