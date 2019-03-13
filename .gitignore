@@ -4,11 +4,12 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+metrics.interim
+
 /test/unit/coverage/
 /test/e2e/reports/
 selenium-debug.log
 logs/
-dist/index.html
 package-lock.json
 selenium-debug.log
 
