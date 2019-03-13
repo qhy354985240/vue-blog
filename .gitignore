@@ -10,6 +10,7 @@ metrics.interim
 /test/e2e/reports/
 selenium-debug.log
 logs/
+data/
 package-lock.json
 selenium-debug.log
 
