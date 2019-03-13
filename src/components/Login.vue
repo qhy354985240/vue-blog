@@ -66,8 +66,7 @@ export default {
         if (valid) { // 验证通过
           let form = this.loginForm
           api.userLogin(form)
-            .then((response) => {
-              let res = response.data
+            .then((res) => {
               // 账号存在
               if (res.data.success) {
                 this.$message({

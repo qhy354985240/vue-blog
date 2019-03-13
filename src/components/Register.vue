@@ -72,12 +72,14 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) { // 验证通过
           api.userRegister(this.regForm)
-            .then((response) => {
-              let res = response.data
+            .then((res) => {
               if (res.data.success) {
                 this.$message({
                   type: 'success',
                   message: '注册成功'
+                })
+                this.$router.push({
+                  path: '/'
                 })
               } else {
                 this.$message({

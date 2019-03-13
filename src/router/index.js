@@ -4,7 +4,7 @@ import store from '../vuex'
 
 // import HelloWorld from '@/components/HelloWorld'
 // import Register from '@components/Register'
-// import Hello from '@components/Hello.vue'
+import Hello from '@components/Hello.vue'
 
 Vue.use(Router)
 // 路由懒加载的部分
@@ -36,14 +36,14 @@ const Error = resolve => {
 const router = new Router({
   mode: 'history',
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'Hello',
-    //   component: Hello,
-    //   meta: {
-    //     requiresAuth: true
-    //   }
-    // },
+    {
+      path: '/',
+      name: 'Hello',
+      component: Hello,
+      meta: {
+        requiresAuth: true
+      }
+    },
     {
       path: '/login',
       name: 'login',

@@ -34,7 +34,6 @@ const delUser = (id) => {
       if (err) {
         reject(err)
       }
-      console.log('删除用户成功')
       resolve()
     })
   })

@@ -19,26 +19,23 @@ export default {
     }
   },
   created () {
-    api.getUser().then((response) => {
-      if (response.status === 401) {
-        this.$router.push('/login')
-        // 可以把无效的token清楚掉
-        this.$store.dispatch('UserLogout')
-      } else {
-        this.users = response.data.result
-      }
-    })
+    this.getUsers()
   },
 
   methods: {
+    getUsers () {
+      api.getUser().then((res) => {
+        if (res.data.success) {
+          this.users = res.data.result
+        }
+      })
+    },
     del_user (index, event) {
       let opt = {
         id: this.users[index]._id
       }
       api.delUser(opt)
-        .then(response => {
-          console.log(response)
-
+        .then(res => {
           this.$message({
             type: 'success',
             message: '删除成功'

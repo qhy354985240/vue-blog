@@ -15,7 +15,7 @@ axios.interceptors.request.use = axiosToken.interceptors.request.use
 axiosToken.interceptors.request.use(
   config => {
     if (store.state.token) {
-      config.header.Authorization = `token ${store.state.token}`
+      config.headers.Authorization = `token ${store.state.token}`
     }
     return config
   },
@@ -27,13 +27,14 @@ axiosToken.interceptors.request.use(
 // response 拦截
 axiosToken.interceptors.response.use(
   response => {
-    return response
+    console.log(response.data)
+    return response.data
   },
   err => {
     if (err.response) {
       if (err.response.status === 401) {
         store.dispatch('UserLogout') // 可能token过期，清除
-        router.resplace({
+        router.push({
           path: 'login',
           query: {redirect: router.currentRoute.fullPath}
         })

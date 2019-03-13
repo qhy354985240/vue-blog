@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import '@/assets/css/common.css'
+
 import {
   Table,
   TableColumn,
@@ -58,6 +60,8 @@ import {
   TimePicker
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+
+import store from '@/vuex'
 
 Vue.use(Popover)
 Vue.use(DatePicker)
@@ -122,6 +126,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

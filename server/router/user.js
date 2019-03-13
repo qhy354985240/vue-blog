@@ -10,6 +10,6 @@ childRouter.post('/user/register', userController.register)
 // 用户其它操作如删除用户等
 
 childRouter.get('/user', checkToken, userController.getAllUsers)
-childRouter.post('/user', checkToken, userController.delUsers)
+childRouter.post('/delUser', checkToken, userController.delUsers)
 
 module.exports = childRouter

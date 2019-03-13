@@ -6,11 +6,19 @@ module.exports = async (ctx, next) => {
     ctx.throw(401, 'no token detected in http header')
   }
   const token = auth.split(' ')[1]
-  let tokenContent
-  try {
-    tokenContent = await jwt.verify(token, 'totoro')
-  } catch (error) {
-    ctx.throw(401, 'invalid token')
+
+  let check = jwt.verify(token, 'totoro', (error, decoded) => {
+    if (error) {
+      ctx.response.status = 401
+      ctx.response.body = {
+        message: '登录超时请重新登录'
+      }
+      return false
+    } else {
+      return true
+    }
+  })
+  if (check) {
+    await next()
   }
-  await next()
 }
