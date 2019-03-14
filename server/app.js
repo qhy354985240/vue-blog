@@ -6,8 +6,8 @@ const bodyParser = require('koa-bodyparser') // 处理Post请求
 const Router = require('koa-router')
 const apiRouter = require('./router/user') // 引入子路由
 const logUtil = require('./utils/log_util') // log工具
-const resFormat = require('./middlewares/resFormat')
-const staticCache = require('koa-static-cache') // 使浏览器使用本地缓存文件
+// const resFormat = require('./middlewares/resFormat')
+const server = require('koa-static')
 const path = require('path')
 
 const router = new Router()
@@ -42,9 +42,8 @@ router.use('/api', apiRouter.routes(), apiRouter.allowedMethods())
 
 // 加载路由中间件
 app.use(router.routes()).use(router.allowedMethods())
-app.use(staticCache(path.join(__dirname, '../dist')), {
-  maxAge: 60 * 60
-})
+// 加载静态资源
+app.use(server(path.resolve('dist')))
 
 app.listen(3004)
 console.log('服务已经启动在3004.....')

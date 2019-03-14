@@ -68,13 +68,13 @@ export default {
           api.userLogin(form)
             .then((res) => {
               // 账号存在
-              if (res.data.success) {
+              if (res.success) {
                 this.$message({
                   type: 'success',
                   message: '登录成功'
                 })
-                let token = res.data.token
-                let username = res.data.username
+                let token = res.token
+                let username = res.username
                 this.$store.dispatch('UserLogin', token)
                 this.$store.dispatch('UserName', username)
                 let redirectUrl = decodeURIComponent(this.$route.query.redirect || '/')
@@ -82,10 +82,10 @@ export default {
                 this.$router.push({
                   path: redirectUrl
                 })
-              } else if (res.data.success === false) {
+              } else if (res.success === false) {
                 this.$message({
                   type: 'info',
-                  message: res.data.info
+                  message: res.info
                 })
               }
             })

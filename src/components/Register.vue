@@ -73,7 +73,8 @@ export default {
         if (valid) { // 验证通过
           api.userRegister(this.regForm)
             .then((res) => {
-              if (res.data.success) {
+              console.log(res)
+              if (res.success) {
                 this.$message({
                   type: 'success',
                   message: '注册成功'

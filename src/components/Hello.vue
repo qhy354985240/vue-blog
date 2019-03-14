@@ -25,8 +25,8 @@ export default {
   methods: {
     getUsers () {
       api.getUser().then((res) => {
-        if (res.data.success) {
-          this.users = res.data.result
+        if (res.success) {
+          this.users = res.result
         }
       })
     },
