@@ -35,7 +35,7 @@ app.use(async (ctx, next) => {
 })
 
 // 格式化响应结果的中间件
-app.use(resFormat)
+// app.use(resFormat)
 
 // 装载子路由
 router.use('/api', apiRouter.routes(), apiRouter.allowedMethods())
