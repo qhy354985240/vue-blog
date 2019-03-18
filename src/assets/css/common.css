@@ -1,0 +1,60 @@
+@font-face {
+  font-family: 'pingfang';
+  src: url('../font/pingfang.ttf');
+}
+
+body,html {
+  margin: 0;
+  padding: 0;
+  font-family: 'pingfang, Avenir, Helvetica, Arial, sans-serif';
+  min-height: 100%;
+  background: #f6f8fa;
+}
+
+
+.wrapper {
+  min-height: 700px;
+  background-color: #f6f8fa;
+  margin-bottom: 40px;
+}
+
+.header {
+  height: 70px !important;
+  margin-bottom: 20px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12)
+}
+.left-bar-title {
+  margin: 0 ;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.el-main {
+  padding: 0 !important;
+  background-color: #fff;
+  box-shadow: 0 0 30px 0 rgba(145,159,165,.1);
+  margin: 0 20px;
+}
+
+.left-menu {
+  z-index: 10;
+  border: 1px solid #f2f2f3;
+  background: #fff;
+  box-shadow: 0 0 30px 0 rgba(145,159,165,.1);
+  overflow: hidden
+}
+
+.right-content {
+  background: #fff;
+}
+
+
+/* element-ui */
+.el-menu {
+  /* background: transparent !important;
+  border-right: 0 !important; */
+}
+.el-menu-item {
+  padding-left: 50px !important;
+}

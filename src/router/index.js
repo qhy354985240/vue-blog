@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../vuex'
+import Nprogress from 'nprogress'
+import 'nprogress/nprogress.css'
+import { grade } from '@/constants'
 
-// import HelloWorld from '@/components/HelloWorld'
 // import Register from '@components/Register'
-import Hello from '@components/Hello.vue'
+// import Home from '@components/Home.vue'
 
 Vue.use(Router)
 // 路由懒加载的部分
@@ -21,11 +23,11 @@ const Register = resolve => {
   })
 }
 
-// const Hello = resolve => {
-//   require.ensure(['../components/Hello.vue'], () => {
-//     resolve(require('../components/Hello.vue'))
-//   })
-// }
+const Home = resolve => {
+  require.ensure(['@/view/home/index.vue'], () => {
+    resolve(require('@/view/home/index.vue'))
+  })
+}
 
 const Error = resolve => {
   require.ensure(['../components/404.vue'], () => {
@@ -37,10 +39,11 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello,
+      name: 'Home',
+      component: Home,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        auth: grade.Home
       }
     },
     {
@@ -62,20 +65,30 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  Nprogress.start()
   let token = store.state.token
+  let grade = store.state.grade || 3
   if (to.meta.requiresAuth) {
     if (token) {
       next()
     } else {
-      console.log('no auth')
       next({
         path: '/login',
         query: {redirect: to.fullPath} // 将刚刚要去的路由path（却无权限）作为参数，方便登录成功后直接跳转到该路由
       })
     }
+  } else if (to.path === '/login' && token) {
+    // 防止用户登录后输入url进入登录页
+    next({ path: '/' })
+  } else if (to.meta.auth && to.meta.auth > grade) {
+    next({ path: '/error' })
   } else {
     next()
   }
+})
+
+router.afterEach(() => {
+  Nprogress.done()
 })
 
 export default router
