@@ -11,59 +11,59 @@
 </template>
 
 <script>
-import api from '@/api/axios.js'
-export default {
-  data () {
-    return {
-      users: ''
-    }
-  },
-  created () {
-    this.getUsers()
-  },
-
-  methods: {
-    getUsers () {
-      api.getUser().then((res) => {
-        if (res.success) {
-          this.users = res.result
-        }
-      })
-    },
-    del_user (index, event) {
-      let opt = {
-        id: this.users[index]._id
+  import api from '@/api/axios.js'
+  export default {
+    data () {
+      return {
+        users: ''
       }
-      api.delUser(opt)
-        .then(res => {
+    },
+    created () {
+      this.getUsers()
+    },
+
+    methods: {
+      getUsers () {
+        api.getUser().then((res) => {
+          if (res.success) {
+            this.users = res.result
+          }
+        })
+      },
+      del_user (index, event) {
+        let opt = {
+          id: this.users[index]._id
+        }
+        api.delUser(opt)
+          .then(res => {
+            this.$message({
+              type: 'success',
+              message: '删除成功'
+            })
+            // 移除节点
+            this.users.splice(index, 1)
+          }).catch((err) => {
+            console.log(err)
+          })
+      },
+      logout () {
+        // 清除token
+        this.$store.dispatch('UserLogout')
+        if (!this.$store.state.token) {
+          this.$router.push('/login')
           this.$message({
             type: 'success',
-            message: '删除成功'
+            message: '登出成功'
           })
-          // 移除节点
-          this.users.splice(index, 1)
-        }).catch((err) => {
-          console.log(err)
-        })
-    },
-    logout () {
-      // 清除token
-      this.$store.dispatch('UserLogout')
-      if (!this.$store.state.token) {
-        this.$router.push('/login')
-        this.$message({
-          type: 'success',
-          message: '登出成功'
-        })
-      } else {
-        this.$message({
-          type: 'info',
-          message: '登出失败'
-        })
+        } else {
+          this.$message({
+            type: 'info',
+            message: '登出失败'
+          })
+        }
       }
     }
   }
-}
 </script>
 
 <style scoped>

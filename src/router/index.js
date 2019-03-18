@@ -7,6 +7,8 @@ import { grade } from '@/constants'
 
 // import Register from '@components/Register'
 // import Home from '@components/Home.vue'
+import UserManage from '@view/userManage/index.vue'
+import ArticleManage from '@view/articleManage/index.vue'
 
 Vue.use(Router)
 // 路由懒加载的部分
@@ -44,7 +46,23 @@ const router = new Router({
       meta: {
         requiresAuth: true,
         auth: grade.Home
-      }
+      },
+      children: [
+        {
+          path: '',
+          redirect: 'usermanage'
+        },
+        {
+          path: 'usermanage',
+          name: 'usermanage',
+          component: UserManage
+        },
+        {
+          path: 'articlemanage',
+          name: 'articlemanage',
+          component: ArticleManage
+        }
+      ]
     },
     {
       path: '/login',
