@@ -27,7 +27,6 @@ axiosToken.interceptors.request.use(
 // response 拦截
 axiosToken.interceptors.response.use(
   response => {
-    console.log(response.data)
     return response.data
   },
   err => {

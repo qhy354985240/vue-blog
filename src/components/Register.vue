@@ -73,13 +73,19 @@ export default {
         if (valid) { // 验证通过
           api.userRegister(this.regForm)
             .then((res) => {
-              if (res.data.success) {
+              if (res.success) {
                 this.$message({
                   type: 'success',
                   message: '注册成功'
                 })
+                let token = res.token
+                let username = res.username
+                this.$store.dispatch('UserLogin', token)
+                this.$store.dispatch('UserName', username)
+                let redirectUrl = decodeURIComponent(this.$route.query.redirect || '/')
+                // 跳转到指定的路由
                 this.$router.push({
-                  path: '/'
+                  path: redirectUrl
                 })
               } else {
                 this.$message({

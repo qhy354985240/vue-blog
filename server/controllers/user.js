@@ -102,9 +102,23 @@ const register = async (ctx) => {
         resolve()
       })
     })
+    let doc = await findUser(user.username)
+    let token = createToken(user.username)
+    doc.token = token
+    await new Promise((resolve, reject) => {
+      doc.save((err) => {
+        if (err) {
+          reject(err)
+        }
+        resolve()
+      })
+    })
     ctx.status = 200
     ctx.body = {
-      success: true
+      success: true,
+      username: ctx.username,
+      token,
+      createTime: doc.createTime
     }
   }
 }
