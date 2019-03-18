@@ -79,6 +79,7 @@ export default {
                   type: 'success',
                   message: '注册成功'
                 })
+                console.log('xxxx')
                 this.$router.push({
                   path: '/'
                 })
