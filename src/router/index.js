@@ -9,6 +9,9 @@ import { grade } from '@/constants'
 // import Home from '@components/Home.vue'
 import UserManage from '@view/userManage/index.vue'
 import ArticleManage from '@view/articleManage/index.vue'
+import AddArticle from '@view/articleManage/views/add-article'
+import ArticleList from '@view/articleManage/views/article-list'
+import SortManage from '@view/articleManage/views/sort-manage'
 
 Vue.use(Router)
 // 路由懒加载的部分
@@ -60,36 +63,32 @@ const router = new Router({
         {
           path: 'articlemanage',
           name: 'articlemanage',
-          component: ArticleManage
+          component: ArticleManage,
+          children: [
+            { path: '', redirect: 'articlelist' },
+            { path: 'addarticle', name: 'addarticle', component: AddArticle },
+            { path: 'articlelist', name: 'articlelist', component: ArticleList },
+            { path: 'sortmanage', name: 'sortmanage', component: SortManage }
+          ]
         }
       ]
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/register',
-      name: 'Register',
-      component: Register
-    },
-    {
-      path: '*',
-      name: 'error',
-      component: Error
-    }
+    { path: '/login', name: 'login', component: Login },
+    { path: '/register', name: 'Register', component: Register },
+    { path: '*', name: 'error', component: Error }
   ]
 })
 
 router.beforeEach((to, from, next) => {
   Nprogress.start()
   let token = store.state.token
+  console.log(token)
   let grade = store.state.grade || 3
   if (to.meta.requiresAuth) {
     if (token) {
       next()
     } else {
+      console.log('xxx')
       next({
         path: '/login',
         query: {redirect: to.fullPath} // 将刚刚要去的路由path（却无权限）作为参数，方便登录成功后直接跳转到该路由

@@ -3,7 +3,6 @@
     <el-tab-pane v-for="(item,key) in list" :key="key" :name="item.name">
       <span slot="label">
       <i :class="item.class" class="tabs-icon"/>{{ item.label }}</span>
-      {{ item.label }}
     </el-tab-pane>
   </el-tabs>
 </template>
@@ -19,7 +18,7 @@
         }
       },
       router: {
-        type: String,
+        type: [String, RegExp],
         default: ''
       }
     },

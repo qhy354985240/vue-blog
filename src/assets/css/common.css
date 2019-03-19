@@ -19,7 +19,7 @@ body,html {
 }
 
 .header {
-  height: 70px !important;
+  height: 60px !important;
   margin-bottom: 20px;
   background: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12)
@@ -35,6 +35,7 @@ body,html {
   z-index: 10;
   border: 1px solid #f2f2f3;
   background: #fff;
+  border-radius: 4px;
   box-shadow: 0 0 30px 0 rgba(145,159,165,.1);
   overflow: hidden
 }
@@ -50,24 +51,71 @@ body,html {
 .home .el-breadcrumb {
   height: 35px;
   line-height: 35px;
-  margin-bottom: 15px;
-  /* border-bottom: 1px solid #ddd; */
 }
 
 .tabs-icon {
   margin-right: 4px;
 }
 
+.box-card,
+.tabs-card {
+  margin-top: 10px;
+  /* min-height: 500px; */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 30px 0 rgba(145,159,165,.1);
+}
+
+.tabs-card {
+  /* min-height: 600px; */
+  margin-top: 0;
+}
+
+.serch-filter {
+  background-color: #fff;
+  padding: 20px 25px 0 0;
+  border-radius: 4px;
+  box-shadow: 0 0 30px 0 rgba(145,159,165,.1);
+  color: #333;
+}
+
+.pagination {
+  text-align: right;
+  margin: 0 0 16px 0;
+}
+
+.bottom-button {
+  margin-top: 10px;
+}
+
 
 /* element-ui */
 .el-menu {
-  /* background: transparent !important;
-  border-right: 0 !important; */
+  border-right: 0 !important;
 }
 
 .el-main {
-  padding: 10px 20px !important;
-  background-color: #fff;
-  box-shadow: 0 0 30px 0 rgba(145,159,165,.1);
+  padding: 0 20px 0 20px !important;
   margin: 0 20px;
+}
+
+.el-menu-item {
+  font-size: 16px !important;
+  color: #2F2F4F !important;
+  transition: all .5s !important;
+}
+
+.el-menu .is-active {
+  color: #FF7F00 !important;
+  border-right: 3px solid #FF7F00 !important;
+  padding-right: 17px !important;
+  background-color: #ecf5ff;
+}
+
+.el-menu-item:hover {
+  color: #FF7F00 !important;
+}
+.el-menu-item:hover i {
+  color: #FF7F00 !important;
 }
