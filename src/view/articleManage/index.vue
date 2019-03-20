@@ -16,7 +16,7 @@
         tabsList: [
           {label: '文章列表', name: 'articlelist', class: 'el-icon-tickets'},
           {label: '分类管理', name: 'sortmanage', class: 'el-icon-menu'},
-          {label: '添加文章', name: 'addarticle', class: 'el-icon-edit'}
+          {label: '添加文章', name: 'addarticle', class: 'el-icon-edit-outline'}
         ]
       }
     },

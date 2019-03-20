@@ -10,7 +10,14 @@ body,html {
   min-height: 100%;
   background: #f6f8fa;
 }
+body, div, form, h1, h2, h3, h4, h5, h6, html, input, li, ol, p, ul {
+  margin: 0;
+  padding: 0;
+}
 
+a {
+  text-decoration: none;
+}
 
 .wrapper {
   min-height: 700px;
@@ -72,12 +79,16 @@ body,html {
   margin-top: 0;
 }
 
-.serch-filter {
+.serch-block {
   background-color: #fff;
   padding: 20px 25px 0 0;
   border-radius: 4px;
   box-shadow: 0 0 30px 0 rgba(145,159,165,.1);
   color: #333;
+}
+
+.search {
+  padding-right: 10px;
 }
 
 .pagination {
@@ -90,9 +101,68 @@ body,html {
 }
 
 
+.task-title:hover {
+  color: #fc9153;
+}
+
+.gray-bg-color {
+  background: #c8c8c8;
+}
+
+.green-bg-color {
+  background: #3dbd7d;
+}
+
+.light-color {
+  color: #727785;
+}
+
+.block {
+  display: block;
+}
+
+.bright-color {
+  color: #2f3648;
+}
+.right {
+  text-align: right
+}
+
+.all-check{
+  margin: 0 14px !important;
+}
+.all-check .el-checkbox__label {
+  font-size: 13px !important;
+}
+.row-title {
+  margin-bottom: 10px;
+}
+.task-title{
+  font-size:14px;
+}
+.row-name a {
+  display:inline-block;
+  vertical-align: middle;
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis;
+}
+
+
 /* element-ui */
 .el-menu {
   border-right: 0 !important;
+}
+.el-table {
+  font-size: 12px !important;
+}
+.el-table .cell {
+  line-height: normal !important;
+}
+.el-table .el-table-column--selection {
+  vertical-align: top !important;
+  padding-top: 16px !important;
 }
 
 .el-main {

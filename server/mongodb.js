@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const User = require('./model/userModel.js')
 
-mongoose.connect('mongodb://localhost:27018/test', {useNewUrlParser: true, config: { autoIndex: false }})
+mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true, config: { autoIndex: false }})
 // mongoose.connect('mongodb://user:pass@localhost:port/database', { config: { autoIndex: false } });  //真心推荐
 // 查询速度过慢则使用上面一种方法
 const db = mongoose.connection

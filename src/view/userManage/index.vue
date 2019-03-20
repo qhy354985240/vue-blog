@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="serch-filter">
+    <div class="serch-block">
       <user-filter/>
     </div>
     <div class="box-card">

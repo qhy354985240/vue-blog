@@ -1,22 +1,21 @@
 <template>
   <div>
-    article-list
-    <router-view/>
+    <div class="search">
+      <article-filter/>
+    </div>
+    <List/>
   </div>
 </template>
 
 <script>
-  import Tabs from '@/components/tabs.vue'
+  import List from '@view/articleManage/components/list.vue'
+  import ArticleFilter from '@view/articleManage/components/article-filter.vue'
 
   export default {
-    components: { Tabs },
+    components: { List, ArticleFilter },
     data () {
       return {
-        tabsList: [
-          {label: '文章列表', name: 'articleList', class: 'el-icon-date'},
-          {label: '分类管理', name: 'sortManage', class: 'el-icon-date'},
-          {label: '添加文章', name: 'addArticle', class: 'el-icon-date'}
-        ]
+
       }
     },
     created () {
