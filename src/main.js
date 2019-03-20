@@ -56,8 +56,8 @@ import {
   Progress,
   ButtonGroup,
   Switch,
-  InputNumber,
-  TimePicker
+  TimePicker,
+  Tree
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -111,8 +111,8 @@ Vue.use(Loading.directive)
 Vue.use(Progress)
 Vue.use(ButtonGroup)
 Vue.use(Switch)
-Vue.use(InputNumber)
 Vue.use(TimePicker)
+Vue.use(Tree)
 
 Vue.prototype.$message = Message
 Vue.prototype.$msgbox = MessageBox

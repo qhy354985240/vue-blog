@@ -3,7 +3,7 @@
   <el-form :model='filter' label-width="90px" class="hive-tbl-filter">
     <el-row>
       <el-col :span='6'>
-        <el-form-item label="标题">
+        <el-form-item label="文章标题">
           <el-input
             size='small'
             class=""

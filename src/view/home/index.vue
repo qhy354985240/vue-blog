@@ -10,9 +10,7 @@
           <el-breadcrumb-item>{{ 'qhy' }} {{ 'xxxx' }}</el-breadcrumb-item>
           <el-breadcrumb-item>{{ 'qhy' }} {{ 'xxxx' }}</el-breadcrumb-item>
         </el-breadcrumb>
-        <transition name="fade" mode="out-in">
-          <router-view/>
-        </transition>
+        <router-view/>
       </el-main>
     </el-container>
   </el-container>

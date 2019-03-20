@@ -67,7 +67,7 @@ a {
 .box-card,
 .tabs-card {
   margin-top: 10px;
-  /* min-height: 500px; */
+  min-height: 400px;
   padding: 20px;
   background-color: #fff;
   border-radius: 4px;
@@ -75,7 +75,7 @@ a {
 }
 
 .tabs-card {
-  /* min-height: 600px; */
+  min-height: 400px;
   margin-top: 0;
 }
 
