@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import '@/assets/css/common.css'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 
 import {
   Table,
@@ -113,6 +115,9 @@ Vue.use(ButtonGroup)
 Vue.use(Switch)
 Vue.use(TimePicker)
 Vue.use(Tree)
+
+// markdown
+Vue.use(mavonEditor)
 
 Vue.prototype.$message = Message
 Vue.prototype.$msgbox = MessageBox

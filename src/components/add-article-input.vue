@@ -12,19 +12,6 @@
         </el-form-item>
       </el-col>
       <el-col :span='6'>
-        <el-form-item label="作者">
-          <el-input
-            size='small'
-            class=""
-            v-model='filter.account'
-            @keyup.enter.native="query" />
-            <!-- <select-user
-            size="small"
-            class="input-width-90p"
-            @on-change="query"/> -->
-        </el-form-item>
-      </el-col>
-      <el-col :span='6'>
         <el-form-item label="阅读权限">
           <el-input
             size='small'
@@ -42,7 +29,12 @@
             @keyup.enter.native="query" />
         </el-form-item>
       </el-col>
+      <el-col :span="6" class="vertical-middle right">
+        <el-button
+          size="mini"
+          icon="el-icon-share">发布</el-button>
 
+      </el-col>
     </el-row>
   </el-form>
 </template>
@@ -71,3 +63,8 @@
     }
   }
 </script>
+<style scoped>
+.vertical-middle>>> .el-button {
+  margin-top: 6px !important;
+}
+</style>

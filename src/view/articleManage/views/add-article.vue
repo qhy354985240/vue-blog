@@ -1,22 +1,31 @@
 <template>
   <div>
-    add article
-    <router-view/>
+    <div class="search">
+      <add-article-input/>
+    </div>
+    <mavon-editor
+      v-model="value"
+      placeholder="ヾﾉ≧∀≦)o来啊，快活啊!"
+      @change="dataChange"
+      @save="saveData"
+      :code-style="codeStyle"
+      :box-shadow="false"/>
+    <dialog-view ref="dialogViewRef"/>
   </div>
 </template>
 
 <script>
-  import Tabs from '@/components/tabs.vue'
+  import DialogView from '@view/articleManage/components/dialog-view.vue'
+  import AddArticleInput from '@/components/add-article-input.vue'
 
   export default {
-    components: { Tabs },
+    components: { DialogView, AddArticleInput },
     data () {
       return {
-        tabsList: [
-          {label: '文章列表', name: 'articleList', class: 'el-icon-date'},
-          {label: '分类管理', name: 'sortManage', class: 'el-icon-date'},
-          {label: '添加文章', name: 'addArticle', class: 'el-icon-date'}
-        ]
+        codeStyle: 'atom-one-dark',
+        value: '',
+        htmlValue: ''
+
       }
     },
     created () {
@@ -24,7 +33,22 @@
     },
 
     methods: {
+      dataChange (markdownValue, htmlValue) {
+        this.htmlValue = htmlValue
+        console.log(htmlValue)
+      },
+      saveData (markdownValue, htmlValue) {
 
+      },
+      open () {
+        this.$refs.dialogViewRef.openDialog(this.htmlValue)
+      }
     }
   }
 </script>
+<style scoped>
+.markdown-body {
+  min-height: 540px;
+}
+
+</style>
