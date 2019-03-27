@@ -7,8 +7,22 @@
 </template>
 
 <script>
+  import api from '@/api/axios.js'
   export default {
-    name: 'App'
+    name: 'App',
+    created () {
+      this.checkLogin()
+    },
+    methods: {
+      // 判断是否登录
+      checkLogin () {
+        api.isLogin().then(res => {
+        }).catch(res => {
+          this.$store.dispatch('UserLogout')
+          this.$router.push({path: '/login'})
+        })
+      }
+    }
   }
 </script>
 

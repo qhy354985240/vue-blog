@@ -10,7 +10,6 @@ export default {
     commit(types.LOGIN, data)
   },
   UserLogout ({ commit }) {
-    console.log('vvvvvvv')
     commit(types.LOGOUT)
   },
   UserName ({ commit }, data) {

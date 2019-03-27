@@ -11,5 +11,6 @@ childRouter.post('/user/register', userController.register)
 
 childRouter.get('/user', checkToken, userController.getAllUsers)
 childRouter.post('/delUser', checkToken, userController.delUsers)
+childRouter.get('/checkToken', checkToken, userController.checkToken)
 
 module.exports = childRouter

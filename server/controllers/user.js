@@ -2,6 +2,14 @@ const User = require('../mongodb.js').User
 // 密码加密
 const sha1 = require('sha1')
 const createToken = require('../token/createToken.js')
+// 判断是否过期
+const checkToken = async (ctx) => {
+  ctx.status = 200
+  ctx.body = {
+    success: true,
+    info: '已经登录'
+  }
+}
 // 数据库操作
 // 根据用户名查用户
 const findUser = (username) => {
@@ -147,5 +155,6 @@ module.exports = {
   register,
   login,
   getAllUsers,
-  delUsers
+  delUsers,
+  checkToken
 }

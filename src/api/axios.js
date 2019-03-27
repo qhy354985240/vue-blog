@@ -3,7 +3,7 @@ import router from '../router'
 import store from '../vuex'
 
 // 设置全局axios默认值
-axios.defaults.timeout = 6000 // 5000的超时验证
+axios.defaults.timeout = 6000 // 6000的超时验证
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
 
 const axiosToken = axios.create()
@@ -60,5 +60,9 @@ export default {
   // 删除用户
   delUser (data) {
     return axiosToken.post('/api/delUser', data)
+  },
+  // 登录是否过期是否
+  isLogin () {
+    return axiosToken.get('/api/checkToken')
   }
 }

@@ -1,6 +1,5 @@
 <template>
   <div class="tabs-card">
-    <!-- <dd-tabmenu :router="/project/" :datas="menulist"/> -->
     <tabs :list="tabsList" :router="/articlemanage/"/>
     <router-view/>
   </div>

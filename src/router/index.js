@@ -12,6 +12,9 @@ import ArticleManage from '@view/articleManage/index.vue'
 import AddArticle from '@view/articleManage/views/add-article'
 import ArticleList from '@view/articleManage/views/article-list'
 import SortManage from '@view/articleManage/views/sort-manage'
+import Error from '@/components/error.vue'
+import Bubbles from '@/components/bubbles.vue'
+import Copy from '@/components/copylogin.vue'
 
 Vue.use(Router)
 // 路由懒加载的部分
@@ -40,12 +43,6 @@ const Home = resolve => {
   })
 }
 
-const Error = resolve => {
-  require.ensure(['../components/404.vue'], () => {
-    resolve(require('../components/404.vue'))
-  })
-}
-
 const router = new Router({
   routes: [
     {
@@ -66,24 +63,58 @@ const router = new Router({
           name: 'usermanage',
           component: UserManage,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            auth: grade.Home
           }
         },
         {
           path: 'articlemanage',
           name: 'articlemanage',
           component: ArticleManage,
+          meta: {
+            requiresAuth: true,
+            auth: grade.Home
+          },
           children: [
             { path: '', redirect: 'articlelist' },
-            { path: 'addarticle', name: 'addarticle', component: AddArticle },
-            { path: 'articlelist', name: 'articlelist', component: ArticleList },
-            { path: 'sortmanage', name: 'sortmanage', component: SortManage }
+            {
+              path: 'addarticle',
+              name: 'addarticle',
+              component: AddArticle,
+              meta: {
+                requiresAuth: true,
+                auth: grade.Home
+            } },
+            {
+              path: 'articlelist',
+              name: 'articlelist',
+              component: ArticleList,
+              meta: {
+                requiresAuth: true,
+                auth: grade.Home
+            } },
+            {
+              path: 'sortmanage',
+              name: 'sortmanage',
+              component: SortManage,
+              meta: {
+                requiresAuth: true,
+                auth: grade.Home
+            } }
           ]
         },
-        { path: '/commentsManage', name: 'commentsManage', component: CommentsManage }
+        { path: '/commentsManage',
+          name: 'commentsManage',
+          component: CommentsManage,
+          meta: {
+            requiresAuth: true,
+            auth: grade.Home
+        } }
 
       ]
     },
+    { path: '/copy', name: 'copy', component: Copy },
+    { path: '/bubbles', name: 'bubbles', component: Bubbles },
     { path: '/login', name: 'login', component: Login },
     { path: '/register', name: 'Register', component: Register },
     { path: '*', name: 'error', component: Error }
@@ -93,14 +124,11 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   Nprogress.start()
   let token = store.state.token
-  console.log(to)
   let grade = store.state.grade || 3
-  console.log(to.meta.requiresAuth)
   if (to.meta.requiresAuth) {
     if (token) {
       next()
     } else {
-      console.log('xxx')
       next({
         path: '/login',
         query: {redirect: to.fullPath} // 将刚刚要去的路由path（却无权限）作为参数，方便登录成功后直接跳转到该路由
