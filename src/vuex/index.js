@@ -10,12 +10,19 @@ Vue.use(Vuex)
 const state = {
   token: window.localStorage.getItem('token'),
   username: '',
-  grade: window.localStorage.getItem('grade')
+  grade: window.localStorage.getItem('grade'),
+  breadList: []
+}
 
+const getters = {
+  breadList () {
+    return state.breadList
+  }
 }
 
 export default new Vuex.Store({
   state,
+  getters,
   mutations,
   actions
 })

@@ -24,12 +24,13 @@
       return {
         codeStyle: 'atom-one-dark',
         value: '',
-        htmlValue: ''
-
+        htmlValue: '',
+        breadList: [{ path: '/articlemanage/articlelist', name: '文章管理' },
+                    { path: '', name: '添加文章' }]
       }
     },
     created () {
-
+      this.$store.commit('breadList', this.breadList)
     },
 
     methods: {

@@ -28,6 +28,12 @@ const Register = resolve => {
   })
 }
 
+const CommentsManage = resolve => {
+  require.ensure(['@view/commentsManage/index.vue'], () => {
+    resolve(require('@view/commentsManage/index.vue'))
+  })
+}
+
 const Home = resolve => {
   require.ensure(['@/view/home/index.vue'], () => {
     resolve(require('@/view/home/index.vue'))
@@ -58,7 +64,10 @@ const router = new Router({
         {
           path: 'usermanage',
           name: 'usermanage',
-          component: UserManage
+          component: UserManage,
+          meta: {
+            requiresAuth: true
+          }
         },
         {
           path: 'articlemanage',
@@ -70,7 +79,9 @@ const router = new Router({
             { path: 'articlelist', name: 'articlelist', component: ArticleList },
             { path: 'sortmanage', name: 'sortmanage', component: SortManage }
           ]
-        }
+        },
+        { path: '/commentsManage', name: 'commentsManage', component: CommentsManage }
+
       ]
     },
     { path: '/login', name: 'login', component: Login },
@@ -82,8 +93,9 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   Nprogress.start()
   let token = store.state.token
-  console.log(token)
+  console.log(to)
   let grade = store.state.grade || 3
+  console.log(to.meta.requiresAuth)
   if (to.meta.requiresAuth) {
     if (token) {
       next()

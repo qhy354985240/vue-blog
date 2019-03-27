@@ -30,11 +30,6 @@
       default-expand-all
       :expand-on-click-node="false"
       :filter-node-method="filterNode"
-      @node-drag-start="handleDragStart"
-      @node-drag-enter="handleDragEnter"
-      @node-drag-leave="handleDragLeave"
-      @node-drag-over="handleDragOver"
-      @node-drag-end="handleDragEnd"
       @node-drop="handleDrop"
       draggable
       :allow-drag="allowDrag">
@@ -121,11 +116,13 @@
           pageCurrent: 1,
           pageSizeList: [10, 20, 50, 100],
           total: 0
-        }
+        },
+        breadList: [{ path: '/articlemanage/articlelist', name: '文章管理' },
+                    { path: '', name: '分类管理' }]
       }
     },
     created () {
-
+      this.$store.commit('breadList', this.breadList)
     },
     watch: {
       filterText (val) {
@@ -144,6 +141,9 @@
       allowDrag (draggingNode) {
         // 如果不是超管则返回为false
         return true
+      },
+      refeshList () {
+
       }
     }
   }

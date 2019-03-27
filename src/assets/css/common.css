@@ -21,13 +21,12 @@ a {
 
 .wrapper {
   min-height: 700px;
-  background-color: #f6f8fa;
   margin-bottom: 40px;
 }
 
 .header {
   height: 60px !important;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   background: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12)
 }
@@ -67,7 +66,7 @@ a {
 .box-card,
 .tabs-card {
   margin-top: 10px;
-  min-height: 400px;
+  min-height: 500px;
   padding: 20px;
   background-color: #fff;
   border-radius: 4px;
@@ -77,6 +76,9 @@ a {
 .tabs-card {
   min-height: 600px;
   margin-top: 0;
+  /* z-index: 9999;
+  position: absolute;
+  top: 30px; */
 }
 
 .serch-block {
@@ -148,11 +150,47 @@ a {
   overflow: hidden;
   text-overflow:ellipsis;
 }
+.text-label {
+  color: #333;
+  font-weight: 400;
+}
+
+.operate-button {
+  cursor: pointer !important;
+  padding: 0 !important;
+  color: #727785 !important;
+  font-weight: normal !important;
+}
+.operate-button:hover {
+  color: #409EFF !important;
+}
+.operate-button.is-disabled {
+  color: #c0c4cc !important;
+}
+.comments-list .el-col {
+  padding-bottom: 4px !important;
+}
+
+.isJump {
+  color: #303133 !important;
+  font-weight: 700 !important;
+}
+.bread {
+  cursor: pointer;
+}
 
 
 /* element-ui */
+/* .wrapper {
+  position: absolute !important;
+  top: 0 !important;
+  width: 100%;
+} */
 .el-menu {
   border-right: 0 !important;
+}
+.el-aside {
+  flex-shrink: 1 !important;
 }
 .el-table {
   font-size: 12px !important;
@@ -167,7 +205,9 @@ a {
 
 .el-main {
   padding: 0 20px 0 20px !important;
-  margin: 0 20px;
+  /* position: relative !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important; */
 }
 
 .el-menu-item {

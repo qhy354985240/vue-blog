@@ -4,26 +4,24 @@
       <user-filter/>
     </div>
     <div class="box-card">
-      <list/>
+      <comments-list />
     </div>
   </div>
 </template>
 
 <script>
   import UserFilter from '@view/userManage/components/user-filter.vue'
-  import List from '@view/userManage/components/list.vue'
+  import CommentsList from '@view/commentsManage/components/comments-list.vue'
 
   export default {
-    components: { UserFilter, List },
+    components: { UserFilter, CommentsList },
     data () {
       return {
-        breadList: [{
-          path: '/usermanage', name: '用户管理'
-        }]
+
       }
     },
     created () {
-      this.$store.commit('breadList', this.breadList)
+
     },
 
     methods: {

@@ -8,7 +8,7 @@
         type="selection"
         width="55"/>
       <el-table-column
-        align="center"
+        align="left"
         label="用户名">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
@@ -21,7 +21,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        align="center"
+        align="left"
         label="账号">
         <template slot-scope="scope">
           <i class="el-icon-time"/>
@@ -29,7 +29,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        align="center"
+        align="left"
         label="邮箱">
         <template slot-scope="scope">
           <i class="el-icon-time"/>
@@ -38,7 +38,7 @@
       </el-table-column>
       <el-table-column
         label="用户类型"
-        align="center"
+        align="left"
         width="120">
         <template slot-scope="scope">
           <el-tag type="info">{{ scope.row.type }}</el-tag>
@@ -46,7 +46,7 @@
       </el-table-column>
       <el-table-column
         label="注册时间"
-        align="center"
+        align="left"
         width="140">
         <template slot-scope="scope">
           <i class="el-icon-time"/>

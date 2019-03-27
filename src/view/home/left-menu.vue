@@ -1,6 +1,5 @@
 <template>
   <el-col>
-    <h5 class="left-bar-title">自定义颜色</h5>
     <el-menu
       router
       :default-active="defaultActive"
@@ -9,6 +8,10 @@
       @close="handleClose"
       text-color="#2c3e50"
       active-text-color="#b6773f">
+      <el-menu-item index="/usermanae" >
+        <i class="el-icon-bell"/>
+        <span slot="title">概览</span>
+      </el-menu-item>
       <el-menu-item index="/usermanage" >
         <i class="el-icon-news"/>
         <span slot="title">用户管理</span>
@@ -17,13 +20,13 @@
         <i class="el-icon-document"/>
         <span slot="title">文章管理</span>
       </el-menu-item>
-      <el-menu-item index="3" disabled >
-        <i class="el-icon-upload"/>
-        <span slot="title">上传管理</span>
-      </el-menu-item>
-      <el-menu-item index="4">
+      <el-menu-item index="/commentsManage">
         <i class="el-icon-edit-outline"/>
         <span slot="title">评论、留言管理</span>
+      </el-menu-item>
+      <el-menu-item index="3" disabled >
+        <i class="el-icon-setting"/>
+        <span slot="title">账户设置</span>
       </el-menu-item>
     </el-menu>
   </el-col>
@@ -35,11 +38,11 @@
     components: { },
     data () {
       return {
-        defaultActive: this.$router.currentRoute.path
+        defaultActive: ''
       }
     },
     created () {
-
+      this.defaultActive = this.$router.currentRoute.path.indexOf('/', 1) !== -1 ? this.$router.currentRoute.path.slice(0, this.$router.currentRoute.path.indexOf('/', 1)) : this.$router.currentRoute.path
     },
 
     methods: {

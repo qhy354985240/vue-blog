@@ -6,9 +6,10 @@
         <left-menu/>
       </el-aside>
       <el-main class="home">
-        <el-breadcrumb separator="/">
-          <el-breadcrumb-item>{{ 'qhy' }} {{ 'xxxx' }}</el-breadcrumb-item>
-          <el-breadcrumb-item>{{ 'qhy' }} {{ 'xxxx' }}</el-breadcrumb-item>
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item v-for="(item,key) in breadList" :key="key">
+            <span @click="jump(item)" :class="{isJump: item.path != ''}" class="bread"> {{ item.name }} </span>
+          </el-breadcrumb-item>
         </el-breadcrumb>
         <router-view/>
       </el-main>
@@ -17,23 +18,23 @@
 </template>
 
 <script>
-  import LeftMenu from '@/components/left-menu.vue'
+  import LeftMenu from '@view/home/left-menu.vue'
+  import { mapGetters } from 'vuex'
 
   export default {
     components: { LeftMenu },
     data () {
-      return {
-
-      }
+      return {}
     },
-    created () {
-
+    computed: {
+      ...mapGetters([
+        'breadList'
+      ])
     },
 
     methods: {
-      jump () {
-        console.log(0)
-        this.$router.push({path: '/usermanage'})
+      jump (item) {
+        this.$router.push({path: item.path})
       }
     }
   }

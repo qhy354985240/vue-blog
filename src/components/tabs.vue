@@ -28,13 +28,19 @@
       }
     },
     created () {
-      this.activeName = this.list.length > 0 ? this.list[0].name : ''
+      this.activeName = this.$route.path.slice(15)
+    },
+    watch: {
+      '$route.path' () {
+        this.activeName = this.$route.path.slice(15)
+      }
     },
     methods: {
       handleClick (tab, event) {
+        // console.log(tab, 'tab')
+        // console.log(this.$route.path)
         let url = this.router + tab.name
         this.$router.push({path: url})
-        console.log(tab, event)
       }
     }
   }

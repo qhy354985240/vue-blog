@@ -25,5 +25,9 @@ const mutations = {
     window.localStorage.setItem('username', data)
   }
 }
+let stateKeys = [types.BREADLIST]
+stateKeys.map(item => {
+  mutations[item] = (state, payload) => { state[item] = payload }
+})
 
 export default mutations
