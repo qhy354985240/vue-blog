@@ -14,22 +14,11 @@ import ArticleList from '@view/articleManage/views/article-list'
 import SortManage from '@view/articleManage/views/sort-manage'
 import Error from '@/components/error.vue'
 import Bubbles from '@/components/bubbles.vue'
-import Copy from '@/components/copylogin.vue'
+import Login from '@/components/Login.vue'
 
 Vue.use(Router)
 // 路由懒加载的部分
 // 路由懒加载
-const Login = resolve => {
-  require.ensure(['../components/Login.vue'], () => {
-    resolve(require('../components/Login.vue'))
-  })
-}
-
-const Register = resolve => {
-  require.ensure(['@components/Register.vue'], () => {
-    resolve(require('@components/Register.vue'))
-  })
-}
 
 const CommentsManage = resolve => {
   require.ensure(['@view/commentsManage/index.vue'], () => {
@@ -113,10 +102,8 @@ const router = new Router({
 
       ]
     },
-    { path: '/copy', name: 'copy', component: Copy },
     { path: '/bubbles', name: 'bubbles', component: Bubbles },
     { path: '/login', name: 'login', component: Login },
-    { path: '/register', name: 'Register', component: Register },
     { path: '*', name: 'error', component: Error }
   ]
 })

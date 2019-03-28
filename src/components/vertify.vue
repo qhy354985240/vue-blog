@@ -150,3 +150,9 @@
     }
   }
 </script>
+<style scoped>
+.s-canvas {
+  height: 38px;
+  cursor: pointer;
+}
+</style>
