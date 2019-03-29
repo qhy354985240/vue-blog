@@ -259,6 +259,7 @@ nav ul li:hover ul li a {
     border: 0 solid #fff;
     width: 100%;
     height: 100%;
+    z-index: 999;
     border-radius: 50%;
     vertical-align: middle;
 }
@@ -279,7 +280,7 @@ nav ul li:hover ul li a {
 .self-panel {
   visibility: hidden;
   position: absolute;
-  z-index: 999;
+  z-index: 99;
   left: 50%;
   margin-left: -140px;
   width: 260px;
