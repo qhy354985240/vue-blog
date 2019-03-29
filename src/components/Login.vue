@@ -414,7 +414,7 @@ box-shadow: 1px 10px 30px -10px rgba(0,0,0,0.5);
   height: 420px;
 top:20px;
 left: 0px;
-  -webkit-transition: all 0.5s;
+-webkit-transition: all 0.5s;
 -moz-transition: all 0.5s;
 -ms-transition: all 0.5s;
 -o-transition: all 0.5s;

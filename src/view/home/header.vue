@@ -279,7 +279,7 @@ nav ul li:hover ul li a {
 .self-panel {
   visibility: hidden;
   position: absolute;
-  z-index: 1;
+  z-index: 999;
   left: 50%;
   margin-left: -140px;
   width: 260px;
