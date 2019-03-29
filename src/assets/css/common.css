@@ -220,6 +220,9 @@ input {
 
 
 /* element-ui */
+.el-form-item {
+  margin-bottom: 22px !important;
+}
 .el-header {
   padding: 0 !important;
 }
