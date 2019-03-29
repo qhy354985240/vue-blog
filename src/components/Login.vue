@@ -446,7 +446,7 @@ top:-80px;
  -webkit-filter: grayscale(100%);     filter: grayscale(100%);
 opacity: 0.2;
 animation-name: animar_fondo;
-  animation-duration: 20s;
+animation-duration: 20s;
 animation-timing-function: linear;
 animation-iteration-count: infinite;
 animation-direction: alternate;
