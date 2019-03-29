@@ -1,6 +1,9 @@
 <template>
   <el-container class='wrapper'>
-    <el-header class="header">Header</el-header>
+    <el-header class="header">
+      <div class="filter"/>
+      <Header/>
+    </el-header>
     <el-container>
       <el-aside width="220px" class="left-menu">
         <left-menu/>
@@ -18,11 +21,13 @@
 </template>
 
 <script>
+  import Header from '@view/home/header.vue'
+
   import LeftMenu from '@view/home/left-menu.vue'
   import { mapGetters } from 'vuex'
 
   export default {
-    components: { LeftMenu },
+    components: { LeftMenu, Header },
     data () {
       return {}
     },

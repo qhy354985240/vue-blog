@@ -8,7 +8,7 @@
       @close="handleClose"
       text-color="#2c3e50"
       active-text-color="#b6773f">
-      <el-menu-item index="/usermanae" >
+      <el-menu-item index="/dataview" >
         <i class="el-icon-bell"/>
         <span slot="title">概览</span>
       </el-menu-item>

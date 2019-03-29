@@ -5,8 +5,6 @@ import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { grade } from '@/constants'
 
-// import Register from '@components/Register'
-// import Home from '@components/Home.vue'
 import UserManage from '@view/userManage/index.vue'
 import ArticleManage from '@view/articleManage/index.vue'
 import AddArticle from '@view/articleManage/views/add-article'
@@ -15,6 +13,7 @@ import SortManage from '@view/articleManage/views/sort-manage'
 import Error from '@/components/error.vue'
 import Bubbles from '@/components/bubbles.vue'
 import Login from '@/components/Login.vue'
+import DataView from '@view/dataView/index.vue'
 
 Vue.use(Router)
 // 路由懒加载的部分
@@ -92,14 +91,24 @@ const router = new Router({
             } }
           ]
         },
-        { path: '/commentsManage',
+        {
+          path: '/commentsManage',
           name: 'commentsManage',
           component: CommentsManage,
           meta: {
             requiresAuth: true,
             auth: grade.Home
-        } }
-
+          }
+        },
+        {
+          path: '/dataview',
+          name: 'dataview',
+          component: DataView,
+          meta: {
+            requiresAuth: true,
+            auth: grade.Home
+          }
+        }
       ]
     },
     { path: '/bubbles', name: 'bubbles', component: Bubbles },
