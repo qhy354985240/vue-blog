@@ -461,9 +461,8 @@ top:-80px;
 }
 
 .cont_img_back_ > img {
-  width: 100%;
+width: 100%;
 opacity: 0.3;
-animation-name: animar_fondo;
 animation-duration: 20s;
 animation-timing-function: linear;
 animation-iteration-count: infinite;
@@ -472,7 +471,7 @@ animation-direction: alternate;
 
 .cont_forms_active_login > .cont_img_back_ {
 top:0px;
-  -webkit-transition: all 0.5s;
+-webkit-transition: all 0.5s;
 -moz-transition: all 0.5s;
 -ms-transition: all 0.5s;
 -o-transition: all 0.5s;
@@ -482,7 +481,7 @@ transition: all 0.5s;
 .cont_forms_active_sign_up > .cont_img_back_ {
 top:0px;
 left: -435px;
-  -webkit-transition: all 0.5s;
+-webkit-transition: all 0.5s;
 -moz-transition: all 0.5s;
 -ms-transition: all 0.5s;
 -o-transition: all 0.5s;
