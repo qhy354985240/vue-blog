@@ -42,13 +42,13 @@
       handleSizeChange (val) {
         this.pagination.pageSize = val
         this.$emit('updated:data', this.pagination)
-        this.$emit('refresh-list')
+        this.$emit('refresh')
       },
 
       handleCurrentChange (val) {
         this.pagination.pageCurrent = val
         this.$emit('updated:data', this.pagination)
-        this.$emit('refresh-list')
+        this.$emit('refresh')
       }
     }
   }

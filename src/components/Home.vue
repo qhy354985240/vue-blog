@@ -2,7 +2,7 @@
   <div class="hello">
     <ul>
       <li v-for="(item, index) in users" :key="item._id">
-        {{ index + 1 }}.{{ item.username }}
+        {{ index + 1 }}.{{ item.userName }}
         <el-button @click="del_user(index, $event)">删除</el-button>
       </li>
     </ul>

@@ -38,11 +38,11 @@
             <a href="#" @click="change"><i class="el-icon-close"/></a>
             <h2>登录</h2>
             <el-form :model="loginForm" :rules="rules" ref="loginForm" class="input-80">
-              <el-form-item prop="username" class="input-80">
-                <el-input placeholder="账号" v-model="loginForm.username" autocomplete="off"/>
+              <el-form-item prop="userName" class="input-80">
+                <el-input placeholder="账号" v-model="loginForm.userName" autocomplete="off"/>
               </el-form-item>
-              <el-form-item class="input-80" prop="password">
-                <el-input placeholder="密码" v-model="loginForm.password" :type="passwordType" autocomplete="off">
+              <el-form-item class="input-80" prop="passWord">
+                <el-input placeholder="密码" v-model="loginForm.passWord" :type="passwordType" autocomplete="off">
                 <i class="el-icon-view icon" slot="suffix" @click="showPassword" /></el-input>
               </el-form-item>
               <el-form-item class="input-80" prop="verifycode">
@@ -65,14 +65,14 @@
             <a href="#" @click="change"><i class="el-icon-close"/></a>
             <h2>注册</h2>
             <el-form :model="regForm" class="input-80" :rules="rules1" ref="regForm">
-              <el-form-item prop="username" class="input-80">
+              <el-form-item prop="userName" class="input-80">
                 <el-input v-model="regForm.nickName" placeholder="你的昵称" autocomplete="off" />
               </el-form-item>
-              <el-form-item prop="username" class="input-80">
-                <el-input v-model="regForm.username" placeholder="账号" autocomplete="off" />
+              <el-form-item prop="userName" class="input-80">
+                <el-input v-model="regForm.userName" placeholder="账号" autocomplete="off" />
               </el-form-item>
-              <el-form-item prop="password" class="input-80">
-                <el-input v-model="regForm.password" placeholder="密码" autocomplete="off" type="password"/>
+              <el-form-item prop="passWord" class="input-80">
+                <el-input v-model="regForm.passWord" placeholder="密码" autocomplete="off" type="password"/>
               </el-form-item>
               <el-form-item prop="checkPassword" class="input-80">
                 <el-input v-model="regForm.checkPassword" placeholder="确认密码" autocomplete="off" type="password"/>
@@ -124,7 +124,7 @@
       }
       // 验证密码是否重复
       let validatePass2 = (rule, value, callback) => {
-        if (value !== this.regForm.password) {
+        if (value !== this.regForm.passWord) {
           callback(new Error('两次密码输入不一致'))
         } else {
           callback()
@@ -132,14 +132,14 @@
       }
       return {
         loginForm: { // 表单v-model的值
-          username: '',
-          password: '',
+          userName: '',
+          passWord: '',
           verifycode: ''
         },
         regForm: {
           nickName: '',
-          username: '',
-          password: '',
+          userName: '',
+          passWord: '',
           checkPassword: '',
           email: ''
         },
@@ -148,11 +148,11 @@
         identifyCodes: '1234567890abcdefghijklmnopqrstuvwxyz',
         identifyCode: '',
         rules: { // 验证规则
-          username: [
+          userName: [
             {required: true, message: '用户名不能为空', trigger: 'blur'},
             {min: 6, max: 16, message: '用户名在6到16位之间', trigger: 'blur'}
           ],
-          password: [
+          passWord: [
             {required: true, message: '请输入密码', trigger: 'blur'}
           ],
           verifycode: [
@@ -160,11 +160,11 @@
           ]
         },
         rules1: {
-          username: [
+          userName: [
             {required: true, message: '用户名不能少', trigger: 'blur'},
             {min: 6, max: 16, message: '用户名在6到16位之间', trigger: 'blur'}
           ],
-          password: [
+          passWord: [
             {required: true, message: '请输入密码', trigger: 'blur'},
             {validator: validatePass1, trigger: 'blur'}
           ],
@@ -220,9 +220,9 @@
                     message: '登录成功'
                   })
                   let token = res.token
-                  let username = res.username
+                  let userName = res.userName
                   this.$store.dispatch('UserLogin', token)
-                  this.$store.dispatch('UserName', username)
+                  this.$store.dispatch('userName', userName)
                   let redirectUrl = decodeURIComponent(this.$route.query.redirect || '/')
                   // 跳转到指定的路由
                   this.$router.push({
@@ -258,6 +258,7 @@
       registerForm (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) { // 验证通过
+            this.regForm['userType'] = 'common'
             api.userRegister(this.regForm)
               .then((res) => {
                 if (res.success) {
@@ -266,9 +267,9 @@
                     message: '注册成功'
                   })
                   let token = res.token
-                  let username = res.username
+                  let userName = res.userName
                   this.$store.dispatch('UserLogin', token)
-                  this.$store.dispatch('UserName', username)
+                  this.$store.dispatch('userName', userName)
                   let redirectUrl = decodeURIComponent(this.$route.query.redirect || '/')
                   // 跳转到指定的路由
                   this.$router.push({

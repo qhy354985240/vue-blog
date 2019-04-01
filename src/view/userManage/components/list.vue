@@ -11,29 +11,23 @@
         align="left"
         label="用户名">
         <template slot-scope="scope">
-          <el-popover trigger="hover" placement="top">
-            <p>姓名: {{ scope.row.name }}</p>
-            <p>住址: {{ scope.row.address }}</p>
-            <div slot="reference" class="name-wrapper">
-              <el-tag size="medium">{{ scope.row.name }}</el-tag>
-            </div>
-          </el-popover>
+          {{ scope.row.nickName }}
         </template>
       </el-table-column>
       <el-table-column
         align="left"
         label="账号">
         <template slot-scope="scope">
-          <i class="el-icon-time"/>
-          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+          <i class="icon-qhy-yonghu"/>
+          <span style="margin-left: 2px">{{ scope.row.userName }}</span>
         </template>
       </el-table-column>
       <el-table-column
         align="left"
         label="邮箱">
         <template slot-scope="scope">
-          <i class="el-icon-time"/>
-          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+          <i class="el-icon-message"/>
+          <span style="margin-left: 2px">{{ scope.row.email }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -41,7 +35,7 @@
         align="left"
         width="120">
         <template slot-scope="scope">
-          <el-tag type="info">{{ scope.row.type }}</el-tag>
+          <el-tag type="info">{{ scope.row.userType == 'common' ? '普通用户' : '管理员' }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -50,7 +44,7 @@
         width="140">
         <template slot-scope="scope">
           <i class="el-icon-time"/>
-          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+          <span style="margin-left: 2px">{{ scope.row.createTime }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" >
@@ -75,16 +69,17 @@
       <el-button
         size="mini"
         icon="el-icon-refresh"
-        @click="handleDelete(scope.$index, scope.row)">刷新</el-button>
+        @click="getUsers">刷新</el-button>
     </div>
     <div class="pagination">
-      <pagination-page :data.sync=pagination @refesh="refeshList"/>
+      <pagination-page :data.sync=pagination @refresh="refeshList"/>
     </div>
   </div>
 </template>
 
 <script>
   import PaginationPage from '@/components/pagination-page.vue'
+  import api from '@/api/axios.js'
 
   export default {
     components: {
@@ -92,30 +87,7 @@
     },
     data () {
       return {
-        tableData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄',
-          type: '普通用户'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄',
-          type: '普通用户'
-
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄',
-          type: '普通用户'
-
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          type: '普通用户'
-
-        }],
+        tableData: [],
         multipleSelection: [],
         pagination: {
           pageSize: 10,
@@ -125,7 +97,23 @@
         }
       }
     },
+    created () {
+      this.getUsers()
+    },
     methods: {
+      getUsers () {
+        api.getUser({
+          pageSize: this.pagination.pageSize,
+          pageCurrent: this.pagination.pageCurrent
+        }).then((res) => {
+          if (res.success) {
+            this.tableData = res.result
+            this.pagination.total = res.total
+          }
+        }).catch(res => {
+          console.log(res.message)
+        })
+      },
       handleEdit (index, row) {
         console.log(index, row)
       },
@@ -136,8 +124,14 @@
         this.multipleSelection = val
       },
       refeshList () {
-
+        this.getUsers()
       }
     }
   }
 </script>
+<style scoped>
+i{
+  font-size: 14px;
+}
+
+</style>

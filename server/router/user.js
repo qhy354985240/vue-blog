@@ -9,7 +9,7 @@ childRouter.post('/user/register', userController.register)
 
 // 用户其它操作如删除用户等
 
-childRouter.get('/user', checkToken, userController.getAllUsers)
+childRouter.post('/getUsers', checkToken, userController.getAllUsers)
 childRouter.post('/delUser', checkToken, userController.delUsers)
 childRouter.get('/checkToken', checkToken, userController.checkToken)
 

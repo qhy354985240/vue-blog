@@ -54,8 +54,8 @@ export default {
     return axiosToken.post('/api/user/login', data)
   },
   // 获取用户
-  getUser () {
-    return axiosToken.get('/api/user')
+  getUser (data) {
+    return axiosToken.post('/api/getUsers', data)
   },
   // 删除用户
   delUser (data) {

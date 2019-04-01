@@ -24,6 +24,7 @@
     "koa-static": "^5.0.0",
     "log4js": "^4.0.2",
     "mavon-editor": "^2.7.2",
+    "moment": "^2.24.0",
     "mongoose": "^5.4.17",
     "nprogress": "^0.2.0",
     "sha1": "^1.1.1",

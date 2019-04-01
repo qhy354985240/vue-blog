@@ -12,8 +12,8 @@ export default {
   UserLogout ({ commit }) {
     commit(types.LOGOUT)
   },
-  UserName ({ commit }, data) {
-    commit(types.USERNAME, data)
+  userName ({ commit }, data) {
+    commit(types.userName, data)
   }
 }
 
@@ -22,10 +22,10 @@ export default {
 // import api from '../axios.js';
 // export default {
 //     actions需要返回一个promise对象，是用于通知外面该actions执行完毕。（官网有写）
-//     UserLogin({ commit }, { username, password }){
+//     UserLogin({ commit }, { userName, password }){
 //
 //        return new Promise((resolve, reject) => {
-//             api.userLogin({ username, password})
+//             api.userLogin({ userName, password})
 //                 .then(res => {
 //                     //登录成功
 //                     if(res.data.success === true){
