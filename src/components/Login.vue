@@ -221,8 +221,10 @@
                   })
                   let token = res.token
                   let userName = res.userName
+                  let userType = res.userType
                   this.$store.dispatch('UserLogin', token)
                   this.$store.dispatch('userName', userName)
+                  this.$store.dispatch('userType', userType)
                   let redirectUrl = decodeURIComponent(this.$route.query.redirect || '/')
                   // 跳转到指定的路由
                   this.$router.push({
@@ -268,8 +270,10 @@
                   })
                   let token = res.token
                   let userName = res.userName
+                  let userType = res.userType
                   this.$store.dispatch('UserLogin', token)
                   this.$store.dispatch('userName', userName)
+                  this.$store.dispatch('userType', userType)
                   let redirectUrl = decodeURIComponent(this.$route.query.redirect || '/')
                   // 跳转到指定的路由
                   this.$router.push({

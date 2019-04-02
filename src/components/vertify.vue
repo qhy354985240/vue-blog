@@ -82,7 +82,6 @@
       },
       drawPic () {
         var canvas = document.getElementById('s-canvas')
-        console.log(canvas.getContext('2d'), 'ccccc')
         var ctx = canvas.getContext('2d')
         ctx.textBaseline = 'bottom'
         // 绘制背景

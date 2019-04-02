@@ -25,10 +25,22 @@ const findUser = (userName) => {
   })
 }
 
-// 查找所有用户
-const findAllUsers = () => {
+// 查找所有用户分页查询
+const findAllUsers = (size, current) => {
   return new Promise((resolve, reject) => {
     User.find({}, (err, doc) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(doc)
+    }).limit(size).skip(--current * size)
+  })
+}
+
+// 查询总的条数
+const findTotal = () => {
+  return new Promise((resolve, reject) => {
+    User.countDocuments({}, (err, doc) => {
       if (err) {
         reject(err)
       }
@@ -38,37 +50,37 @@ const findAllUsers = () => {
 }
 
 // 删除某个用户
-const delUser = (id) => {
+const delUser = (userName) => {
   return new Promise((resolve, reject) => {
-    User.findOneAndRemove({_id: id}, (err) => {
+    User.findOneAndDelete({userName: userName}, (err, user) => {
       if (err) {
         reject(err)
       }
-      resolve()
+      resolve(user)
     })
   })
 }
 
 // 登录
 const login = async (ctx) => {
-  let username = ctx.request.body.username
-  let password = sha1(ctx.request.body.password)
+  let userName = ctx.request.body.userName
+  let passWord = sha1(ctx.request.body.passWord)
 
-  let doc = await findUser(username)
+  let doc = await findUser(userName)
   if (!doc) {
     ctx.status = 200
     ctx.body = {
       success: false,
       info: '用户名不存在'
     }
-  } else if (doc.password !== password) {
+  } else if (doc.passWord !== passWord) {
     ctx.status = 200
     ctx.body = {
       success: false,
       info: '密码错误'
     }
-  } else if (doc.password === password) {
-    let token = createToken(username)
+  } else if (doc.passWord === passWord) {
+    let token = createToken(userName)
     doc.token = token
     await new Promise((resolve, reject) => {
       doc.save((err) => {
@@ -82,8 +94,9 @@ const login = async (ctx) => {
     ctx.status = 200
     ctx.body = {
       success: true,
-      username,
+      userName,
       token,
+      userType: doc.userType,
       createTime: doc.createTime
     }
   }
@@ -129,7 +142,8 @@ const register = async (ctx) => {
     ctx.status = 200
     ctx.body = {
       success: true,
-      userName: ctx.userName,
+      userName: doc.userName,
+      userType: doc.userType,
       token,
       createTime: doc.createTime
     }
@@ -140,36 +154,49 @@ const register = async (ctx) => {
 const getAllUsers = async (ctx) => {
   let size = ctx.request.body.pageSize
   let current = ctx.request.body.pageCurrent
-  let doc = await findAllUsers()
+  let doc = []
+  let total = 0
   let result = []
-  if (doc.length > 0) {
-    let length = (doc.length - current * size) > 0 ? current * size : doc.length
-    for (let i = current * size - size; i < length; i++) {
-      console.log(i)
-      result.push({
-        userName: doc[i].userName,
-        nickName: doc[i].nickName,
-        createTime: doc[i].createTime,
-        email: doc[i].email,
-        userType: doc[i].userType
+  await Promise.all([findAllUsers(size, current), findTotal()]).then(results => {
+    doc = results[0]
+    total = results[1]
+    if (doc.length > 0) {
+      doc.map(item => {
+        result.push({
+          userName: item.userName,
+          nickName: item.nickName,
+          createTime: item.createTime,
+          email: item.email,
+          userType: item.userType
+        })
       })
     }
-  }
+  }).catch(err => {
+    console.log(err)
+  })
   ctx.status = 200
   ctx.body = {
     success: true,
     result: result,
-    total: doc.length
+    total: total
   }
 }
 
 // 删除某个用户
 const delUsers = async (ctx) => {
-  let id = ctx.request.body.id
-  await delUser(id)
-  ctx.body = {
-    success: true,
-    info: '删除成功'
+  let userName = ctx.request.body.userName
+  let doc = await delUser(userName)
+  console.log(doc)
+  if (doc) {
+    ctx.body = {
+      success: true,
+      info: '删除成功'
+    }
+  } else {
+    ctx.body = {
+      success: false,
+      info: '删除失败'
+    }
   }
 }
 

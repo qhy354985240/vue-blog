@@ -11,12 +11,16 @@ const state = {
   token: window.localStorage.getItem('token'),
   userName: '',
   grade: window.localStorage.getItem('grade'),
-  breadList: []
+  breadList: [],
+  userType: window.localStorage.getItem('userType')
 }
 
 const getters = {
   breadList () {
     return state.breadList
+  },
+  isManager () {
+    return state.userType === 'manager'
   }
 }
 

@@ -239,7 +239,6 @@ input {
   line-height: normal !important;
 }
 .el-table .el-table-column--selection {
-  vertical-align: top !important;
   padding-top: 16px !important;
 }
 

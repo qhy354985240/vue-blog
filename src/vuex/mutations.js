@@ -18,11 +18,15 @@ const mutations = {
     state.token = null
     window.localStorage.removeItem('token')
   },
-  // 这步可有可无，根据自己需求去写
   [types.userName]: (state, data) => {
     // 把用户名存起来
     state.userName = data
     window.localStorage.setItem('userName', data)
+  },
+  [types.userType]: (state, data) => {
+    // 把用户类型存起来
+    state.userType = data
+    window.localStorage.setItem('userType', data)
   }
 }
 let stateKeys = [types.BREADLIST]

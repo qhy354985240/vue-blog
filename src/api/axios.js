@@ -57,7 +57,7 @@ export default {
   getUser (data) {
     return axiosToken.post('/api/getUsers', data)
   },
-  // 删除用户
+  // 删除用户 单个
   delUser (data) {
     return axiosToken.post('/api/delUser', data)
   },
