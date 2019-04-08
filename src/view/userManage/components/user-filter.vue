@@ -1,45 +1,25 @@
 
 <template>
-  <el-form :model='filter' label-width="90px" class="hive-tbl-filter">
+  <el-form :model='pageFilter' label-width="90px" class="hive-tbl-filter">
     <el-row>
       <el-col :span='6'>
         <el-form-item label="用户名">
-          <el-input
-            size='small'
-            class=""
-            v-model='filter.userName'
-            @keyup.enter.native="query" />
+          <search-user :nick-name.sync="pageFilter.nickName" @result-change="nickChange" />
         </el-form-item>
       </el-col>
       <el-col :span='6'>
         <el-form-item label="账号">
-          <el-input
-            size='small'
-            class=""
-            v-model='filter.account'
-            @keyup.enter.native="query" />
-            <!-- <select-user
-            size="small"
-            class="input-width-90p"
-            @on-change="query"/> -->
+          <search-account :user-name.sync="pageFilter.userName" @result-change="accountChange" />
         </el-form-item>
       </el-col>
       <el-col :span='6'>
         <el-form-item label="邮箱">
-          <el-input
-            size='small'
-            class=""
-            v-model='filter.email'
-            @keyup.enter.native="query" />
+          <search-email :email.sync="pageFilter.email" @result-change="emailChange" />
         </el-form-item>
       </el-col>
       <el-col :span='6'>
         <el-form-item label="类型">
-          <el-input
-            size='small'
-            class=""
-            v-model='filter.userType'
-            @keyup.enter.native="query" />
+          <select-usertype :user-type.sync="pageFilter.userType" @result-change="typeChange" />
         </el-form-item>
       </el-col>
 
@@ -48,26 +28,44 @@
 </template>
 
 <script>
-  import Tabs from '@/components/tabs.vue'
+  import SearchUser from '@/components/search/search-user.vue'
+  import SearchAccount from '@/components/search/search-account.vue'
+  import SearchEmail from '@/components/search/search-email.vue'
+  import SelectUsertype from '@/components/search/select-usertype.vue'
 
   export default {
-    components: { Tabs },
+    components: { SearchUser, SearchAccount, SearchEmail, SelectUsertype },
+    props: {
+      filter: {
+        type: Object,
+        default: null
+      }
+    },
     data () {
       return {
-        filter: {
+        pageFilter: {
           email: '',
           account: '',
-          userName: '',
-          userType: ''
+          nickName: '',
+          userType: '',
+          userName: ''
         }
       }
     },
-    created () {
-
-    },
 
     methods: {
-
+      nickChange () {
+        this.filter.nickName = this.pageFilter.nickName
+      },
+      accountChange () {
+        this.filter.userName = this.pageFilter.userName
+      },
+      emailChange () {
+        this.filter.email = this.pageFilter.email
+      },
+      typeChange () {
+        this.filter.userType = this.pageFilter.userType
+      }
     }
   }
 </script>

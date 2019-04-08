@@ -25,10 +25,23 @@ const findUser = (userName) => {
   })
 }
 
-// 查找所有用户分页查询
-const findAllUsers = (size, current) => {
+// 根据用户名模糊查询用户
+const findUsers = (query, searchType) => {
+  let reg = new RegExp(query, 'i')
   return new Promise((resolve, reject) => {
-    User.find({}, (err, doc) => {
+    User.find({[searchType]: reg}, (err, doc) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(doc)
+    })
+  })
+}
+
+// 查找所有用户分页查询
+const findAllUsers = (size, current, filter) => {
+  return new Promise((resolve, reject) => {
+    User.find(filter, null, {sort: [{_id: -1}]}, (err, doc) => {
       if (err) {
         reject(err)
       }
@@ -38,9 +51,9 @@ const findAllUsers = (size, current) => {
 }
 
 // 查询总的条数
-const findTotal = () => {
+const findTotal = (filter) => {
   return new Promise((resolve, reject) => {
-    User.countDocuments({}, (err, doc) => {
+    User.countDocuments(filter, (err, doc) => {
       if (err) {
         reject(err)
       }
@@ -50,9 +63,20 @@ const findTotal = () => {
 }
 
 // 删除某个用户
-const delUser = (userName) => {
+const deleteUser = (userName) => {
   return new Promise((resolve, reject) => {
     User.findOneAndDelete({userName: userName}, (err, user) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(user)
+    })
+  })
+}
+// 删除多个用户
+const deleteUsers = (selection) => {
+  return new Promise((resolve, reject) => {
+    User.remove({userName: {$in: selection}}, (err, user) => {
       if (err) {
         reject(err)
       }
@@ -154,10 +178,16 @@ const register = async (ctx) => {
 const getAllUsers = async (ctx) => {
   let size = ctx.request.body.pageSize
   let current = ctx.request.body.pageCurrent
+  let filter = ctx.request.body.filter
   let doc = []
   let total = 0
   let result = []
-  await Promise.all([findAllUsers(size, current), findTotal()]).then(results => {
+  Object.keys(filter).map(item => {
+    if (filter[item] === '') {
+      delete filter[item]
+    }
+  })
+  await Promise.all([findAllUsers(size, current, filter), findTotal(filter)]).then(results => {
     doc = results[0]
     total = results[1]
     if (doc.length > 0) {
@@ -183,10 +213,9 @@ const getAllUsers = async (ctx) => {
 }
 
 // 删除某个用户
-const delUsers = async (ctx) => {
+const delUser = async (ctx) => {
   let userName = ctx.request.body.userName
-  let doc = await delUser(userName)
-  console.log(doc)
+  let doc = await deleteUser(userName)
   if (doc) {
     ctx.body = {
       success: true,
@@ -200,10 +229,60 @@ const delUsers = async (ctx) => {
   }
 }
 
+// 删除多个用户
+const delUsers = async (ctx) => {
+  let selection = ctx.request.body.selection
+  let doc = await deleteUsers(selection)
+  if (doc) {
+    ctx.body = {
+      success: true,
+      info: '删除成功'
+    }
+  } else {
+    ctx.body = {
+      success: false,
+      info: '删除失败'
+    }
+  }
+}
+
+// 搜索用户
+const searchUser = async (ctx) => {
+  let query = ctx.request.body.query
+  let type = ctx.request.body.type
+  let doc = await findUsers(query, type)
+  let result = []
+  if (doc) {
+    if (type === 'email') {
+      doc.map(item => {
+        result.push({
+          label: item.userName,
+          value: item.email
+        })
+      })
+    } else {
+      doc.map(item => {
+        result.push({
+          label: item.nickName,
+          value: item.userName,
+          type: item.userType
+        })
+      })
+    }
+  }
+  ctx.status = 200
+  ctx.body = {
+    success: true,
+    result: result
+  }
+}
+
 module.exports = {
   register,
   login,
   getAllUsers,
+  delUser,
   delUsers,
+  searchUser,
   checkToken
 }

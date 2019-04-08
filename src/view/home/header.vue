@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <ul>
+    <ul class="header-menu">
       <li>
         <a href="#">Element 1</a>
         <ul>
@@ -60,18 +60,28 @@
         <div class="panel-userinfo">
           <b>拉钩不上吊</b>
         </div>
+        <div class="panel-operate">
+          <el-col :span="12">
+            <i class="icon-qhy--shangchuantouxiang"/>
+            <span @click="changeImg">更换头像</span>
+          </el-col>
+        </div>
         <div class="panel-bottom">
           <el-button type="text" class="operate-button" @click="logout">退出</el-button>
         </div>
       </div>
     </div>
+    <update-img ref="updateRef" @enter="updateImg" />
+
   </nav>
 </template>
 
 <script>
+  import UpdateImg from '@/components/update-img.vue'
+  import api from '@/api/axios.js'
 
   export default {
-    components: { },
+    components: { UpdateImg },
     data () {
       return {
         defaultActive: ''
@@ -79,7 +89,6 @@
     },
     created () {
     },
-
     methods: {
       logout () {
         // 清除token
@@ -96,12 +105,19 @@
             message: '登出失败'
           })
         }
+      },
+      changeImg () {
+        this.$refs.updateRef.openDialog()
+      },
+      updateImg (val) {
+        console.log(val)
+        api.Upload()
       }
     }
   }
 </script>
 <style scoped>
-* {
+.header-menu * {
   transition:all .5s .1s;
   -moz-transition:all .5s .1s;
   -ms-transition:all .5s .1s;
@@ -295,6 +311,7 @@ nav ul li:hover ul li a {
 .panel-userinfo {
   font-size: 12px;
   padding-bottom: 15px;
+  border-bottom: 1px solid #e5e9ef;
   display: none;
 }
 .self-account:hover .panel-bottom {
@@ -302,6 +319,21 @@ nav ul li:hover ul li a {
 }
 .self-account:hover .panel-userinfo {
   display: block;
+}
+.self-account:hover .panel-operate {
+  display: block;
+}
+.panel-operate{
+  font-size: 12px;
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0;
+  display: none;
+}
+.panel-operate span {
+  cursor: pointer;
+  user-select: none;
+  color: #222;
 }
 .panel-bottom {
   width: 100%;

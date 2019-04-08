@@ -9,8 +9,16 @@ childRouter.post('/user/register', userController.register)
 
 // 用户其它操作如删除用户等
 
+// 获得用户
 childRouter.post('/getUsers', checkToken, userController.getAllUsers)
-childRouter.post('/delUser', checkToken, userController.delUsers)
+// 删除用户 单个
+childRouter.post('/delUser', checkToken, userController.delUser)
+// 删除用户 多个
+childRouter.post('/delUsers', checkToken, userController.delUsers)
+// 检查用户token
 childRouter.get('/checkToken', checkToken, userController.checkToken)
+
+// 搜索用户
+childRouter.post('/searchUser', checkToken, userController.searchUser)
 
 module.exports = childRouter

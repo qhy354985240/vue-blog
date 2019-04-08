@@ -17,9 +17,6 @@ body, div, form, h1, h2, h3, h4, h5, h6, html, input, li, ol, p, ul {
 a {
   text-decoration: none;
 }
-input {
-  background-color: #fff !important;
-}
 
 .wrapper {
   margin-bottom: 40px;
@@ -267,4 +264,10 @@ input {
 }
 .el-menu-item:hover i {
   color: #FF7F00 !important;
+}
+ .el-select .el-input__inner {
+  height: 32px !important;
+}
+.el-select {
+  width: 100% !important;
 }

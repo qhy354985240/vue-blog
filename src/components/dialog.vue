@@ -10,7 +10,7 @@
     <slot/>
     <span slot="footer" class="dialog-footer">
       <el-button @click="cancel">取 消</el-button>
-      <el-button type="primary" @click="confirmFun">确 定</el-button>
+      <el-button type="primary" @click="confirmFun" :disabled="disable">确 定</el-button>
     </span>
   </el-dialog>
 </template>
@@ -65,6 +65,10 @@
         default () {
           return '50%'
         }
+      },
+      disable: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -75,7 +79,6 @@
       }
     },
     created () {
-      console.log(this.visible)
     },
     methods: {
       funConfig (fun) {

@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="serch-block">
-      <user-filter/>
+      <user-filter :filter="filter"/>
     </div>
     <div class="box-card">
-      <list/>
+      <list ref="userListRef" :filter="filter"/>
     </div>
   </div>
 </template>
@@ -19,7 +19,14 @@
       return {
         breadList: [{
           path: '/usermanage', name: '用户管理'
-        }]
+        }],
+        filter: {
+          email: '',
+          account: '',
+          nickName: '',
+          userType: '',
+          userName: ''
+        }
       }
     },
     created () {
@@ -27,7 +34,6 @@
     },
 
     methods: {
-
     }
   }
 </script>

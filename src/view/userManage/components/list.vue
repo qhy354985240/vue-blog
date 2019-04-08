@@ -82,7 +82,7 @@
       <el-button
         size="mini"
         icon="el-icon-refresh"
-        @click="getUsers">刷新</el-button>
+        @click="getUsers()">刷新</el-button>
     </div>
     <div class="pagination">
       <pagination-page :data.sync=pagination @refresh="getUsers"/>
@@ -98,6 +98,12 @@
     components: {
       PaginationPage
     },
+    props: {
+      filter: {
+        type: Object,
+        default: null
+      }
+    },
     data () {
       return {
         loading: false,
@@ -108,7 +114,8 @@
           pageCurrent: 1,
           pageSizeList: [10, 20, 50, 100],
           total: 0
-        }
+        },
+        start: ''
       }
     },
     created () {
@@ -119,12 +126,22 @@
         return this.$store.getters.isManager
       }
     },
+    watch: {
+      'filter': {
+        deep: true,
+        handler () {
+          console.log(111)
+          this.query()
+        }
+      }
+    },
     methods: {
       getUsers () {
         this.loading = true
         api.getUser({
           pageSize: this.pagination.pageSize,
-          pageCurrent: this.pagination.pageCurrent
+          pageCurrent: this.pagination.pageCurrent,
+          filter: this.filter
         }).then((res) => {
           this.loading = false
           if (res.success) {
@@ -133,7 +150,6 @@
           }
         }).catch(res => {
           this.loading = false
-          console.log(res.message)
         })
       },
       handleEdit (index, row) {
@@ -160,9 +176,22 @@
       },
       // 删除多个用户
       handleDeleteMany () {
-        let data = []
+        let selection = []
         this.multipleSelection.map(item => {
-          data.push(item)
+          selection.push(item.userName)
+        })
+        api.delUsers({
+          selection
+        }).then(res => {
+          if (res.success) {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+            this.query()
+          } else {
+            this.$message.error('删除失败')
+          }
         })
       },
 
@@ -177,7 +206,17 @@
           type: 'warning'
         }).then(() => {
           if (type === 'single') {
-            this.handleDelete(row)
+            if (this.multipleSelection.length < 2) {
+              this.handleDelete(row)
+            } else {
+              this.$message.warning('选择多位用户后请使用批量删除操作')
+            }
+          } else {
+            if (this.multipleSelection.length < 1) {
+              this.$message.warning('请选择至少一位用户进行此操作')
+            } else {
+              this.handleDeleteMany()
+            }
           }
         }).catch(() => {
           this.$message({
