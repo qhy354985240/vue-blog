@@ -54,7 +54,7 @@
     </ul>
     <div class="self-account">
       <div class="self-face">
-        <img src="@/assets/img/bgone.jpg" class="face">
+        <img :src="imgUrl" class="face">
       </div>
       <div class="self-panel">
         <div class="panel-userinfo">
@@ -84,7 +84,8 @@
     components: { UpdateImg },
     data () {
       return {
-        defaultActive: ''
+        defaultActive: '',
+        imgUrl: ''
       }
     },
     created () {
@@ -110,13 +111,13 @@
         this.$refs.updateRef.openDialog()
       },
       updateImg (val) {
-        console.log(val)
         let formData = new FormData()
         formData.append('file', val)
-        console.log(formData, '1111')
-
         api.upLoad(formData).then(res => {
-          console.log(res)
+          if (res.success) {
+            this.imgUrl = res.fullPath
+            this.$refs.updateRef.hideDialog()
+          }
         })
       }
     }

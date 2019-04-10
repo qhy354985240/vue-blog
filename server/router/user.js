@@ -4,6 +4,7 @@ const childRouter = new Router()
 const userController = require('../controllers/user.js')
 const checkToken = require('../token/checkToken.js')
 const fs = require('fs')
+const config = require('../config/config.js')
 
 childRouter.post('/user/login', userController.login)
 childRouter.post('/user/register', userController.register)
@@ -15,16 +16,15 @@ var storage = multer.diskStorage({
   // 文件保存路径
   destination: function (req, file, cb) {
     let path = ''
-    'dist/path'.split('/').forEach(p => {
+    config.upPath.split('/').forEach(p => {
       if (p && !fs.existsSync(path += p + '/')) {
         fs.mkdirSync(path)
       }
     })
-    cb(null, 'dist/uploads/')
+    cb(null, config.upPath)
   },
   // 修改文件名称
   filename: function (req, file, cb) {
-    console.log(file, 'xxxxxxx')
     var fileFormat = (file.originalname).split('.')
     cb(null, Date.now() + '.' + fileFormat[fileFormat.length - 1])
   }
@@ -33,10 +33,13 @@ var storage = multer.diskStorage({
 var upload = multer({ storage })
 // 路由
 childRouter.post('/upload', upload.single('file'), async ctx => {
-  console.log('22222')
-  // ctx.body = {
-  //   filename: ctx.req.file.filename// 返回文件名
-  // }
+  const { filename } = ctx.req.file
+  let fullPath = config.localDomain + config.upPath.replace('dist/', '/') + filename
+  ctx.body = {
+    success: true,
+    filename: ctx.req.file.filename,
+    fullPath: fullPath
+  }
 })
 
 // 用户其它操作如删除用户等

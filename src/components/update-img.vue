@@ -364,7 +364,7 @@
   }
 </script>
 
-<style lang="scss" type='text/scss' scoped>
+<style scoped>
 li, ul {
   list-style: none;
   margin: 0;
@@ -394,6 +394,7 @@ li, ul {
   height: 350px;
   border: solid 1px #e8e8e8;
   background-color: #f6f8fa;
+}
   .container-box {position: relative;}
   img {width: 100%;height: 100%}
   .select-box {
@@ -408,6 +409,7 @@ li, ul {
     position: absolute;
     width: 100%;
     height: 100%;
+  }
     li {
       position: relative;
       border: dashed 1px white;
@@ -422,32 +424,30 @@ li, ul {
       content: '';
       background-color: white;
     }
-  }
   .x-line {
     flex-direction: column;
-    li:nth-child(1) {
+  }
+    .x-line li:nth-child(1) {
       cursor: n-resize;
-      &:before {left: 50%;}
     }
+     .x-line li:nth-child(1):before {left: 50%;}
     li:nth-last-child(1) {
       cursor: s-resize;
-      &:before {left: 50%;}
     }
-  }
-  .y-line {
-    li:nth-child(1) {
+     .x-line li:nth-last-child(1):before {left: 50%;}
+    .y-line li:nth-child(1) {
       cursor: w-resize;
-      &:before {top: 50%;}
     }
-    li:nth-last-child(1) {
+      .y-line li:nth-child(1):before {top: 50%;}
+    .y-line li:nth-last-child(1) {
       cursor: e-resize;
-      &:before {top: 50%;}
     }
-  }
+      .y-line li:nth-last-child(1):before {top: 50%;}
   .point {
     width: 100%;
     height: 100%;
-    li {
+  }
+    .point li {
       position: absolute;
       margin-left: -3px;
       margin-top: -3px;
@@ -457,27 +457,26 @@ li, ul {
       cursor: crosshair;
       background-color: white;
     }
-    li:nth-child(1) {
+    .point li:nth-child(1) {
       top: 2px;
       left: 1px;
       cursor: nw-resize;
     }
-    li:nth-child(2) {
+    .point li:nth-child(2) {
       top: 2px;
       right: -2px;
       cursor: ne-resize;
     }
-    li:nth-child(3) {
+    .point li:nth-child(3) {
       bottom: -2px;
       left: 1px;
       cursor: sw-resize;
     }
-    li:nth-child(4) {
+    .point li:nth-child(4) {
       bottom: -2px;
       right: -2px;
       cursor: se-resize;
     }
-  }
   .cross {
     position: absolute;
     top: 50%;
@@ -489,7 +488,6 @@ li, ul {
     margin-left: -3px;
     background-size: cover;
   }
-}
 .c-right {
   flex: 1;
   position: relative;
@@ -497,25 +495,24 @@ li, ul {
   font-size: 16px;
   color: #333333;
   text-align: center;
+}
   .preview {
     padding: 0 16px 34px;
     border: solid 1px #e8e8e8;
     background-color: #fafafa;
-    p {
+  }
+    .preview p {
       height: 30px;
       line-height: 30px;
     }
-    canvas {
+    .preview canvas {
       display: block;
       width: 190px;
       height: 190px;
       border: solid 1px #e8e8e8;
       background-repeat: round;
       margin: 0 auto;
-      // background-image: url(./imgs/empty.png);
     }
-    // .canvas--doing {background-image: url(./imgs/empty--pure.png);}
-  }
   .btn-upload {
     margin-top: 20px;
     width: 100%;
@@ -535,7 +532,6 @@ li, ul {
     opacity: 0;
     background-color: white;
   }
-}
 .btn-update {
   position: relative;
 }

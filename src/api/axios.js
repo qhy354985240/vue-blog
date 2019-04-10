@@ -77,7 +77,6 @@ export default {
 
   // 更换头像
   upLoad (data) {
-    console.log(data)
     return axiosToken.post('/api/upload', data)
   }
 }
