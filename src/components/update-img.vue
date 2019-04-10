@@ -17,7 +17,6 @@
               height:`${containerBoxData.height}px`,
             }">
               <img ref="$img" :src="imgURL">
-              <div class="img-mask"/>
               <div class="select-box" v-if="imgURL"
                    @mousedown="onMouseDown($event, 'move')" :style="{
                      top:`${selectData.top}px`,
@@ -96,7 +95,8 @@
           selectLine: '' // 选择那一条边进行拉伸，为空则不是在拉伸
         },
         visableDialog: false,
-        disabled: true
+        disabled: true,
+        file: null
       }
     },
     created () {
@@ -138,19 +138,21 @@
           document.body.appendChild($img)
         })
       },
+
       // 从base64转化为file文件
-      base64ToFile (base64Str, fileName) {
-        const params = base64Str.split(',')
-        const mime = params[0].match(/:(.*?)/)[1]
-        const fileData = atob(params[1]) // 解码Base64
-        let { length } = fileData
-        const uint8Array = new Uint8Array(length)
-        while (length) {
-          length -= 1
-          uint8Array[length] = fileData.charCodeAt(length)
-        }
-        return new File([uint8Array], fileName, { type: mime })
-      },
+      // base64ToFile (base64Str, fileName) {
+      //   const params = base64Str.split(',')
+      //   const mime = params[0].match(/:(.*?)/)[1]
+      //   const fileData = atob(params[1]) // 解码Base64
+      //   let { length } = fileData
+      //   const uint8Array = new Uint8Array(length)
+      //   while (length) {
+      //     length -= 1
+      //     uint8Array[length] = fileData.charCodeAt(length)
+      //   }
+      //   return new File([uint8Array], fileName, { type: mime })
+      // },
+
       // 获取驼峰写法
       getCamelCase (text) {
         return text.replace(/-[a-z]+?/g, matchStr => matchStr[1].toUpperCase())
@@ -310,6 +312,7 @@
       // 选择图片
       fileChange (event) {
         if (this.$refs.fileRef.files.length < 1) return false
+        this.file = this.$refs.fileRef.files[0]
         let imgSize = Math.floor(this.$refs.fileRef.files[0].size / 1024)
         if (imgSize > 200) {
           this.$message.error('图片最大不能超过2M')
@@ -347,7 +350,7 @@
           if (this.returnType === 'url') {
             this.$emit('enter', this.$refs.$canvas.toDataURL()) // 返回链接
           } else if (this.returnType === 'file') {
-            this.$emit('enter', this.base64ToFile(this.$refs.$canvas.toDataURL())) // 返回文件
+            this.$emit('enter', this.file) // 返回文件
           }
         } else {
           this.$message('请上传图片', 'error')
@@ -392,15 +395,6 @@ li, ul {
   border: solid 1px #e8e8e8;
   background-color: #f6f8fa;
   .container-box {position: relative;}
-  .img-mask {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.3;
-    background-color: white;
-  }
   img {width: 100%;height: 100%}
   .select-box {
     position: absolute;

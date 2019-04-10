@@ -1,7 +1,6 @@
 import axios from 'axios'
 import router from '../router'
 import store from '../vuex'
-import { Upload } from 'element-ui'
 
 // 设置全局axios默认值
 axios.defaults.timeout = 6000 // 6000的超时验证
@@ -77,7 +76,8 @@ export default {
   },
 
   // 更换头像
-  Upload (data) {
+  upLoad (data) {
+    console.log(data)
     return axiosToken.post('/api/upload', data)
   }
 }

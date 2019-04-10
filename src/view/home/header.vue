@@ -111,7 +111,13 @@
       },
       updateImg (val) {
         console.log(val)
-        api.Upload()
+        let formData = new FormData()
+        formData.append('file', val)
+        console.log(formData, '1111')
+
+        api.upLoad(formData).then(res => {
+          console.log(res)
+        })
       }
     }
   }
