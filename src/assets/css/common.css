@@ -17,6 +17,9 @@ body, div, form, h1, h2, h3, h4, h5, h6, html, input, li, ol, p, ul {
 a {
   text-decoration: none;
 }
+button {
+  outline: none;
+}
 
 .wrapper {
   margin-bottom: 40px;

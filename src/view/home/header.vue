@@ -1,5 +1,12 @@
 <template>
   <nav>
+    <div class="header-icon">
+      <atom-spinner
+        :animation-duration="1000"
+        :size="40"
+        :color="'#333'"
+      />
+    </div>
     <ul class="header-menu">
       <li>
         <a href="#">Element 1</a>
@@ -80,9 +87,10 @@
 <script>
   import UpdateImg from '@/components/update-img.vue'
   import api from '@/api/axios.js'
+  import {AtomSpinner} from 'epic-spinners'
 
   export default {
-    components: { UpdateImg },
+    components: { UpdateImg, AtomSpinner },
     data () {
       return {
         defaultActive: '',
@@ -161,6 +169,7 @@ nav {
 nav ul {
   /* display:table; */
   margin:0 auto;
+  display: inline-block;
 }
 nav ul li {
   float:left;
@@ -366,6 +375,14 @@ nav ul li:hover ul li a {
   background-color: #f4f5f7;
   border-radius: 0 0 4px 4px;
   display: none;
+}
+.header-icon {
+  display: inline-block;
+  position: relative;
+  bottom: 8px;
+  left: 40px;
+  margin-right: 60px;
+  cursor: default;
 }
 
 </style>

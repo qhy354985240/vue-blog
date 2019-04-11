@@ -139,20 +139,6 @@
         })
       },
 
-      // 从base64转化为file文件
-      // base64ToFile (base64Str, fileName) {
-      //   const params = base64Str.split(',')
-      //   const mime = params[0].match(/:(.*?)/)[1]
-      //   const fileData = atob(params[1]) // 解码Base64
-      //   let { length } = fileData
-      //   const uint8Array = new Uint8Array(length)
-      //   while (length) {
-      //     length -= 1
-      //     uint8Array[length] = fileData.charCodeAt(length)
-      //   }
-      //   return new File([uint8Array], fileName, { type: mime })
-      // },
-
       // 获取驼峰写法
       getCamelCase (text) {
         return text.replace(/-[a-z]+?/g, matchStr => matchStr[1].toUpperCase())

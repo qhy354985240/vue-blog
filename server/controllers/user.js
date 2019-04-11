@@ -103,6 +103,7 @@ const login = async (ctx) => {
   let userName = ctx.request.body.userName
   let passWord = ctx.request.body.passWord
   let doc = await findUser(userName)
+  console.log(doc)
   if (!doc) {
     ctx.status = 200
     ctx.body = {
@@ -134,7 +135,7 @@ const login = async (ctx) => {
       token,
       userType: doc.userType,
       createTime: doc.createTime,
-      userPath: doc.imgPath
+      userPath: doc.imgPath || ''
     }
   }
 }

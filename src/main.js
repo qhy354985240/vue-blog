@@ -7,6 +7,8 @@ import App from './App'
 import router from './router'
 import '@/assets/css/common.css'
 import mavonEditor from 'mavon-editor'
+import VueTouchRipple from 'vue-touch-ripple'
+import 'vue-touch-ripple/dist/vue-touch-ripple.css'
 
 import {
   Table,
@@ -120,6 +122,13 @@ Vue.use(Tree)
 
 // markdown
 Vue.use(mavonEditor)
+Vue.use(VueTouchRipple /* {
+  // default global options
+  color: '#fff',
+  opacity: 0.3,
+  speed: 1,
+  transition: 'ease'
+} */)
 
 Vue.prototype.$message = Message
 Vue.prototype.$msgbox = MessageBox

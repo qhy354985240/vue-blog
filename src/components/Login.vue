@@ -9,14 +9,14 @@
           <div class="col_md_login">
             <div class="cont_ba_opcitiy">
               <h2>登录</h2>
-              <p>记录</p>
+              <p class="margin-bottom">记录</p>
               <button class="btn_login" @click="login">登录</button>
             </div>
           </div>
           <div class="col_md_sign_up">
             <div class="cont_ba_opcitiy">
               <h2>注册</h2>
-              <p>成长</p>
+              <p class="margin-bottom">成长</p>
               <button class="btn_sign_up" @click="signUp">注册</button>
             </div>
           </div>
@@ -57,13 +57,16 @@
                 </div>
               </el-form-item>
             </el-form>
-            <button class="btn_login" @click="login">登录</button>
+            <touch-ripple @click.native="login">
+              <button class="btn_login">登录</button>
+            </touch-ripple>
+
           </div>
 
           <!-- 注册 -->
           <div class="cont_form_sign_up" ref="cont_form_sign_up">
             <a href="#" @click="change"><i class="el-icon-close"/></a>
-            <h2>注册</h2>
+            <h2 style="margin-top:30px;">注册</h2>
             <el-form :model="regForm" class="input-80" :rules="rules1" ref="regForm">
               <el-form-item prop="userName" class="input-80">
                 <el-input v-model="regForm.nickName" placeholder="你的昵称" autocomplete="off" />
@@ -83,7 +86,9 @@
                 <el-input v-model="regForm.email" type="email" placeholder="邮箱"/>
               </el-form-item>
             </el-form>
-            <button class="btn_sign_up" @click="signUp">注册</button>
+            <touch-ripple @click.native="signUp">
+              <button class="btn_sign_up">注册</button>
+            </touch-ripple>
 
           </div>
 
@@ -530,13 +535,13 @@ width: 80%;
 
 .btn_login {
 background-color: #FF9800;
-  border: none;
-  padding: 10px;
+border: none;
+padding: 10px;
 width: 200px;
 border-radius:3px;
 box-shadow: 1px 5px 20px -5px rgba(0,0,0,0.4);
-  color: #fff;
-margin-top: 10px;
+color: #fff;
+cursor: pointer;
 cursor: pointer;
 }
 
@@ -577,7 +582,6 @@ width: 200px;
 border-radius:3px;
 box-shadow: 1px 5px 20px -5px rgba(0,0,0,0.4);
   color: #fff;
-margin-top: 10px;
 cursor: pointer;
 }
 .cont_forms_active_sign_up {
@@ -699,9 +703,11 @@ color: #757575;
 }
 .cont_form_login > a,.cont_form_sign_up > a  {
   color: #757575;
-    position: relative;
-    float: left;
-    margin: 10px;
-margin-left: 30px;
+  position: absolute;
+  margin: 10px;
+  left: 0;
+}
+.margin-bottom {
+  margin-bottom: 10px;
 }
 </style>
