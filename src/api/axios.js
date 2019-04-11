@@ -55,28 +55,32 @@ export default {
   },
   // 获取用户
   getUser (data) {
-    return axiosToken.post('/api/getUsers', data)
+    return axiosToken.post('/api/user/getUsers', data)
   },
   // 删除用户 单个
   delUser (data) {
-    return axiosToken.post('/api/delUser', data)
+    return axiosToken.post('/api/user/delUser', data)
   },
 
   // 删除用户 多个
   delUsers (data) {
-    return axiosToken.post('/api/delUsers', data)
+    return axiosToken.post('/api/user/delUsers', data)
   },
   // 登录是否过期是否
   isLogin () {
-    return axiosToken.get('/api/checkToken')
+    return axiosToken.get('/api/user/checkToken')
   },
   // 搜索用户多选
   searchUser (data) {
-    return axiosToken.post('/api/searchUser', data)
+    return axiosToken.post('/api/user/searchUser', data)
   },
 
   // 更换头像
   upLoad (data) {
-    return axiosToken.post('/api/upload', data)
+    return axiosToken.post('/api/user/upload', data)
+  },
+  // 更新用户信息
+  updateUser (data) {
+    return axiosToken.post('/api/user/update/user', data)
   }
 }

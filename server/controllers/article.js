@@ -4,9 +4,8 @@ const path = require('path')
 
 const User = require('../mongodb.js').User
 // 密码加密
+const sha1 = require('sha1')
 const createToken = require('../token/createToken.js')
-const config = require('../config/config.js')
-
 // 判断是否过期
 const checkToken = async (ctx) => {
   ctx.status = 200
@@ -101,7 +100,8 @@ const update = (where, data) => {
 // 登录
 const login = async (ctx) => {
   let userName = ctx.request.body.userName
-  let passWord = ctx.request.body.passWord
+  let passWord = sha1(ctx.request.body.passWord)
+
   let doc = await findUser(userName)
   if (!doc) {
     ctx.status = 200
@@ -145,11 +145,10 @@ const register = async (ctx) => {
     nickName: ctx.request.body.nickName,
     email: ctx.request.body.email,
     userName: ctx.request.body.userName,
-    passWord: ctx.request.body.passWord,
+    passWord: sha1(ctx.request.body.passWord),
     createTime: moment().format('YYYY-MM-DD'),
     token: createToken(this.userName),
-    userType: ctx.request.body.userType,
-    imgPath: ''
+    userType: ctx.request.body.userType
   })
   let userData = await findUser(user.userName)
   if (userData) {
@@ -183,8 +182,7 @@ const register = async (ctx) => {
       userName: doc.userName,
       userType: doc.userType,
       token,
-      createTime: doc.createTime,
-      userPath: doc.imgPath
+      createTime: doc.createTime
     }
   }
 }
@@ -297,7 +295,6 @@ const updateUser = async (ctx) => {
   let userName = ctx.request.body.userName
   let imgPath = ctx.request.body.imgUrl
   let user = await findUser(userName)
-
   let userpath = user.imgPath
   let img = path.resolve(__dirname, '../../dist/upImg' + userpath.slice(userpath.lastIndexOf('/')))
   if (userpath) {

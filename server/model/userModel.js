@@ -9,7 +9,8 @@ const userSchema = new Schema({
   createTime: String,
   token: String,
   userType: String,
-  create_time: Date
+  create_time: Date,
+  imgPath: String
 })
 
 const User = mongoose.model('Users', userSchema)

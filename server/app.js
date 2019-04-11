@@ -4,7 +4,8 @@ const Koa = require('koa')
 const app = new Koa()
 const bodyParser = require('koa-bodyparser') // 处理Post请求
 const Router = require('koa-router')
-const apiRouter = require('./router/user') // 引入子路由
+const userRouter = require('./router/user') // 引入用户子路由
+const articleRouter = require('./router/article') // 引入文章子路由
 const logUtil = require('./utils/log_util') // log工具
 // const resFormat = require('./middlewares/resFormat')
 const server = require('koa-static')
@@ -38,7 +39,8 @@ app.use(async (ctx, next) => {
 // app.use(resFormat)
 
 // 装载子路由
-router.use('/api', apiRouter.routes(), apiRouter.allowedMethods())
+router.use('/api/user', userRouter.routes(), userRouter.allowedMethods())
+router.use('/api/article', articleRouter.routes(), articleRouter.allowedMethods())
 
 // 加载路由中间件
 app.use(router.routes()).use(router.allowedMethods())

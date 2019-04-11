@@ -97,6 +97,7 @@
 <script>
   import api from '@/api/axios.js'
   import Vertify from '@/components/vertify.vue'
+  import sha1 from 'sha1'
 
   export default {
     components: {
@@ -109,6 +110,7 @@
           callback(new Error('请输入验证码'))
         } else if (value !== this.identifyCode) {
           callback(new Error('验证码不正确!'))
+          this.refreshCode()
         } else {
           callback()
         }
@@ -206,10 +208,11 @@
           this.identifyCode += this.identifyCodes[this.randomNum(0, this.identifyCodes.length)]
         }
       },
-      // 提交表单
+      // 提交登录表单
       submitForm (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) { // 验证通过
+            this.loginForm.passWord = sha1(this.loginForm.passWord)
             let form = this.loginForm
             api.userLogin(form)
               .then((res) => {
@@ -222,6 +225,8 @@
                   let token = res.token
                   let userName = res.userName
                   let userType = res.userType
+                  let userPath = res.userPath
+                  window.localStorage.setItem('userPath', userPath)
                   this.$store.dispatch('UserLogin', token)
                   this.$store.dispatch('userName', userName)
                   this.$store.dispatch('userType', userType)
@@ -261,6 +266,7 @@
         this.$refs[formName].validate((valid) => {
           if (valid) { // 验证通过
             this.regForm['userType'] = 'common'
+            this.regForm.passWord = sha1(this.regForm.passWord)
             api.userRegister(this.regForm)
               .then((res) => {
                 if (res.success) {
@@ -271,9 +277,11 @@
                   let token = res.token
                   let userName = res.userName
                   let userType = res.userType
+                  let userPath = res.userPath
                   this.$store.dispatch('UserLogin', token)
                   this.$store.dispatch('userName', userName)
                   this.$store.dispatch('userType', userType)
+                  window.localStorage.setItem('userPath', userPath)
                   let redirectUrl = decodeURIComponent(this.$route.query.redirect || '/')
                   // 跳转到指定的路由
                   this.$router.push({

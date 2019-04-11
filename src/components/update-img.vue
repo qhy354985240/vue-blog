@@ -344,13 +344,25 @@
         }
         reader.readAsDataURL(fileObj)
       },
+      // 从base64转化为file文件
+      base64ToFile (base64Str, fileName) {
+        const params = base64Str.split(',')
+        const fileData = atob(params[1]) // 解码Base64
+        let { length } = fileData
+        const uint8Array = new Uint8Array(length)
+        while (length) {
+          length -= 1
+          uint8Array[length] = fileData.charCodeAt(length)
+        }
+        return new File([uint8Array], fileName, { type: this.file.type })
+      },
       // 确认
       onEnter () {
         if (this.imgURL) {
           if (this.returnType === 'url') {
             this.$emit('enter', this.$refs.$canvas.toDataURL()) // 返回链接
           } else if (this.returnType === 'file') {
-            this.$emit('enter', this.file) // 返回文件
+            this.$emit('enter', this.base64ToFile(this.$refs.$canvas.toDataURL(), this.file.name)) // 返回文件
           }
         } else {
           this.$message('请上传图片', 'error')

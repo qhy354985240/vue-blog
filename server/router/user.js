@@ -6,12 +6,11 @@ const checkToken = require('../token/checkToken.js')
 const fs = require('fs')
 const config = require('../config/config.js')
 
-childRouter.post('/user/login', userController.login)
-childRouter.post('/user/register', userController.register)
+childRouter.post('/login', userController.login)
+childRouter.post('/register', userController.register)
 
 const multer = require('koa-multer')// 加载koa-multer模块
 // 文件上传
-// 配置
 var storage = multer.diskStorage({
   // 文件保存路径
   destination: function (req, file, cb) {
@@ -32,9 +31,9 @@ var storage = multer.diskStorage({
 // 加载配置
 var upload = multer({ storage })
 // 路由
-childRouter.post('/upload', upload.single('file'), async ctx => {
+childRouter.post('/upload', checkToken, upload.single('file'), async ctx => {
   const { filename } = ctx.req.file
-  let fullPath = config.localDomain + config.upPath.replace('dist/', '/') + filename
+  let fullPath = config.domain + config.upPath.replace('dist/', '/') + filename
   ctx.body = {
     success: true,
     filename: ctx.req.file.filename,
@@ -55,5 +54,8 @@ childRouter.get('/checkToken', checkToken, userController.checkToken)
 
 // 搜索用户
 childRouter.post('/searchUser', checkToken, userController.searchUser)
+
+// 更新用户
+childRouter.post('/update/user', checkToken, userController.updateUser)
 
 module.exports = childRouter

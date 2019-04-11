@@ -54,7 +54,8 @@
     </ul>
     <div class="self-account">
       <div class="self-face">
-        <img :src="imgUrl" class="face">
+        <img src="@/assets/img/bgone.jpg" class="face" v-if="imgUrl==''">
+        <img :src="imgUrl" class="face" v-else>
       </div>
       <div class="self-panel">
         <div class="panel-userinfo">
@@ -85,10 +86,11 @@
     data () {
       return {
         defaultActive: '',
-        imgUrl: ''
+        imgUrl: window.localStorage.getItem('userPath')
       }
     },
     created () {
+
     },
     methods: {
       logout () {
@@ -116,8 +118,22 @@
         api.upLoad(formData).then(res => {
           if (res.success) {
             this.imgUrl = res.fullPath
+            window.localStorage.setItem('userPath', this.imgUrl)
+            this.updateUser()
             this.$refs.updateRef.hideDialog()
           }
+        })
+      },
+      updateUser () {
+        api.updateUser({
+          userName: this.$store.state.userName,
+          imgUrl: this.imgUrl
+        }).then(res => {
+          if (res.success) {
+            this.$message.success('头像更换成功')
+          }
+        }).catch(res => {
+          this.$message.error(res.message)
         })
       }
     }
@@ -286,6 +302,7 @@ nav ul li:hover ul li a {
     border-radius: 50%;
     vertical-align: middle;
 }
+
 .self-account:hover .face {
     border: 2px solid #fff;
 
