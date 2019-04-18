@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const User = require('./model/userModel.js')
+const Article = require('./model/articleModel.js')
 
 // mongoose.connect('mongodb://qhy:qhy@localhost:27017/test?authSource=admin', {useNewUrlParser: true, config: { autoIndex: false }})
 mongoose.connect('mongodb://qhy:qhy@148.70.242.234:27017/test?authSource=admin', {useNewUrlParser: true, config: { autoIndex: false }})
@@ -15,7 +16,8 @@ db.on('open', () => {
 })
 
 module.exports = {
-  User: User
+  User: User,
+  Article: Article
 }
 
 // const userSchema = new Schema({

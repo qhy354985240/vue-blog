@@ -217,8 +217,8 @@
       submitForm (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) { // 验证通过
-            this.loginForm.passWord = sha1(this.loginForm.passWord)
-            let form = this.loginForm
+            let form = JSON.parse(JSON.stringify(this.loginForm))
+            form.passWord = sha1(form.passWord)
             api.userLogin(form)
               .then((res) => {
                 // 账号存在
@@ -232,6 +232,7 @@
                   let userType = res.userType
                   let userPath = res.userPath
                   window.localStorage.setItem('userPath', userPath)
+                  window.localStorage.setItem('nickName', res.nickName)
                   this.$store.dispatch('UserLogin', token)
                   this.$store.dispatch('userName', userName)
                   this.$store.dispatch('userType', userType)
@@ -271,8 +272,9 @@
         this.$refs[formName].validate((valid) => {
           if (valid) { // 验证通过
             this.regForm['userType'] = 'common'
-            this.regForm.passWord = sha1(this.regForm.passWord)
-            api.userRegister(this.regForm)
+            let form = JSON.parse(JSON.stringify(this.loginForm))
+            form.passWord = sha1(form.passWord)
+            api.userRegister(form)
               .then((res) => {
                 if (res.success) {
                   this.$message({
@@ -287,6 +289,7 @@
                   this.$store.dispatch('userName', userName)
                   this.$store.dispatch('userType', userType)
                   window.localStorage.setItem('userPath', userPath)
+                  window.localStorage.setItem('nickName', res.nickName)
                   let redirectUrl = decodeURIComponent(this.$route.query.redirect || '/')
                   // 跳转到指定的路由
                   this.$router.push({

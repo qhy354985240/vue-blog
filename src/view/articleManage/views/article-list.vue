@@ -1,20 +1,27 @@
 <template>
   <div>
     <div class="search">
-      <article-filter/>
+      <add-article-input ref="addTicleRef" :filter="filter" />
     </div>
-    <List/>
+    <List :filter="filter"/>
   </div>
 </template>
 
 <script>
   import List from '@view/articleManage/components/list.vue'
-  import ArticleFilter from '@view/articleManage/components/article-filter.vue'
+  import AddArticleInput from '@/components/add-article-input.vue'
 
   export default {
-    components: { List, ArticleFilter },
+    components: { List, AddArticleInput },
+
     data () {
       return {
+        filter: {
+          articleOwner: '',
+          articleTitle: '',
+          articleGrade: '',
+          articleType: []
+        },
         breadList: [{ path: '/articlemanage', name: '文章管理' },
                     { path: '', name: '文章列表' }]
       }

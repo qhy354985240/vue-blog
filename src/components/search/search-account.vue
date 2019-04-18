@@ -4,7 +4,6 @@
     size='small'
     filterable
     remote
-    clearable
     reserve-keyword
     placeholder="请输入账号"
     :remote-method="remoteMethod"

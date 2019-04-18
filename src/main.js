@@ -61,8 +61,8 @@ import {
   Progress,
   ButtonGroup,
   Switch,
-  TimePicker,
-  Tree
+  Tree,
+  Cascader
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/iconfont.css'
@@ -117,8 +117,8 @@ Vue.use(Loading.directive)
 Vue.use(Progress)
 Vue.use(ButtonGroup)
 Vue.use(Switch)
-Vue.use(TimePicker)
 Vue.use(Tree)
+Vue.use(Cascader)
 
 // markdown
 Vue.use(mavonEditor)

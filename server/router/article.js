@@ -4,10 +4,15 @@ const childRouter = new Router()
 const articleController = require('../controllers/article.js')
 const checkToken = require('../token/checkToken.js')
 
-// 检查用户token
-childRouter.get('/checkToken', checkToken, articleController.checkToken)
+// 提交文章
+childRouter.post('/submit/article', checkToken, articleController.submitArticle)
 
-// 搜索用户
-childRouter.post('/searchUser', checkToken, articleController.searchUser)
+// 获取文章列表
+childRouter.post('/get/list', checkToken, articleController.getArticle)
+
+// 删除文章 单个
+childRouter.post('/delArticle', checkToken, articleController.delArticle)
+// 删除文章 多个
+childRouter.post('/delArticles', checkToken, articleController.delArticles)
 
 module.exports = childRouter

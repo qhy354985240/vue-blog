@@ -5,7 +5,6 @@
     v-model="curUsers"
     filterable
     remote
-    clearable
     :placeholder="placeholder"
     :style="{width: width}"
     :size="size"

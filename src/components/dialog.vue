@@ -8,7 +8,7 @@
       <div class="line" />
     </div>
     <slot/>
-    <span slot="footer" class="dialog-footer">
+    <span slot="footer" class="dialog-footer" v-if="showFooter">
       <el-button @click="cancel">取 消</el-button>
       <el-button type="primary" @click="confirmFun" :disabled="disable">确 定</el-button>
     </span>
@@ -69,6 +69,10 @@
       disable: {
         type: Boolean,
         default: false
+      },
+      showFooter: {
+        type: Boolean,
+        default: true
       }
     },
 

@@ -10,6 +10,7 @@ Vue.use(Vuex)
 const state = {
   token: window.localStorage.getItem('token'),
   userName: window.localStorage.getItem('userName'),
+  nickName: window.localStorage.getItem('nickName'),
   grade: window.localStorage.getItem('grade'),
   breadList: [],
   userType: window.localStorage.getItem('userType')

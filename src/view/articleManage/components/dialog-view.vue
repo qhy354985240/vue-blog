@@ -3,6 +3,7 @@
     :title="title"
     :visible="visableDialog"
     :confirm="confirmFun"
+    :showFooter=false
     :cancel="hideDialog">
     <div v-html="content" class="dialog-view">
       {{ content }}

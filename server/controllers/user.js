@@ -5,7 +5,6 @@ const path = require('path')
 const User = require('../mongodb.js').User
 // 密码加密
 const createToken = require('../token/createToken.js')
-const config = require('../config/config.js')
 
 // 判断是否过期
 const checkToken = async (ctx) => {
@@ -135,7 +134,8 @@ const login = async (ctx) => {
       token,
       userType: doc.userType,
       createTime: doc.createTime,
-      userPath: doc.imgPath || ''
+      userPath: doc.imgPath || '',
+      nickName: doc.nickName
     }
   }
 }
@@ -185,7 +185,8 @@ const register = async (ctx) => {
       userType: doc.userType,
       token,
       createTime: doc.createTime,
-      userPath: doc.imgPath
+      userPath: doc.imgPath,
+      nickName: doc.nickName
     }
   }
 }

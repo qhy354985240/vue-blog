@@ -130,7 +130,6 @@
       'filter': {
         deep: true,
         handler () {
-          console.log(111)
           this.query()
         }
       }

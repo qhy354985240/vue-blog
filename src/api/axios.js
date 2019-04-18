@@ -61,7 +61,6 @@ export default {
   delUser (data) {
     return axiosToken.post('/api/user/delUser', data)
   },
-
   // 删除用户 多个
   delUsers (data) {
     return axiosToken.post('/api/user/delUsers', data)
@@ -74,7 +73,6 @@ export default {
   searchUser (data) {
     return axiosToken.post('/api/user/searchUser', data)
   },
-
   // 更换头像
   upLoad (data) {
     return axiosToken.post('/api/user/upload', data)
@@ -82,5 +80,24 @@ export default {
   // 更新用户信息
   updateUser (data) {
     return axiosToken.post('/api/user/update/user', data)
+  },
+
+  // 文章
+
+  // 提交文章
+  submitArticle (data) {
+    return axiosToken.post('/api/article/submit/article', data)
+  },
+  // 获取文章列表
+  getArticle (data) {
+    return axiosToken.post('/api/article/get/list', data)
+  },
+  // 删除文章 单个
+  delArticle (data) {
+    return axiosToken.post('/api/article/delArticle', data)
+  },
+  // 删除文章 多个
+  delArticles (data) {
+    return axiosToken.post('/api/article/delArticles', data)
   }
 }

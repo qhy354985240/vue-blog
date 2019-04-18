@@ -274,3 +274,11 @@ button {
 .el-select {
   width: 100% !important;
 }
+
+.el-cascader .el-input, .el-cascader .el-input__inner {
+height: 32px !important;
+line-height: 32px !important;
+}
+.el-dialog__header div>div {
+  padding: 0 !important;
+}

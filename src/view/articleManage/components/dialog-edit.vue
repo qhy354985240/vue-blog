@@ -1,47 +1,66 @@
 <template>
-  <div>
-    <div class="search">
-      <add-article-input @submitData="submit" :add=true ref="addTicleRef" />
+  <Dialog
+    :title="title"
+    :visible="visableDialog"
+    :confirm="confirmFun"
+    :showFooter=false
+    width="80%"
+    :cancel="hideDialog">
+    <div class="dialog-view">
+      <add-article-input @submitData="submit" :add=true btn="保存" ref="addTicleRefs" :dialog-data="inputData" />
+      <mavon-editor
+        v-model="value"
+        placeholder="ヾﾉ≧∀≦)o来啊，快活啊!"
+        @change="dataChange"
+        :code-style="codeStyle"
+        :box-shadow="false"/>
     </div>
-    <mavon-editor
-      v-model="value"
-      placeholder="ヾﾉ≧∀≦)o来啊，快活啊!"
-      @change="dataChange"
-      @save="saveData"
-      :code-style="codeStyle"
-      :box-shadow="false"/>
-  </div>
+  </Dialog>
 </template>
 
 <script>
+  import Dialog from '@/components/dialog.vue'
   import AddArticleInput from '@/components/add-article-input.vue'
-  import api from '@/api/axios'
+  import api from '@/api/axios.js'
 
   export default {
-    components: { AddArticleInput },
+    components: { Dialog, AddArticleInput },
     data () {
       return {
+        title: '编辑',
         codeStyle: 'atom-one-dark',
+        visableDialog: false,
         value: '',
-        htmlValue: '',
-        breadList: [{ path: '/articlemanage/articlelist', name: '文章管理' },
-                    { path: '', name: '添加文章' }],
         formData: null,
-        userName: this.$store.state.userName,
-        nickName: this.$store.state.nickName
+        inputData: {
+          articleTitle: '',
+          articleGrade: '',
+          articleType: []
+        }
       }
     },
     created () {
-      this.$store.commit('breadList', this.breadList)
-      this.value = window.localStorage.getItem('articleData') || ''
+
     },
 
     methods: {
+      openDialog (item) {
+        console.log(item)
+        this.visableDialog = true
+        this.value = item.articleValue
+        this.inputData.articleTitle = item.articleTitle
+        this.inputData.articleGrade = item.articleGrade
+        this.inputData.articleType = item.articleType
+        this.htmlValue = item.articleContent
+      },
       dataChange (markdownValue, htmlValue) {
         this.htmlValue = htmlValue
       },
-      saveData (markdownValue, htmlValue) {
-        window.localStorage.setItem('articleData', this.value)
+      confirmFun (content) {
+        console.log(content)
+      },
+      hideDialog () {
+        this.visableDialog = false
       },
       submit (data) {
         if (this.htmlValue === '') {
@@ -67,12 +86,13 @@
           })
         }
       }
+
     }
   }
 </script>
 <style scoped>
-.markdown-body {
-  min-height: 540px;
+.dialog-view>>> img {
+  max-width: 100%;
+  box-sizing: content-box;
 }
-
 </style>
