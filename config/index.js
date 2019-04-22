@@ -19,7 +19,7 @@ module.exports = {
 
     host: 'localhost', 
     port: 8081, 
-    autoOpenBrowser: true,
+    autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, 

@@ -66,10 +66,6 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      },
-      {
-        test: /\.scss$/,
-        loaders: ['style','css','sass']
       }
     ]
   },
@@ -93,6 +89,7 @@ module.exports = {
       '@': resolve('src/manage'),
       '@components': resolve('src/manage/components'),
       '@view': resolve('src/manage/view'),
+      '@index': resolve('src/index/'),
     }
   },
   plugins: [
