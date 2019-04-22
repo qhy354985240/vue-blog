@@ -10,12 +10,6 @@
                        @search_tag="search_tag"/>
           <p class="msg" v-show="article_list.length==0">没有找到文章～～</p>
         </div>
-        <Paginator
-          :cur_page=Number(pagination.current_page)
-          :page_size=Number(pagination.page_size)
-          :total=Number(pagination.total)
-          @jump="jump"
-          v-show="article_list.length!=0"/>
       </div>
       <Aside class="page_aside"
              @search_keyword=search_keyword
@@ -27,14 +21,13 @@
 <script>
   import Aside from '@index/components/Aside'
   import ArticleItem from '@index/components/Article_item'
-  import Paginator from '@index/components/Paginator'
   import HeaderTop from '@index/components/header-top'
 
   export default {
     name: 'Home',
-    components: {Aside, ArticleItem, Paginator, HeaderTop},
+    components: {Aside, ArticleItem, HeaderTop},
     created () {
-      if (this.$route.query.reset == '1') {
+      if (this.$route.query.reset === '1') {
         this.$router.push('/')
       }
       this.$store.dispatch('get_tag_api')
@@ -56,15 +49,11 @@
     methods: {
       async get_article () {
         let res = await this.$http.api_get_article_list(this.pagination)
-        let {code, msg, data = []} = res.data
-        if (code == 200) {
+        let {code, data = []} = res.data
+        if (code === 200) {
           this.pagination.total = data.pagination.total
           this.article_list = data.list
         }
-      },
-      jump (num) {
-        this.pagination.current_page = Number(num)
-        this.get_article()
       },
       search_keyword (val) {
         this.pagination.keyword = val
@@ -79,7 +68,7 @@
     },
     watch: {
       '$route' (to, from) {
-        if (to.query.reset == '1') {
+        if (to.query.reset === '1') {
           this.$router.push('/')
           this.pagination.keyword = ''
           this.pagination.tag = ''
@@ -90,10 +79,10 @@
     computed: {
       search_some () {
         let text = '全部文章'
-        if (this.pagination.tag != '' || this.pagination.keyword != '') {
+        if (this.pagination.tag !== '' || this.pagination.keyword !== '') {
           text = '搜索 =>'
         }
-        if (this.pagination.tag != '') {
+        if (this.pagination.tag !== '') {
           let item = this.$store.state.tag.data.find(item => {
             return item._id == this.pagination.tag
           })
@@ -131,13 +120,14 @@
       width: 300px;
     }
     .search_some {
-      clear: both;
-      padding-left: 20px;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 20px 0 10px;
     }
     .msg {
       padding-left: 20px;
       margin-top: 30px;
-      font-size: 0.6rem;
+      font-size: 1rem;
     }
 
 </style>

@@ -10,7 +10,6 @@
 </template>
 
 <script>
-  import demo from '@index/assets/js/demo-2.js'
 
   export default {
     data () {
@@ -29,8 +28,10 @@
         addListeners()
 
         function initHeader () {
+          console.log('xxx')
+          console.log(window.innerHeight)
           width = window.innerWidth
-          height = '350'
+          height = 350
           target = {x: 0, y: height}
           // largeHeader = document.getElementById('large-header')
           largeHeader.style.height = height + 'px'
@@ -62,7 +63,7 @@
 
         function resize () {
           width = window.innerWidth
-          height = window.innerHeight
+          height = 350
           largeHeader.style.height = height + 'px'
           canvas.width = width
           canvas.height = height

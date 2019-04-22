@@ -1,29 +1,28 @@
 <template>
   <div class="arch_item">
-    <p class="arch_item_title">{{title | format}}</p>
+    <p class="arch_item_title">{{ title | format }}</p>
     <ul>
       <router-link
-      :to='"/article/"+item._id'
-      :title='"创建时间:"+item.article_create_time+"\n上次更新:"+item.article_update_time'
-      v-for="(item,index) in list" :key="index">
-        <li>{{item.article_create_time.substring(0,10) + " => " + item.article_title}}{{item.article_state==0?"(未完成)":''}}</li>
+        :to='"/article/"+item._id'
+        :title='"创建时间:"+item.article_create_time+"\n上次更新:"+item.article_update_time'
+        v-for="(item,index) in list" :key="index">
+        <li>{{ item.article_create_time.substring(0,10) + " => " + item.article_title }}{{ item.article_state==0?"(未完成)":'' }}</li>
       </router-link>
     </ul>
   </div>
 </template>
 
 <script>
-export default {
-  props: ['list','title'],
-  filters: {
-    format(val){
-      let arr = val.split('-');
-      return `${arr[0]} 年 ${arr[1]} 月`
+  export default {
+    props: ['list', 'title'],
+    filters: {
+      format (val) {
+        let arr = val.split('-')
+        return `${arr[0]} 年 ${arr[1]} 月`
+      }
     }
   }
-}
 </script>
-
 
 <style lang="scss">
 .arch_item {
@@ -62,8 +61,7 @@ export default {
         color: #353030;
       }
     }
-    
+
   }
 }
 </style>
-

@@ -3,71 +3,62 @@
     <div class="layer">
       <div class="search_box">
         <input type="text" placeholder="Search..." v-model="search_val" @keyup.enter="search">
-        <i class="iconfont icon-iconfontzhizuobiaozhun22" @click="search"></i>
-      </div>
-      <div class="brief_box">
-        <p class="page_aside_title">简介</p>
-        <p class="brief_item">李昌义</p>
-        <p class="brief_item" title="成都大学2016级计算机科学与技术">(CDU)2016级计算机科学与技术</p>
-        <p class="brief_item"><a href="mailto:1052069088@qq.com" :title='"电子邮箱\n1. 1052069088@qq.com\n2. lichangyigod@gmail.com"' target="_blank">Email</a></p>
-        <p class="brief_item"><a href="http://github.com/lichangyi" title="github搜索: LiChangyi" target="_blank">GitHub</a></p>
-        <p class="brief_item"><a href="https://juejin.im/user/59eeff42f265da43070275e1" title="掘金搜索: Pawn2018" target="_blank">掘金</a></p>
+        <i class="iconfont el-icon-search" @click="search"/>
       </div>
       <div class="categories_box">
         <p class="page_aside_title">文章分类</p>
         <p class="categorige_item" title="查看全部"
-        @click="search_tag('')">ALL</p>
-        <p class="categorige_item" 
-        v-for="(item,index) in tag_list" :key="index"
-        :title="item.tags_desc"
-        @click="search_tag(item._id)">{{item.tags_name}}({{item.tags_article_num}})</p>
+           @click="search_tag('')">ALL</p>
+        <p class="categorige_item"
+           v-for="(item,index) in tag_list" :key="index"
+           :title="item.tags_desc"
+           @click="search_tag(item._id)">{{ item.tags_name }}({{ item.tags_article_num }})</p>
       </div>
-   </div>
+    </div>
   </aside>
 </template>
 
 <script>
-export default {
-  created(){
-    this.$store.dispatch('get_tag_api');
-  },
-  computed: {
-    tag_list(){
-      return this.$store.state.tag.data;
-    }
-  },
-  data(){
-    return {
-      search_val: ''
-    }
-  },
-  methods: {
-    search() {
-      this.$emit("search_keyword", this.search_val);
-      let page_aside = document.getElementsByClassName('page_aside')[0];
-      page_aside.classList.remove("page_aside_show");
+  export default {
+    created () {
+      this.$store.dispatch('get_tag_api')
     },
-    search_tag(val){
-      this.$emit("search_tag", val);
-      let page_aside = document.getElementsByClassName('page_aside')[0];
-      page_aside.classList.remove("page_aside_show");
-    }
-  },
-  directives: {
-    click: {
-      inserted(el) {
-        el.onclick = function (e){
-          let obj = e.target;
-          if(obj.tagName != "ASIDE") return;
-          let page_aside = document.getElementsByClassName('page_aside')[0];
-          page_aside.classList.remove("page_aside_show")
+    computed: {
+      tag_list () {
+        return this.$store.state.tag.data
+      }
+    },
+    data () {
+      return {
+        search_val: ''
+      }
+    },
+    methods: {
+      search () {
+        this.$emit('search_keyword', this.search_val)
+        let page_aside = document.getElementsByClassName('page_aside')[0]
+        page_aside.classList.remove('page_aside_show')
+      },
+      search_tag (val) {
+        this.$emit('search_tag', val)
+        let page_aside = document.getElementsByClassName('page_aside')[0]
+        page_aside.classList.remove('page_aside_show')
+      }
+    },
+    directives: {
+      click: {
+        inserted (el) {
+          el.onclick = function (e) {
+            let obj = e.target
+            if (obj.tagName != 'ASIDE') return
+            let page_aside = document.getElementsByClassName('page_aside')[0]
+            page_aside.classList.remove('page_aside_show')
+          }
         }
       }
     }
   }
-}
 </script>
-
 
 <style lang="scss">
   .page_aside {
@@ -103,6 +94,7 @@ export default {
         transform: translateY(-50%);
         font-size: 18px;
         color: #353030;
+        cursor: pointer;
       }
     }
     .page_aside_title {

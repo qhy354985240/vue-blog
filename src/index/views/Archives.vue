@@ -1,12 +1,7 @@
 <template>
   <main class="archives">
-    <div class="bg_img" :style='"background-image:url("+bg_url+");"'>
-      <div class="box">
-        <p class="bg_img_title">Archives</p>
-        <hr>
-        <p class="bg_img_dest">他们说鱼只有7秒的记忆,但是网络的记忆能保持很久很久</p>
-      </div>
-    </div>
+    <HeaderTop/>
+
     <div class="page_container">
       <ArchItem v-for="(item,key,index) in list"
                 :key=index
@@ -18,32 +13,25 @@
 
 <script>
   import ArchItem from '@index/components/Arch_item'
-  import {format_date} from '@index/plugins/utils'
+  import HeaderTop from '@index/components/header-top'
 
   export default {
-    metaInfo () {
-      return {
-        title: "归档 | PAWNs'blog",
-        mate: [{
-          name: 'keywords',
-          content: 'Pawn的博客 李昌义的博客 前端 前端学习 前端交流'
-        }, {
-          name: 'description',
-          content: this.meta_description
-        }]
-      }
-    },
-    components: {ArchItem},
+
+    components: {ArchItem, HeaderTop},
     async created () {
-      let {article_list = [], work_list = []} = await this.$store.dispatch('get_archives_api')
-      this.article_list = article_list.map(item => {
-        return {
+      // = await this.$store.dispatch('get_archives_api')
+      let articleList = [{article_create_time: '2019年1月3月',
+                          article_state: 'true',
+                          article_title: '我们都是',
+                          article_update_time: '2019 8.22'}]
+      articleList.map(item => {
+        this.article_list.push({
           _id: item._id,
-          article_create_time: format_date(item.article_create_time),
+          article_create_time: item.article_create_time,
           article_state: item.article_state,
           article_title: item.article_title,
-          article_update_time: format_date(item.article_update_time)
-        }
+          article_update_time: item.article_update_time
+        })
       })
     },
     data () {
@@ -69,10 +57,6 @@
           str += `${item.article_title} `
         })
         return str
-      },
-      bg_url () {
-        let img_url = this.$store.state.setting.data[0]
-        return img_url == null ? '' : img_url.website_cover.archives
       }
     }
   }

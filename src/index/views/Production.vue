@@ -1,12 +1,7 @@
 <template>
   <main class="prduction">
-    <div class="bg_img" :style='"background-image:url("+bg_url+");"'>
-      <div class="box">
-        <p class="bg_img_title">My Work</p>
-        <hr>
-        <p class="bg_img_dest">学习过程中的作品 & 轮子！</p>
-      </div>
-    </div>
+    <HeaderTop/>
+
     <div class="page_container">
       <PrduItem v-for="(item,index) in work_list" :key="index"
                 :item=item />
@@ -16,6 +11,8 @@
 
 <script>
   import PrduItem from '@index/components/Prod_item'
+  import HeaderTop from '@index/components/header-top'
+
   export default {
     metaInfo () {
       return {
@@ -26,7 +23,7 @@
         }]
       }
     },
-    components: {PrduItem},
+    components: {PrduItem, HeaderTop},
     async created () {
       let res = await this.$store.dispatch('get_work_api')
       this.work_list = res
@@ -49,6 +46,12 @@
 .prduction {
   .page_container {
     overflow: hidden;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+    width: 1300px;
+    position: relative;
+    min-height: 300px;
   }
 }
 </style>

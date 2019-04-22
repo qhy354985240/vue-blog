@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar" v-scroll>
+  <nav class="navbar">
     <div class="page_container">
       <router-link to='/?reset=1'>
         <div class="logo">
@@ -13,7 +13,7 @@
         <li class="nav_item"><router-link to="/about">关于</router-link></li>
       </ul>
       <ul class="nav_list_min">
-        <li class="nav_title" v-addOpen>
+        <li class="nav_title">
           <i class="iconfont icon-caidan6"/>
         </li>
       </ul>
@@ -28,45 +28,13 @@
 </template>
 
 <script>
-  import {throttle} from '@index/plugins/utils'
   export default {
     data () {
       return {
         nav_min_box: false
       }
-    },
-    directives: {
-      scroll: {
-        inserted (el) {
-          let to_box_btn = document.getElementsByClassName('to_box')[0]
-          window.onscroll = throttle(function () {
-            let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
-            if (scrollTop >= 40) {
-              el.classList.add('fiexd')
-              to_box_btn.style.display = 'block'
-            } else {
-              el.classList.remove('fiexd')
-              to_box_btn.style.display = 'none'
-            }
-          }, 200)
-        }
-      },
-      addOpen: {
-        inserted (el) {
-          let nav_list_min_box = document.getElementsByClassName('nav_list_min_box')[0]
-          el.onclick = function (e) {
-            nav_list_min_box.classList.toggle('open')
-            window.onclick = function () {
-              nav_list_min_box.classList.remove('open')
-              window.onclick = null
-            }
-            // js阻止事件冒泡
-            e.cancelBubble = true
-            e.stopPropagation()
-          }
-        }
-      }
     }
+
   }
 </script>
 

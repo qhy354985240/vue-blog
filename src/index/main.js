@@ -7,8 +7,15 @@ import store from './store'
 import api from './axios'
 import MetaInfo from 'vue-meta-info'
 
-Vue.prototype.$http = api;
+import {
+  Icon
+} from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+
+Vue.prototype.$http = api
 Vue.config.productionTip = false
+
+Vue.use(Icon)
 
 Vue.use(MetaInfo)
 

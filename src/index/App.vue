@@ -15,7 +15,7 @@
     components: {Header, Background},
     created () {
       this.$store.dispatch('get_setting_api')
-      document.body.removeChild(document.getElementById('loading'))
+      // document.body.removeChild(document.getElementById('loading'))
     }
   }
 </script>
