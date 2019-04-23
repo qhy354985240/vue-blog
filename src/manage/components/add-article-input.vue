@@ -38,10 +38,16 @@
       <el-col :span="6" class="vertical-middle right" v-if="add">
         <el-button
           size="mini"
+          @click="changeImg"
+          icon="el-icon-upload">上传封面图片</el-button>
+        <el-button
+          size="mini"
           @click="submitData"
           icon="el-icon-share">{{ btn }}</el-button>
       </el-col>
     </el-row>
+    <update-article-img ref="updateRef" @enter="updateImg" title="封面图片" />
+
   </el-form>
 </template>
 
@@ -49,9 +55,10 @@
   import Tabs from '@/components/tabs.vue'
   import SelectUsertype from '@/components/search/select-usertype.vue'
   import SearchUser from '@/components/search/search-user.vue'
+  import UpdateArticleImg from '@/components/update-article-img.vue'
 
   export default {
-    components: { Tabs, SelectUsertype, SearchUser },
+    components: { Tabs, SelectUsertype, SearchUser, UpdateArticleImg },
     props: {
       add: {
         type: Boolean,
@@ -76,7 +83,8 @@
           articleTitle: '',
           articleGrade: '',
           articleType: [],
-          articleOwner: ''
+          articleOwner: '',
+          articleUrl: ''
         },
         options: [{
           value: 'zhinan',
@@ -114,7 +122,6 @@
     created () {
     },
     mounted () {
-      console.log(this.dialogData)
       if (this.dialogData !== null) {
         this.pageFilter = this.dialogData
       }
@@ -142,7 +149,6 @@
       typeChange () {
         if (this.add) return false
         this.filter['articleType'] = this.pageFilter.articleType
-        console.log(this.filter)
       },
       submitData () {
         let tip = false
@@ -158,6 +164,19 @@
         } else {
           this.$emit('submitData', obj)
         }
+      },
+      changeImg () {
+        this.$refs.updateRef.openDialog()
+      },
+      updateImg (val) {
+        let formData = new FormData()
+        formData.append('file', val)
+        this.$api.upLoad(formData).then(res => {
+          if (res.success) {
+            this.pageFilter.articleUrl = res.fullPath
+            this.$refs.updateRef.hideDialog()
+          }
+        })
       }
     }
   }

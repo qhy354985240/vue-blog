@@ -18,45 +18,51 @@
   export default {
 
     components: {ArchItem, HeaderTop},
-    async created () {
-      // = await this.$store.dispatch('get_archives_api')
-      let articleList = [{article_create_time: '2019年1月3月',
-                          article_state: 'true',
-                          article_title: '我们都是',
-                          article_update_time: '2019 8.22'}]
-      articleList.map(item => {
-        this.article_list.push({
-          _id: item._id,
-          article_create_time: item.article_create_time,
-          article_state: item.article_state,
-          article_title: item.article_title,
-          article_update_time: item.article_update_time
-        })
-      })
-    },
     data () {
       return {
-        article_list: []
+        article_list: [],
+        paginations: {
+          pageSize: 100,
+          pageCurrent: 1,
+          total: 0
+        },
+        filter: {
+          articleOwner: '',
+          articleTitle: '',
+          articleGrade: '',
+          articleType: []
+        }
       }
     },
     computed: {
       list () {
         let json = {}
         this.article_list.forEach(item => {
-          let time = item.article_create_time.substring(0, 7)
+          let time = item.createTime.substring(0, 7)
           if (json[time] == null) {
             json[time] = []
           }
           json[time].push(item)
         })
+        console.log(json)
         return json
-      },
-      meta_description () {
-        let str = ''
-        this.article_list.forEach(item => {
-          str += `${item.article_title} `
+      }
+    },
+    created () {
+      this.getArticle()
+      console.log('xx')
+    },
+    methods: {
+      getArticle () {
+        this.$http.api_get_article_list({
+          pageSize: this.paginations.pageSize,
+          pageCurrent: this.paginations.pageCurrent,
+          filter: this.filter
+        }).then(res => {
+          if (res.success) {
+            this.article_list = res.result
+          }
         })
-        return str
       }
     }
   }

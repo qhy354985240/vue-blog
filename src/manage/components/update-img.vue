@@ -348,6 +348,7 @@
           if (this.returnType === 'url') {
             this.$emit('enter', this.$refs.$canvas.toDataURL()) // 返回链接
           } else if (this.returnType === 'file') {
+            console.log(this.base64ToFile(this.$refs.$canvas.toDataURL(), this.file.name))
             this.$emit('enter', this.base64ToFile(this.$refs.$canvas.toDataURL(), this.file.name)) // 返回文件
           }
         } else {

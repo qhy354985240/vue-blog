@@ -1,11 +1,11 @@
 <template>
   <article class="article_item">
     <div class="box">
-      <router-link :to='"/article/"+article._id'
+      <router-link :to="{path: '/article/'+article._id,query:{article:data}}"
                    :title='"创建时间:"+article.createTime'>
         <div class="article_cover">
           <div class="layer"/>
-          <img :src=article.article_cover alt="图片加载失败...">
+          <img :src=article.articleUrl alt="图片加载失败...">
           <p class="article_time">
             <span class="day">{{ format_day(article.createTime) }}</span>
             <span class="month">{{ format_month(article.createTime) }}月</span>
@@ -55,6 +55,14 @@
           return y + '-' + m + '-' + d + ' ' + h + ':' + mm + ':' + s
         }
       }
+    },
+    data () {
+      return {
+        data: null
+      }
+    },
+    created () {
+      this.data = JSON.stringify(this.article)
     },
     methods: {
       searce_tag (val) {

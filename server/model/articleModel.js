@@ -9,7 +9,8 @@ const articleSchema = new Schema({
   articleGrade: String,
   createTime: String,
   articleOwner: String,
-  articleValue: String
+  articleValue: String,
+  articleUrl: String
 })
 
 const Article = mongoose.model('Article', articleSchema)

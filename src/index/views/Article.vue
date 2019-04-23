@@ -1,10 +1,10 @@
 <template>
   <main class="article_box">
-    <div class="bg_img" :style='"background-image:url("+article.article_cover+");"'>
+    <div class="bg_img" :style='"background-image:url("+article.articleUrl+");"'>
       <div class="box">
-        <p class="bg_img_title">{{ article.article_title }}</p>
+        <h1>{{ article.articleTitle }}</h1>
         <hr>
-        <p class="bg_img_dest">{{ article.article_desc }}</p>
+        <p class="bg_img_dest">{{ article.articleOwner }}</p>
       </div>
     </div>
     <div class="page_container">
@@ -32,18 +32,21 @@
 
   export default {
     components: {CommentBox},
+    data () {
+      return {
+        article: null
+      }
+    },
     created () {
-      let {id} = this.$route.params
-      // this.$store.dispatch('get_article_api', id)
-      this.$store.state.article.current_display.article_content = "<h1><a id='_0'></a>你好啊啊啊啊啊</h1>↵<p>萨达所大所大所大所大所多</p>↵<h1><a id='_2'></a>我我妈妈木木木木</h1>↵<p>爱仕达大所大所大所多</p>↵"
+      this.article = JSON.parse(this.$route.query.article)
     },
     computed: {
       articleContent () {
-        return "<h1><a id='_0'></a>你好啊啊啊啊啊</h1>↵<p>萨达所大所大所大所大所多</p>↵<h1><a id='_2'></a>我我妈妈木木木木</h1>↵<p>爱仕达大所大所大所多</p>↵"
+        return markdown(this.article.articleValue, false, true).html
       },
       article_toc () {
         let tochtml = ''
-        let tocArr = markdown(this.article.article_content, false, true).toc
+        let tocArr = markdown(this.article.articleValue, false, true).toc
         if (tocArr == null) return
         tocArr.forEach(item => {
           tochtml += `<li data-id=${item.anchor}><i class="iconfont icon-line"></i>`
@@ -53,10 +56,6 @@
           tochtml += ' ' + item.text + '</li>'
         })
         return tochtml
-      },
-      article () {
-        // "<h1><a id="_0"></a>你好啊啊啊啊啊</h1>↵<p>萨达所大所大所大所大所多</p>↵<h1><a id="_2"></a>我我妈妈木木木木</h1>↵<p>爱仕达大所大所大所多</p>↵"
-        return this.$store.state.article.current_display
       },
       meta_keywords () {
         let str = ''
@@ -111,12 +110,10 @@
         inserted (el) {
           el.onclick = function (e) {
             let obj = e.target
-            if (obj.tagName != 'LI') return
+            if (obj.tagName !== 'LI') return
             let name = obj.getAttribute('data-id').replace('#', '')
             let tem = document.getElementById(name)
             let top = offsetTop(tem)
-            // console.log(tem.offsetHeight)
-            // // window.scrollTo(0,top-70);
             slowRoll(top - 200)
           }
         }
@@ -144,7 +141,9 @@
     .markdown-body {
       box-sizing: border-box;
       overflow: hidden;
-      padding-right: 300px;
+      margin-right: 320px;
+      padding: 16px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
     }
     .toc {
       position: absolute;
@@ -152,6 +151,7 @@
       right: 0;
       width: 290px;
       border: 1px dotted #d8e5f3;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
       .toc_title {
         font-size: 18px;
         border-bottom: 1px dotted #d8e5f3;
@@ -229,5 +229,9 @@
       display: block;
     }
   }
+}
+.box h1 {
+      font-size: 42px;
+    font-weight: 700;
 }
 </style>

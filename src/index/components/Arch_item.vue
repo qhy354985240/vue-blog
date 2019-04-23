@@ -3,10 +3,9 @@
     <p class="arch_item_title">{{ title | format }}</p>
     <ul>
       <router-link
-        :to='"/article/"+item._id'
-        :title='"创建时间:"+item.article_create_time+"\n上次更新:"+item.article_update_time'
-        v-for="(item,index) in list" :key="index">
-        <li>{{ item.article_create_time.substring(0,10) + " => " + item.article_title }}{{ item.article_state==0?"(未完成)":'' }}</li>
+        v-for="(item,index) in list" :key="index"
+        :to="{path: '/article/'+item._id,query:{article:change(item)}}">
+        <li>{{ item.createTime.substring(0,10) + "  " + '【'+item.articleTitle+'】' }}</li>
       </router-link>
     </ul>
   </div>
@@ -20,12 +19,21 @@
         let arr = val.split('-')
         return `${arr[0]} 年 ${arr[1]} 月`
       }
+    },
+    created () {
+      console.log(this.list)
+    },
+    methods: {
+      change (val) {
+        return JSON.stringify(val)
+      }
     }
   }
 </script>
 
 <style lang="scss">
 .arch_item {
+  padding: 20px 0;
   .arch_item_title {
     position: relative;
     color: #242f35;

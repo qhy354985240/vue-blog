@@ -71,7 +71,8 @@ const submitArticle = async (ctx) => {
     articleTitle: ctx.request.body.articleTitle,
     articleGrade: ctx.request.body.articleGrade,
     createTime: moment().format('YYYY-MM-DD HH:mm'),
-    articleValue: ctx.request.body.articleValue
+    articleValue: ctx.request.body.articleValue,
+    articleUrl: ctx.request.body.articleUrl
   })
   let doc = await new Promise((resolve, reject) => {
     article.save((err, doc) => {
@@ -96,7 +97,6 @@ const submitArticle = async (ctx) => {
 
 // 获得文章列表
 const getArticle = async (ctx) => {
-  console.log('xzxzxz')
   let size = ctx.request.body.pageSize
   let current = ctx.request.body.pageCurrent
   let filter = ctx.request.body.filter
@@ -128,7 +128,8 @@ const getArticle = async (ctx) => {
           articleType: item.articleType,
           articleOwner: item.articleOwner,
           _id: item._id,
-          articleValue: item.articleValue
+          articleValue: item.articleValue,
+          articleUrl: item.articleUrl
         })
       })
     }

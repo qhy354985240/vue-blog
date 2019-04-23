@@ -1,7 +1,7 @@
 <template>
   <main class="home">
     <HeaderTop/>
-    <div class="page_container">
+    <div class="pageContainer">
       <div class="box">
         <p class="search_some">{{ search_some }}</p>
         <div class="article_list">
@@ -68,36 +68,31 @@
           pageCurrent: this.paginations.pageCurrent,
           filter: this.filter
         }).then(res => {
-          console.log(res)
           if (res.success) {
             this.paginations.total = res.total
             this.article_list = res.result
           }
         })
-        // if (code === 200) {
-        //   this.pagination.total = data.pagination.total
-        //   this.article_list = data.list
-        // }
       },
       search_keyword (val) {
         this.pagination.keyword = val
         this.pagination.current_page = 1
-        this.getArticle()
+        // this.getArticle()
       },
       search_tag (val) {
         this.pagination.tag = val
         this.pagination.current_page = 1
-        this.getArticle()
+        // this.getArticle()
       }
     },
     watch: {
       '$route' (to, from) {
-        if (to.query.reset === '1') {
-          this.$router.push('/')
-          this.pagination.keyword = ''
-          this.pagination.tag = ''
-          this.getArticle()
-        }
+        // if (to.query.reset === '1') {
+        //   this.$router.push('/')
+        //   this.pagination.keyword = ''
+        //   this.pagination.tag = ''
+        //   this.getArticle()
+        // }
       }
     },
     computed: {
@@ -108,11 +103,11 @@
         }
         if (this.pagination.tag !== '') {
           let item = this.$store.state.tag.data.find(item => {
-            return item._id == this.pagination.tag
+            return item._id === this.pagination.tag
           })
           text += ` 标签: ${item.tags_name}`
         }
-        if (this.pagination.keyword != '') {
+        if (this.pagination.keyword !== '') {
           text += ` 关键字: ${this.pagination.keyword}`
         }
         return text
@@ -125,7 +120,7 @@
   .home {
     font-size: 0.4rem;
   }
-    .page_container {
+    .pageContainer {
       display: flex;
       box-sizing: border-box;
     }

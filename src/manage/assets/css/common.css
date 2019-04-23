@@ -110,6 +110,9 @@ button {
 .bottom-button {
   margin-top: 10px;
 }
+.v-modal {
+  z-index: 999 !important;
+}
 
 
 .task-title:hover {
