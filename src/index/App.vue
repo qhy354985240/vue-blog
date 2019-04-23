@@ -14,7 +14,7 @@
     name: 'App',
     components: {Header, Background},
     created () {
-      this.$store.dispatch('get_setting_api')
+      // this.$store.dispatch('get_setting_api')
       // document.body.removeChild(document.getElementById('loading'))
     }
   }

@@ -9,6 +9,7 @@ childRouter.post('/submit/article', checkToken, articleController.submitArticle)
 
 // 获取文章列表
 childRouter.post('/get/list', checkToken, articleController.getArticle)
+childRouter.post('/front/get/list', articleController.getArticle)
 
 // 删除文章 单个
 childRouter.post('/delArticle', checkToken, articleController.delArticle)

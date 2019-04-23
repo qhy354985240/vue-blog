@@ -31,26 +31,15 @@
   import {throttle, offsetTop, slowRoll} from '@index/plugins/utils'
 
   export default {
-    metaInfo () {
-      return {
-        title: this.article.article_title + " | PAWNs'blog",
-        mate: [{
-          name: 'keywords',
-          content: this.meta_keywords
-        }, {
-          name: 'description',
-          content: this.article.article_content
-        }]
-      }
-    },
     components: {CommentBox},
     created () {
       let {id} = this.$route.params
-      this.$store.dispatch('get_article_api', id)
+      // this.$store.dispatch('get_article_api', id)
+      this.$store.state.article.current_display.article_content = "<h1><a id='_0'></a>你好啊啊啊啊啊</h1>↵<p>萨达所大所大所大所大所多</p>↵<h1><a id='_2'></a>我我妈妈木木木木</h1>↵<p>爱仕达大所大所大所多</p>↵"
     },
     computed: {
       articleContent () {
-        return markdown(this.article.article_content, false, true).html
+        return "<h1><a id='_0'></a>你好啊啊啊啊啊</h1>↵<p>萨达所大所大所大所大所多</p>↵<h1><a id='_2'></a>我我妈妈木木木木</h1>↵<p>爱仕达大所大所大所多</p>↵"
       },
       article_toc () {
         let tochtml = ''
@@ -66,6 +55,7 @@
         return tochtml
       },
       article () {
+        // "<h1><a id="_0"></a>你好啊啊啊啊啊</h1>↵<p>萨达所大所大所大所大所多</p>↵<h1><a id="_2"></a>我我妈妈木木木木</h1>↵<p>爱仕达大所大所大所多</p>↵"
         return this.$store.state.article.current_display
       },
       meta_keywords () {

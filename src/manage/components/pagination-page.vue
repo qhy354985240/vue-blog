@@ -1,12 +1,13 @@
 <!-- 分页 -->
 <template>
   <el-pagination
+    :background='background'
     @size-change="handleSizeChange"
     @current-change="handleCurrentChange"
     :current-page="pagination.pageCurrent"
     :page-sizes="pagination.pageSizeList"
     :page-size="pagination.pageSize"
-    layout="total, prev, pager, next, sizes"
+    :layout="layout"
     :total="pagination.total"/>
 </template>
 
@@ -25,6 +26,14 @@
             total: 0
           }
         }
+      },
+      layout: {
+        type: String,
+        default: 'total, prev, pager, next, sizes'
+      },
+      background: {
+        type: Boolean,
+        default: false
       }
     },
     data () {

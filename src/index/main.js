@@ -8,7 +8,9 @@ import api from './axios'
 import MetaInfo from 'vue-meta-info'
 
 import {
-  Icon
+  Icon,
+  Pagination,
+  Tag
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -16,6 +18,8 @@ Vue.prototype.$http = api
 Vue.config.productionTip = false
 
 Vue.use(Icon)
+Vue.use(Pagination)
+Vue.use(Tag)
 
 Vue.use(MetaInfo)
 

@@ -9,6 +9,7 @@ import '@/assets/css/common.css'
 import mavonEditor from 'mavon-editor'
 import VueTouchRipple from 'vue-touch-ripple'
 import 'vue-touch-ripple/dist/vue-touch-ripple.css'
+import api from '@/api/axios.js'
 
 import {
   Table,
@@ -62,7 +63,8 @@ import {
   ButtonGroup,
   Switch,
   Tree,
-  Cascader
+  Cascader,
+  Upload
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/iconfont.css'
@@ -119,6 +121,7 @@ Vue.use(ButtonGroup)
 Vue.use(Switch)
 Vue.use(Tree)
 Vue.use(Cascader)
+Vue.use(Upload)
 
 // markdown
 Vue.use(mavonEditor)
@@ -135,6 +138,7 @@ Vue.prototype.$msgbox = MessageBox
 Vue.prototype.$alert = MessageBox.alert
 Vue.prototype.$confirm = MessageBox.confirm
 Vue.prototype.$prompt = MessageBox.prompt
+Vue.prototype.$api = api
 
 Vue.config.productionTip = false
 

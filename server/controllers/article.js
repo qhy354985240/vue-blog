@@ -96,6 +96,7 @@ const submitArticle = async (ctx) => {
 
 // 获得文章列表
 const getArticle = async (ctx) => {
+  console.log('xzxzxz')
   let size = ctx.request.body.pageSize
   let current = ctx.request.body.pageCurrent
   let filter = ctx.request.body.filter

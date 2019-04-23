@@ -1,13 +1,23 @@
 import axios from 'axios'
 
 // 全局设置
-axios.defaults.timeout = 5000
+axios.defaults.timeout = 6000
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
 
 const instance = axios.create()
 instance.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
 
 axios.interceptors.request.use = instance.interceptors.request.use
+
+// response 拦截
+instance.interceptors.response.use(
+  response => {
+    return response.data
+  },
+  err => {
+    return Promise.reject(err.response)
+  }
+)
 
 export default {
   // 获取标签列表
@@ -20,12 +30,11 @@ export default {
   },
   // 获取文章列表
   api_get_article_list (data) {
-    let {current_page = '', page_size = '', keyword = '', state = '', tag = ''} = data
-    return instance.get(`/api/article?current_page=${current_page}&page_size=${page_size}&keyword=${keyword}&tag=${tag}&state=${state}`)
+    return instance.post('/api/article/front/get/list', data)
   },
   // 通过文章id来获取文章
   api_get_article (id) {
-    return instance.get(`/api/article/${id}`)
+    return instance.post(`/api/article/${id}`)
   },
   // 获取主要评论
   api_get_comment (data) {

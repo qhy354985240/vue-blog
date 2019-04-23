@@ -2,25 +2,22 @@
   <article class="article_item">
     <div class="box">
       <router-link :to='"/article/"+article._id'
-      :title='"创建时间:"+format_date(article.article_create_time)+"\n上次更新:"+format_date(article.article_update_time)'>
+                   :title='"创建时间:"+article.createTime'>
         <div class="article_cover">
-          <div class="layer"></div>
-          <img :src=article.article_cover alt="OMG,图片加载失败">
+          <div class="layer"/>
+          <img :src=article.article_cover alt="图片加载失败...">
           <p class="article_time">
-            <span class="day">{{format_day(article.article_update_time)}}</span>
-            <span class="month">{{format_month(article.article_update_time)}}月</span>
+            <span class="day">{{ format_day(article.createTime) }}</span>
+            <span class="month">{{ format_month(article.createTime) }}月</span>
           </p>
         </div>
       </router-link>
       <div class="article_info">
         <router-link :to='"/article/"+article._id' title="查看全文">
-          <p class="article_title">{{article.article_title}}</p>
+          <p class="article_title">{{ article.articleTitle }}</p>
         </router-link>
-        <p class="article_desc">{{article.article_desc}}</p>
         <div class="article_tags">
-          <i class="iconfont icon-tag"></i>
-           <span v-for="(tag,index) in article.article_tags" :key="index"
-           :title=tag.tags_desc @click="searce_tag(tag._id)">{{tag.tags_name}}</span>
+          <el-tag :type="['info','success','warning'][index]" size="small" v-for="(tag,index) in article.articleType" :key="index" @click="searce_tag(tag)">{{ tag }}</el-tag>
         </div>
       </div>
     </div>
@@ -28,50 +25,44 @@
 </template>
 
 <script>
-export default {
-  props: ['article'],
-  computed: {
-    format_month(){
-      return function(val){
-        let time = new Date(Number(val));
-        let monthArr = ["一","二","三","四","五","六","七","八","九","十","十一","十二",]
-        let m = time.getMonth();
-        return monthArr[m];
+  export default {
+    props: ['article'],
+    computed: {
+      format_month () {
+        return function (val) {
+          return val.substring(5, 7)
+        }
+      },
+      format_day (val) {
+        return function (val) {
+          return val.substring(8, 10)
+        }
+      },
+      format_date () {
+        return function (val) {
+          let time = new Date(Number(val))
+          let y = time.getFullYear()
+          let m = time.getMonth() + 1
+          let d = time.getDate()
+          let h = time.getHours()
+          let mm = time.getMinutes()
+          let s = time.getSeconds()
+          m = m < 10 ? '0' + m : m
+          d = d < 10 ? '0' + d : d
+          h = h < 10 ? '0' + h : h
+          mm = mm < 10 ? '0' + mm : mm
+          s = s < 10 ? '0' + s : s
+          return y + '-' + m + '-' + d + ' ' + h + ':' + mm + ':' + s
+        }
       }
     },
-    format_day(val){
-      return function(val){
-        let time = new Date(Number(val));
-        let d = time.getDate();
-        return d<10?'0'+d:d;
+    methods: {
+      searce_tag (val) {
+        this.$emit('search_tag', val)
       }
-    },
-    format_date(){
-      return function(val){
-        let time = new Date(Number(val));
-        let y = time.getFullYear();
-        let m = time.getMonth() + 1;
-        let d = time.getDate();
-        let h = time.getHours();
-        let mm = time.getMinutes();
-        let s = time.getSeconds();
-        m = m<10?'0'+m:m;
-        d = d<10?'0'+d:d;
-        h = h<10?'0'+h:h;
-        mm = mm<10?'0'+mm:mm;
-        s = s<10?'0'+s:s;
-        return y+"-"+m+"-"+d+" "+h+":"+mm+":"+s;
-      }
-    }
-  },
-  methods: {
-    searce_tag(val){
-      this.$emit("search_tag", val);
     }
   }
-}
 </script>
-
 
 <style lang="scss">
   .article_item {
@@ -160,13 +151,13 @@ export default {
         }
       }
       .article_tags {
-        margin-bottom: 10px;
+        margin: 10px 0;
         >* {
           vertical-align: bottom;
         }
         span {
           display: inline-block;
-          padding-right: 10px;
+          margin-right: 10px;
           cursor: pointer;
           &:hover {
             color: #000;

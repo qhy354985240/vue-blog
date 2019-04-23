@@ -10,6 +10,9 @@
                        @search_tag="search_tag"/>
           <p class="msg" v-show="article_list.length==0">没有找到文章～～</p>
         </div>
+        <div class="pagination">
+          <pagination-page :data.sync=paginations @refesh="getArticle" :background=true layout="total, prev, pager, next" />
+        </div>
       </div>
       <Aside class="page_aside"
              @search_keyword=search_keyword
@@ -22,16 +25,17 @@
   import Aside from '@index/components/Aside'
   import ArticleItem from '@index/components/Article_item'
   import HeaderTop from '@index/components/header-top'
+  import PaginationPage from '@/components/pagination-page.vue'
 
   export default {
     name: 'Home',
-    components: {Aside, ArticleItem, HeaderTop},
+    components: {Aside, ArticleItem, HeaderTop, PaginationPage},
     created () {
       if (this.$route.query.reset === '1') {
         this.$router.push('/')
       }
       this.$store.dispatch('get_tag_api')
-      this.get_article()
+      this.getArticle()
     },
 
     data () {
@@ -43,27 +47,47 @@
           tag: '',
           total: ''
         },
-        article_list: []
+        article_list: [],
+        paginations: {
+          pageSize: 10,
+          pageCurrent: 1,
+          total: 0
+        },
+        filter: {
+          articleOwner: '',
+          articleTitle: '',
+          articleGrade: '',
+          articleType: []
+        }
       }
     },
     methods: {
-      async get_article () {
-        let res = await this.$http.api_get_article_list(this.pagination)
-        let {code, data = []} = res.data
-        if (code === 200) {
-          this.pagination.total = data.pagination.total
-          this.article_list = data.list
-        }
+      getArticle () {
+        this.$http.api_get_article_list({
+          pageSize: this.paginations.pageSize,
+          pageCurrent: this.paginations.pageCurrent,
+          filter: this.filter
+        }).then(res => {
+          console.log(res)
+          if (res.success) {
+            this.paginations.total = res.total
+            this.article_list = res.result
+          }
+        })
+        // if (code === 200) {
+        //   this.pagination.total = data.pagination.total
+        //   this.article_list = data.list
+        // }
       },
       search_keyword (val) {
         this.pagination.keyword = val
         this.pagination.current_page = 1
-        this.get_article()
+        this.getArticle()
       },
       search_tag (val) {
         this.pagination.tag = val
         this.pagination.current_page = 1
-        this.get_article()
+        this.getArticle()
       }
     },
     watch: {
@@ -72,7 +96,7 @@
           this.$router.push('/')
           this.pagination.keyword = ''
           this.pagination.tag = ''
-          this.get_article()
+          this.getArticle()
         }
       }
     },
@@ -92,10 +116,6 @@
           text += ` 关键字: ${this.pagination.keyword}`
         }
         return text
-      },
-      bg_url () {
-        let img_url = this.$store.state.setting.data[0]
-        return img_url == null ? '' : img_url.website_cover.home
       }
     }
   }
@@ -115,6 +135,7 @@
     .article_list {
       margin-bottom: 20px;
       overflow: hidden;
+      padding: 20px 0;
     }
     .page_aside {
       width: 300px;
@@ -129,5 +150,8 @@
       margin-top: 30px;
       font-size: 1rem;
     }
-
+.pagination {
+  text-align: right;
+  margin: 0 0 16px 0;
+}
 </style>
