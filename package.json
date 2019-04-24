@@ -17,6 +17,7 @@
     "axios": "^0.18.0",
     "echarts": "^4.2.1",
     "element-ui": "^2.6.1",
+    "emoji-vue": "^0.2.4",
     "jsonwebtoken": "^8.5.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",

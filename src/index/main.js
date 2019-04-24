@@ -10,7 +10,12 @@ import MetaInfo from 'vue-meta-info'
 import {
   Icon,
   Pagination,
-  Tag
+  Tag,
+  Timeline,
+  Card,
+  TimelineItem,
+  Badge,
+  Button
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -20,6 +25,11 @@ Vue.config.productionTip = false
 Vue.use(Icon)
 Vue.use(Pagination)
 Vue.use(Tag)
+Vue.use(Timeline)
+Vue.use(TimelineItem)
+Vue.use(Card)
+Vue.use(Badge)
+Vue.use(Button)
 
 Vue.use(MetaInfo)
 

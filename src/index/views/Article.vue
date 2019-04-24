@@ -16,7 +16,7 @@
         </div>
       </div>
       <CommentBox
-        :title="article.article_title"/>
+        :article="article"/>
     </div>
     <div id="ok"/>
     <div class="imgShow" v-close>

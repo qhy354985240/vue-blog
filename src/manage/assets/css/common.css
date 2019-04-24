@@ -111,7 +111,7 @@ button {
   margin-top: 10px;
 }
 .v-modal {
-  z-index: 999 !important;
+  z-index: 1200 !important;
 }
 
 

@@ -5,7 +5,9 @@
       <router-link
         v-for="(item,index) in list" :key="index"
         :to="{path: '/article/'+item._id,query:{article:change(item)}}">
-        <li>{{ item.createTime.substring(0,10) + "  " + '【'+item.articleTitle+'】' }}</li>
+        <li>{{ item.createTime.substring(5,10) + "  " }}&nbsp;
+          <span>{{ item.articleTitle }}</span>
+        </li>
       </router-link>
     </ul>
   </div>
@@ -20,9 +22,6 @@
         return `${arr[0]} 年 ${arr[1]} 月`
       }
     },
-    created () {
-      console.log(this.list)
-    },
     methods: {
       change (val) {
         return JSON.stringify(val)
@@ -34,6 +33,7 @@
 <style lang="scss">
 .arch_item {
   padding: 20px 0;
+  display: inline-block;
   .arch_item_title {
     position: relative;
     color: #242f35;
@@ -60,13 +60,28 @@
   ul {
     padding-left: 20px;
     font-size: 16px;
+    list-style: none;
     a {
+      span{
+        color: #4183c4;
+      }
       li {
-        padding: 10px 0;
+        padding: 10px 0 0 20px;
         color: #666;
+        border-left: 1px solid #ccc;
       }
       &:hover li{
         color: #353030;
+        border-left: 3px solid #BE4F8D;
+        -webkit-transition: .2s ease-out;
+        transition: .2s ease-out;
+        -webkit-transform: translateX(8px);
+        transform: translateX(8px);
+      }
+      &:hover span {
+        color: #BE4F8D;
+        -webkit-transition: .2s ease-out;
+        transition: .2s ease-out;
       }
     }
 

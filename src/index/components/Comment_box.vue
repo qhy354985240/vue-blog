@@ -1,61 +1,109 @@
 <template>
   <div class="comment_box" id="commentBox">
-    <p class="comment_title">留下点什么吧 . . .</p>
-    <div id="gitalk_comment" v-initComment></div>
+    <p class="comment_title">留言</p>
+    <div id="comment-talk">
+      <div >
+        <VueEmoji @input="onInput" :value="myText" />
+        <div class="clearfix">
+          <el-button size="small" @click="submitComment">留言</el-button>
+        </div>
+      </div>
+      <div class="block">
+        <el-timeline>
+          <el-timeline-item
+            hide-timestamp
+            v-for="(item,index,key) in list"
+            :key="key">
+            <el-card>
+              <div>
+                <span class="comment-name">{{ item.nickName }}</span>
+                <span class="comment-time"><i class="el-icon-time"/> {{ item.creatTime }}</span>
+              </div>
+              <p class="comment-content">{{ item.content }}</p>
+              <span class="reply" @click="reply(item,'first')">回复</span><el-badge :value="item.reply.length" class="item" type="warning"/>
+              <div class="card">
+                <el-card shadow="never" :body-style="cardStyle" v-if="item.reply.length >0">
+                  <div v-for="(itemReply,index,key) in item.reply" :key="key" class="reply-item">
+                    <div>
+                      <span class="comment-name">{{ itemReply.nickName }}</span>
+                      <span v-if="itemReply.replyType=='second'">回复&nbsp;</span>
+                      <span class="comment-name">{{ itemReply.replyName }}</span>
+                      <span class="comment-time"><i class="el-icon-time"/> {{ itemReply.creatTime }}</span>
+                    </div>
+                    <p class="comment-content">{{ itemReply.content }}</p>
+                    <span class="reply reply-second" @click="reply(itemReply,'second')">回复</span>
+                  </div>
+                </el-card>
+              </div>
+            </el-card>
+          </el-timeline-item>
+        </el-timeline>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import {md5} from "@index/plugins/utils.js"
-let direct = false;
+  import VueEmoji from 'emoji-vue'
 
-export default {
-  props: ['title','direct'],
-  created(){
-    direct = this.direct;
-  },
-  directives:{
-    initComment: {
-      inserted(el){
-        if(direct == true){
-          let gitalk = new Gitalk({
-            clientID: 'd75901ac79dacf9fc13a',
-            clientSecret: 'bdebffae134a6899651e6c1156e07c5de799dbd7',
-            repo: 'blog',
-            owner: 'LiChangyi',
-            admin: ['LiChangyi'],
-            id: md5(window.location.href),
-            distractionFreeMode: false,
-            labels: ['blog.lcylove.cn'],
-            body: '文章地址：' + window.location.href
-          })
-          gitalk.render('gitalk_comment')
-        }
+  export default {
+    components: {
+      VueEmoji
+    },
+    props: {
+      artivle: {
+        type: Object,
+        default: null
+      }
+    },
+    data () {
+      return {
+        cardStyle: {
+          background: '#f9f9f9',
+          margin: '0 20px',
+          border: 'none'
+
+        },
+        myText: '',
+        myReply: '',
+        list: [{pid: 0,
+                replyId: 0,
+                content: '更新 Github 模板',
+                creatTime: '2018-04-03 20:46',
+                nickName: 'ironMan',
+                reply: [
+                  {pid: 0,
+                   replyId: 1,
+                   replyType: 'first',
+                   content: 'you die',
+                   replyName: '',
+                   creatTime: '2018-04-03 20:46',
+                   nickName: 'superMan',
+                   reply: []},
+                  {pid: 0,
+                   replyId: 1,
+                   replyType: 'second',
+                   content: 'i win',
+                   replyName: 'superMan',
+                   creatTime: '2018-04-03 20:46',
+                   nickName: 'ironMan',
+                   reply: []}
+                ]},
+               { pid: 0, replyId: 0, content: '更新 Github 模板', creatTime: '2018-04-03 20:46', nickName: 'ironMan', reply: [] }
+        ]
+      }
+    },
+    methods: {
+      onInput (event) {
+        this.myReply = event.data
+      },
+      submitComment () {
+        this.list.push({pid: 0, replyId: 0, content: this.myReply, creatTime: '2018-04-03 20:46', nickName: 'ironMan', reply: {}})
       }
     }
-  },
-  watch: {
-    'title':  function(newVal, oldVal){
-      if(newVal != null){
-        let gitalk = new Gitalk({
-          clientID: 'd75901ac79dacf9fc13a',
-          clientSecret: 'bdebffae134a6899651e6c1156e07c5de799dbd7',
-          repo: 'blog',
-          owner: 'LiChangyi',
-          admin: ['LiChangyi'],
-          id: md5(window.location.href),
-          distractionFreeMode: false,
-          labels: ['blog.lcylove.cn'],
-          body: '文章地址：' + window.location.href,
-          title: newVal + " | PAWNs'blog"
-        })
-        gitalk.render('gitalk_comment')
-      }
-    }
+
   }
-}
 </script>
-
 
 <style lang="scss">
 .comment_box {
@@ -67,6 +115,70 @@ export default {
     margin: 40px 0 10px;
     border-bottom: 1px solid #ccc;
     padding: 5px 0;
+    color: #462c2c;
   }
+  .comment-name {
+    color: #61b400;
+    font-size: 18px;
+  }
+  .comment-time {
+    color: #888;
+    margin-left: 8px;
+    font-size: 12px;
+  }
+  .comment-content {
+    margin: 10px 6px;
+  }
+  .emoji-picker-container {
+    width: 100% !important;
+  }
+  .emoji-vue-textarea {
+    resize: none;
+    overflow-y: none;
+    outline: none;
+    font-size: 14px;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100% !important;
+    height: 100px !important;
+    margin-top: 10px;
+    -webkit-box-shadow: 0 0 8px rgba(0,0,0,.4);
+    box-shadow: 0 0 8px rgba(0,0,0,.4);
+    margin-bottom: 10px;
+    }
+    .block {
+      margin-top: 20px;
+    }
+    button {
+      float: right;
+    }
+    .clearfix {
+      clear: both;
+      overflow: hidden;
+    }
+    .reply {
+      cursor: pointer;
+      margin-left: 6px;
+      color: #4183c4;
+    }
+    .reply:hover {
+      color: #BE4F8D;
+    }
+    .card {
+      margin-top: 8px;
+      .el-card {
+        border: none;
+      }
+    }
+    .reply-second {
+      font-size: 13px;
+    }
+    .reply-item {
+      border-bottom: 1px dashed #ddd;
+      padding-bottom: 6px;
+    }
 }
 </style>
