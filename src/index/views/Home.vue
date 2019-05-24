@@ -11,7 +11,7 @@
           <p class="msg" v-show="article_list.length==0">没有找到文章～～</p>
         </div>
         <div class="pagination">
-          <pagination-page :data.sync=paginations @refesh="getArticle" :background=true layout="total, prev, pager, next" />
+          <pagination-page :data.sync=paginations @refresh="getArticle" :background=true layout="total, prev, pager, next" />
         </div>
       </div>
       <Aside class="page_aside"
@@ -34,7 +34,6 @@
       if (this.$route.query.reset === '1') {
         this.$router.push('/')
       }
-      this.$store.dispatch('get_tag_api')
       this.getArticle()
     },
 
@@ -58,7 +57,8 @@
           articleTitle: '',
           articleGrade: '',
           articleType: []
-        }
+        },
+        valtit: ''
       }
     },
     methods: {
@@ -75,14 +75,37 @@
         })
       },
       search_keyword (val) {
+        if (val === '') {
+          this.getArticle()
+        }
+        let data = []
+        this.article_list.forEach(item => {
+          if (item.articleType.indexOf(val) > -1) {
+            data.push(item)
+          }
+        })
+        this.article_list = data
+
         this.pagination.keyword = val
         this.pagination.current_page = 1
-        // this.getArticle()
+        this.paginations.total = data.length
       },
       search_tag (val) {
+        this.valtit = val || '全部文章'
+        if (this.valtit === '全部文章') {
+          this.getArticle()
+        }
+        let data = []
+        this.article_list.forEach(item => {
+          if (item.articleType.indexOf(val) > -1) {
+            data.push(item)
+          }
+        })
+        console.log(data)
+        this.article_list = data
         this.pagination.tag = val
         this.pagination.current_page = 1
-        // this.getArticle()
+        this.paginations.total = data.length
       }
     },
     watch: {
@@ -102,10 +125,7 @@
           text = '搜索 =>'
         }
         if (this.pagination.tag !== '') {
-          let item = this.$store.state.tag.data.find(item => {
-            return item._id === this.pagination.tag
-          })
-          text += ` 标签: ${item.tags_name}`
+          text += ` 标签: ${this.valtit}`
         }
         if (this.pagination.keyword !== '') {
           text += ` 关键字: ${this.pagination.keyword}`

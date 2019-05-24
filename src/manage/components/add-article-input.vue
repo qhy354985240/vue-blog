@@ -87,36 +87,39 @@
           articleUrl: ''
         },
         options: [{
-          value: 'zhinan',
-          label: '指南',
-          children: [{
-            value: 'shejiyuanze',
-            label: '设计原则',
-            children: [{
-              value: 'yizhi',
-              label: '一致'
-            }, {
-              value: 'fankui',
-              label: '反馈'
-            }, {
-              value: 'xiaolv',
-              label: '效率'
-            }, {
-              value: 'kekong',
-              label: '可控'
-            }]
-          }, {
-            value: 'daohang',
-            label: '导航',
-            children: [{
-              value: 'cexiangdaohang',
-              label: '侧向导航'
-            }, {
-              value: 'dingbudaohang',
-              label: '顶部导航'
-            }]
-          }]
-        }]
+                    value: '技术',
+                    label: '技术',
+                    children: [{
+                      value: '前端',
+                      label: '前端',
+                      children: [{
+                        value: 'vue',
+                        label: 'vue'
+                      }, {
+                        value: 'node',
+                        label: 'node'
+                      }, {
+                        value: 'js',
+                        label: 'js'
+                      }, {
+                        value: 'html',
+                        label: 'html'
+                      }]
+                    }, {
+                      value: '后端',
+                      label: '后端',
+                      children: [{
+                        value: 'java',
+                        label: 'java'
+                      }, {
+                        value: 'python',
+                        label: 'python'
+                      }]
+                    }]
+                  }, {value: '体育', label: '体育', children: [{value: '篮球', label: '篮球'}, {value: '足球', label: '足球'}]},
+                  {value: '生活', label: '生活'},
+                  {value: '娱乐', label: '娱乐'},
+                  {value: '冷知识', label: '冷知识'}]
       }
     },
     created () {
@@ -125,6 +128,7 @@
       if (this.dialogData !== null) {
         this.pageFilter = this.dialogData
       }
+      window.localStorage.setItem('tag', JSON.stringify(this.options))
     },
     watch: {
       'pageFilter.articleGrade' () {

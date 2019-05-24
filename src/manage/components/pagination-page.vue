@@ -55,6 +55,8 @@
       },
 
       handleCurrentChange (val) {
+        console.log(22222)
+
         this.pagination.pageCurrent = val
         this.$emit('updated:data', this.pagination)
         this.$emit('refresh')

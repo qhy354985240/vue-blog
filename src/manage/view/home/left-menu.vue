@@ -10,7 +10,7 @@
       active-text-color="#b6773f">
       <el-menu-item index="/dataview" >
         <i class="el-icon-bell"/>
-        <span slot="title">概览</span>
+        <span slot="title">数据概览</span>
       </el-menu-item>
       <el-menu-item index="/usermanage" >
         <i class="el-icon-news"/>
@@ -23,10 +23,6 @@
       <el-menu-item index="/commentsManage">
         <i class="el-icon-edit-outline"/>
         <span slot="title">评论、留言管理</span>
-      </el-menu-item>
-      <el-menu-item index="3" disabled >
-        <i class="el-icon-setting"/>
-        <span slot="title">账户设置</span>
       </el-menu-item>
     </el-menu>
   </el-col>

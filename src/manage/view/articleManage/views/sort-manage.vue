@@ -14,12 +14,7 @@
           @click="() => append(data)">
           新增类别
         </el-button>
-        <el-button
-          size="small"
-          icon="el-icon-delete"
-          @click="() => remove(node, data)">
-          批量删除
-        </el-button>
+
       </el-col>
     </el-row>
     <el-tree
@@ -39,13 +34,14 @@
           <el-button
             type="text"
             size="small"
-            @click="() => append(data)"
+            @click="() => openDial(data,'add')"
             class='operate-button'>
             <i class='icon-btn el-icon-circle-plus-outline' /> 添加
           </el-button>
           <el-button
             type="text"
             size="small"
+            @click="openDial(data,'edit')"
             class='operate-button'>
             <i class='icon-btn el-icon-edit' /> 编辑
           </el-button>
@@ -59,57 +55,22 @@
         </span>
       </span>
     </el-tree>
+    <DialogSort ref="dialogSort"/>
     <div class="pagination">
-      <pagination-page :data.sync=pagination @refesh="refeshList"/>
+      <!-- <pagination-page :data.sync=pagination @refesh="refeshList"/> -->
     </div>
   </div>
 </template>
 
 <script>
   import PaginationPage from '@/components/pagination-page.vue'
+  import DialogSort from '@view/articleManage/components/dialog-sort.vue'
 
   export default {
-    components: { PaginationPage },
+    components: { PaginationPage, DialogSort },
     data () {
-      const data = [{
-        id: 1,
-        label: '前端',
-        children: [{
-          id: 4,
-          disabled: true,
-          label: 'JavaScript',
-          children: [{
-            id: 9,
-            label: 'Node.js'
-          }, {
-            id: 10,
-            label: 'flux.js'
-          }]
-        }]
-      }, {
-        id: 2,
-        label: '后端',
-        children: [{
-          id: 5,
-          label: 'Java'
-        }, {
-          id: 6,
-          label: 'Python'
-        }]
-      }, {
-        id: 3,
-        label: '体育',
-        children: [{
-          id: 7,
-          label: '篮球'
-        }, {
-          id: 8,
-          label: '足球'
-        }]
-      }]
       return {
-        data4: JSON.parse(JSON.stringify(data)),
-        data5: JSON.parse(JSON.stringify(data)),
+        data5: [],
         filterText: '',
         pagination: {
           pageSize: 10,
@@ -123,6 +84,8 @@
     },
     created () {
       this.$store.commit('breadList', this.breadList)
+      this.data5 = JSON.parse(window.localStorage.getItem('tag'))
+      this.setId(this.data5)
     },
     watch: {
       filterText (val) {
@@ -135,7 +98,6 @@
         return data.label.indexOf(value) !== -1
       },
       handleDrop (draggingNode, dropNode, dropType, ev) {
-        console.log(this.data5)
         // 移动完后发起请求
       },
       allowDrag (draggingNode) {
@@ -144,6 +106,74 @@
       },
       refeshList () {
 
+      },
+      openDial (data, type) {
+        if (type === 'add') {
+          this.$refs.dialogSort.openDialog(data, type, this.data5)
+        } else {
+          this.$refs.dialogSort.openDialog(data, type, this.data5)
+        }
+      },
+      insertId (value, array, upvalue) {
+        console.log(array)
+        for (let i = 0; i < array.length; i++) {
+          console.log(1111)
+          if (array[i].value === value) {
+            array.push({'value': upvalue, 'label': upvalue})
+            console.log(array)
+          } else if (array[i]['children']) {
+            this.insertId(value, array[i]['children'], upvalue)
+          }
+        }
+        window.localStorage.setItem('tag', JSON.stringify(this.data5))
+      },
+      updateId (value, array, upvalue) {
+        for (let i = 0; i < array.length; i++) {
+          if (array[i].value === value) {
+            array[i].value = upvalue
+            array[i].label = upvalue
+          } else if (array[i]['children']) {
+            this.updateId(value, array[i]['children'], upvalue)
+          }
+        }
+        window.localStorage.setItem('tag', JSON.stringify(this.data5))
+      },
+      remove (node, data) {
+        this.$confirm('此操作将永久删除该标签, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.removeId(data.label, this.data5)
+
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
+      },
+      removeId (value, array) {
+        for (let i = 0; i < array.length; i++) {
+          if (array[i].value === value) {
+            array.splice(i, 1)
+          } else if (array[i]['children']) {
+            this.removeId(value, array[i]['children'])
+          }
+        }
+        window.localStorage.setItem('tag', JSON.stringify(this.data5))
+      },
+      setId (array) {
+        for (let i = 0; i < array.length; i++) {
+          array[i]['id'] = i
+          if (array['children']) {
+            this.setId(array[i]['children'])
+          }
+        }
       }
     }
   }

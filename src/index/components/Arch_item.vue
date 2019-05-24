@@ -34,6 +34,7 @@
 .arch_item {
   padding: 20px 0;
   display: inline-block;
+  vertical-align: top;
   .arch_item_title {
     position: relative;
     color: #242f35;

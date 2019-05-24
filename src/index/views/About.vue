@@ -4,7 +4,7 @@
 
     <div class="page_container">
       <div class="avatar">
-        <img src="/static/img/avatar.jpg" alt="avatar">
+        <!-- <img src="/static/img/avatar.jpg" alt="avatar"> -->
       </div>
       <div class="myInfo" v-html="page_html"/>
       <CommentBox

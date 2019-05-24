@@ -52,11 +52,11 @@
               radius: '55%',
               center: ['50%', '60%'],
               data: [
-                {value: 12, name: '体育'},
-                {value: 4, name: '生活'},
-                {value: 3, name: '娱乐'},
-                {value: 18, name: '技术'},
-                {value: 1, name: '冷知识'}
+                {value: 22, name: '体育'},
+                {value: 10, name: '生活'},
+                {value: 12, name: '娱乐'},
+                {value: 20, name: '技术'},
+                {value: 16, name: '冷知识'}
               ],
               itemStyle: {
                 emphasis: {
@@ -105,7 +105,7 @@
             }
           },
           xAxis: {
-            data: ['3.23', '3.24', '3.25', '3.26', '3.27', '3.28', '3.29'],
+            data: ['5.17', '5.18', '5.19', '5.20', '5.21', '5.22', '5.23'],
             axisTick: {
               alignWithLabel: true
             }
@@ -122,7 +122,7 @@
                          position: 'insideRight'
                        }
                      },
-                     data: [11, 12, 15, 22, 33, 12, 44],
+                     data: [1, 4, 1, 2, 1, 0, 0],
                      animationDelay: function (idx) {
                        return idx * 10 + 10
                      }
@@ -137,7 +137,7 @@
                          position: 'insideRight'
                        }
                      },
-                     data: [20, 33, 44, 22, 66, 12, 22],
+                     data: [2, 3, 4, 2, 1, 1, 3],
                      animationDelay: function (idx) {
                        return idx * 10 + 100
                      }
@@ -152,7 +152,7 @@
                          position: 'insideRight'
                        }
                      },
-                     data: [20, 11, 51, 13, 5, 12, 42],
+                     data: [2, 1, 5, 3, 2, 3, 1],
                      animationDelay: function (idx) {
                        return idx * 10 + 100
                      }
@@ -167,7 +167,7 @@
                          position: 'insideRight'
                        }
                      },
-                     data: [20, 33, 13, 3, 7, 11, 44],
+                     data: [2, 5, 6, 4, 1, 0, 1],
                      animationDelay: function (idx) {
                        return idx * 10 + 100
                    }},
@@ -181,7 +181,7 @@
                          position: 'insideRight'
                        }
                      },
-                     data: [20, 33, 13, 3, 7, 12, 44],
+                     data: [0, 0, 1, 3, 2, 0, 0],
                      animationDelay: function (idx) {
                        return idx * 10 + 100
           }} ],
@@ -216,7 +216,7 @@
           xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: ['3.23', '3.24', '3.25', '3.26', '3.27', '3.28', '3.29']
+            data: ['5.17', '5.18', '5.19', '5.20', '5.21', '5.22', '5.23']
           },
           yAxis: {
             type: 'value',

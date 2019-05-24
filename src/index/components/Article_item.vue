@@ -117,6 +117,7 @@
         img {
           width: 100%;
           transition: transform linear .4s;
+          height: 220px;
         }
         .layer {
           width: 100%;

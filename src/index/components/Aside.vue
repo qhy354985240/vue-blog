@@ -12,7 +12,7 @@
         <p class="categorige_item"
            v-for="(item,index) in tag_list" :key="index"
            :title="item.tags_desc"
-           @click="search_tag(item._id)">{{ item.tags_name }}({{ item.tags_article_num }})</p>
+           @click="search_tag(item.value)">{{ item.value }}</p>
       </div>
     </div>
   </aside>
@@ -21,11 +21,13 @@
 <script>
   export default {
     created () {
-      this.$store.dispatch('get_tag_api')
+      let data = JSON.parse(window.localStorage.getItem('tag'))
+      console.log(data)
+      // this.$store.dispatch('get_tag_api')
     },
     computed: {
       tag_list () {
-        return this.$store.state.tag.data
+        return JSON.parse(window.localStorage.getItem('tag'))
       }
     },
     data () {
@@ -36,13 +38,9 @@
     methods: {
       search () {
         this.$emit('search_keyword', this.search_val)
-        let page_aside = document.getElementsByClassName('page_aside')[0]
-        page_aside.classList.remove('page_aside_show')
       },
       search_tag (val) {
         this.$emit('search_tag', val)
-        let page_aside = document.getElementsByClassName('page_aside')[0]
-        page_aside.classList.remove('page_aside_show')
       }
     },
     directives: {
@@ -137,7 +135,7 @@
       border-bottom: 1px dotted #d8e5f3;
       cursor: pointer;
       &:hover {
-        color: #000;
+        color: #62be93;
       }
     }
   }

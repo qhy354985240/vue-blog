@@ -9,55 +9,9 @@
     </div>
     <ul class="header-menu">
       <li>
-        <a href="#">Element 1</a>
-        <ul>
-          <li><a href="#link-001-1">Subelement 1.1</a></li>
-          <li><a href="#link-001-2">Subelement 1.2</a></li>
-          <li><a href="#link-001-3">Subelement 1.3</a></li>
-          <li><a href="#link-001-4">Subelement 1.4</a></li>
-        </ul>
+        <a href="http://localhost:8081">博客首页</a>
       </li>
-      <li>
-        <a href="#link-002">Element 2</a>
-        <ul>
-          <li><a href="#link-002-1">Subelement 2.1</a></li>
-          <li><a href="#link-002-2">Subelement 2.2</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#link-003">Element 3</a>
-        <ul>
-          <li><a href="#link-003-1">Subelement 3.1</a></li>
-          <li><a href="#link-003-2">Subelement 3.2</a></li>
-          <li><a href="#link-003-3">Subelement 3.3</a></li>
-          <li><a href="#link-003-4">Subelement 3.4</a></li>
-          <li><a href="#link-003-5">Subelement 3.5</a></li>
-          <li><a href="#link-003-6">Subelement 3.6</a></li>
-          <li><a href="#link-003-7">Subelement 3.7</a></li>
-          <li><a href="#link-003-8">Subelement 3.8</a></li>
-          <li><a href="#link-003-9">Subelement 3.9</a></li>
-          <li><a href="#link-003-10">Subelement 3.10</a></li>
-          <li><a href="#link-003-11">Subelement 3.11</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#link-004">Element 4</a>
-        <ul>
-          <li><a href="#link-004-1">Subelement 4.1</a></li>
-          <li><a href="#link-004-2">Subelement 4.2</a></li>
-          <li><a href="#link-004-3">Subelement 4.3</a></li>
-          <li><a href="#link-004-4">Subelement 4.4</a></li>
-          <li><a href="#link-004-5">Subelement 4.5</a></li>
-          <li><a href="#link-004-6">Subelement 4.6</a></li>
-          <li><a href="#link-004-7">Subelement 4.7</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#link-005">Element 5</a>
-        <ul>
-          <li><a href="#link-005-1">Subelement 5.1</a></li>
-        </ul>
-      </li>
+
     </ul>
     <div class="self-account">
       <div class="self-face">

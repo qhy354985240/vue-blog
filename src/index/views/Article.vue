@@ -16,6 +16,7 @@
         </div>
       </div>
       <CommentBox
+        :show=false
         :article="article"/>
     </div>
     <div id="ok"/>

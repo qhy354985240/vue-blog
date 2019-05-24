@@ -13,8 +13,8 @@
         </template>
       </el-table-column>
       <el-table-column prop="articleTitle" label="留言归属" align="left" show-overflow-tooltip />
-      <el-table-column prop="articleTitle" label="用户名" align="left" width="160" show-overflow-tooltip />
-      <el-table-column prop="articleTitle" label="留言" show-overflow-tooltip align="left"/>
+      <el-table-column prop="articleOwner" label="用户名" align="left" width="160" show-overflow-tooltip />
+      <el-table-column prop="message" label="留言" show-overflow-tooltip align="left"/>
       <el-table-column prop="creatTime" label="时间" width="160" show-overflow-tooltip align="left"/>
       <el-table-column label="操作" align="center" width='200'>
         <template slot-scope="scope">
@@ -28,11 +28,10 @@
           <el-button
             type="text"
             size="mini"
-            :disabled="scope.row.articleStatus === '已审核'"
             class='operate-button'>
             <i class='icon-btn el-icon-edit-outline' /> 回复
           </el-button>
-          <el-button type="text" size="mini" class='operate-button '>
+          <el-button type="text" size="mini" class='operate-button ' @click="deleteOne">
             <i class='icon-btn el-icon-delete' /> 删除
           </el-button>
         </template>
@@ -40,12 +39,12 @@
     </el-table>
 
     <div class="bottom-button">
-      <el-checkbox label='all' v-model="checkAll" @change="allCheckEvent" class="all-check">
+      <!-- <el-checkbox label='all' v-model="checkAll" @change="allCheckEvent" class="all-check">
         全选</el-checkbox>
       <el-button
         size="mini"
         icon="el-icon-delete"
-        @click="handleDelete(scope.$index, scope.row)">批量删除</el-button>
+        @click="handleDelete(scope.$index, scope.row)">批量删除</el-button> -->
       <el-button
         size="mini"
         icon="el-icon-refresh"
@@ -79,39 +78,40 @@
           total: 0
         },
         articleList: [
-          {articleTitle: '哈市大家啊啊啊啊啊啊啊啊都哈酒的',
+          {articleTitle: '留言',
            articleStatus: '已审核',
            articleType: 'Node',
-           articleOwner: 'qhy',
+           message: '更新 Github',
+           articleOwner: 'manager',
            detail: {
-             userName: '1111111',
-             userComments: 'hello world',
-             creatTime: '2019-01-24 03:24',
+             userName: 'manager',
+             userComments: '更新 Github',
+             creatTime: '2018-05-13 20:46',
              comments: [{
-               userName: '222222222',
-               userComments: 'no thanks哈市大家啊啊啊啊啊啊啊啊都哈酒的哈市大家啊啊啊啊啊啊啊啊都哈酒的哈市大家啊啊啊啊啊啊啊啊都哈酒的哈市大家啊啊啊啊啊啊啊啊都哈酒的哈市大家啊啊啊啊啊啊啊啊都哈酒的哈市大家啊啊啊啊啊啊啊啊都哈酒的哈市大家啊啊啊啊啊啊啊啊都哈酒的哈市大家啊啊啊啊啊啊啊啊都哈酒的哈市大家啊啊啊啊啊啊啊啊都哈酒的哈市大家啊啊啊啊啊啊啊啊都哈酒的哈市大家啊啊啊啊啊啊啊啊都哈酒的',
-               creatTime: '2019-02-24 04:24'
+               userName: 'super',
+               userComments: 'good',
+               creatTime: '2018-05-13 20:49'
              }, {
-               userName: '222222222',
-               userComments: 'no thanks',
-               creatTime: '2019-02-24 04:24'
-             }, {
-               userName: '222222222',
-               userComments: 'no thanks',
-               creatTime: '2019-02-24 04:24'
-             }, {
-               userName: '222222222',
-               userComments: 'no thanks',
-               creatTime: '2019-02-24 04:24'
+               userName: 'manager',
+               userComments: 'test success',
+               creatTime: '2018-05-13 20:51'
              }]
            },
-           creatTime: '2019-01-24 03:24'},
-          {articleTitle: '哈市大家都哈酒的',
+           creatTime: '2018-05-13 20:46'},
+          {articleTitle: '留言',
+           message: '升级',
            articleStatus: '已审核',
            articleType: 'Node',
-           articleOwner: 'qhy',
+           articleOwner: 'manager',
            articleAuth: '管理员',
-           creatTime: '2019-1-24'}
+           creatTime: '2018-05-13 20:52'},
+          {articleTitle: '留言',
+           message: '修复bug',
+           articleStatus: '已审核',
+           articleType: 'Node',
+           articleOwner: 'manager',
+           articleAuth: '管理员',
+           creatTime: '2018-05-14 13:52'}
         ]
       }
     },
@@ -130,6 +130,21 @@
       },
       viewDetail (row) {
         this.$refs.tableRef.toggleRowExpansion(row)
+      },
+      deleteOne () {
+        this.$confirm('此操作将永久删除所选留言, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.articleList.splice(2, 1)
+          this.$message.success('删除成功')
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
       }
     }
   }

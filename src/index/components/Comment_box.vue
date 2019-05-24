@@ -45,6 +45,7 @@
 
 <script>
   import VueEmoji from 'emoji-vue'
+  import moment from 'moment'
 
   export default {
     components: {
@@ -54,6 +55,10 @@
       artivle: {
         type: Object,
         default: null
+      },
+      show: {
+        type: Boolean,
+        default: true
       }
     },
     data () {
@@ -68,29 +73,34 @@
         myReply: '',
         list: [{pid: 0,
                 replyId: 0,
-                content: '更新 Github 模板',
-                creatTime: '2018-04-03 20:46',
-                nickName: 'ironMan',
+                content: '更新 Github',
+                creatTime: '2018-05-13 20:46',
+                nickName: 'manager',
                 reply: [
                   {pid: 0,
                    replyId: 1,
                    replyType: 'first',
-                   content: 'you die',
+                   content: 'good',
                    replyName: '',
-                   creatTime: '2018-04-03 20:46',
-                   nickName: 'superMan',
+                   creatTime: '2018-05-13 20:49',
+                   nickName: 'super',
                    reply: []},
                   {pid: 0,
                    replyId: 1,
                    replyType: 'second',
-                   content: 'i win',
-                   replyName: 'superMan',
-                   creatTime: '2018-04-03 20:46',
-                   nickName: 'ironMan',
+                   content: 'test success',
+                   replyName: 'super',
+                   creatTime: '2018-05-13 20:51',
+                   nickName: 'manager',
                    reply: []}
                 ]},
-               { pid: 0, replyId: 0, content: '更新 Github 模板', creatTime: '2018-04-03 20:46', nickName: 'ironMan', reply: [] }
+               { pid: 0, replyId: 0, content: '升级', creatTime: '2018-05-13 20:52', nickName: 'manager', reply: [] }
         ]
+      }
+    },
+    mounted () {
+      if (!this.show) {
+        this.list = []
       }
     },
     methods: {
@@ -98,7 +108,8 @@
         this.myReply = event.data
       },
       submitComment () {
-        this.list.push({pid: 0, replyId: 0, content: this.myReply, creatTime: '2018-04-03 20:46', nickName: 'ironMan', reply: {}})
+        this.list.push({pid: 0, replyId: 0, content: this.myReply, creatTime: moment().format('YYYY-MM-DD HH:mm:ss'), nickName: window.localStorage.getItem('nickName'), reply: []})
+        console.log(this.list)
       }
     }
 

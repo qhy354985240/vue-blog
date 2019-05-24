@@ -272,8 +272,9 @@
         this.$refs[formName].validate((valid) => {
           if (valid) { // 验证通过
             this.regForm['userType'] = 'common'
-            let form = JSON.parse(JSON.stringify(this.loginForm))
+            let form = JSON.parse(JSON.stringify(this.regForm))
             form.passWord = sha1(form.passWord)
+            console.log(form)
             api.userRegister(form)
               .then((res) => {
                 if (res.success) {
