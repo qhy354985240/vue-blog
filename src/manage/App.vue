@@ -14,7 +14,7 @@
       this.checkLogin()
     },
     methods: {
-      // 判断是否登录
+      // 判断是否登
       checkLogin () {
         api.isLogin().then(res => {
         }).catch(res => {
