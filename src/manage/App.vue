@@ -15,6 +15,8 @@
     },
     methods: {
       // 判断是否登录
+    //   加注释
+    // 再加一层
       checkLogin () {
         api.isLogin().then(res => {
         }).catch(res => {
